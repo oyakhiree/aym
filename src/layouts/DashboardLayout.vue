@@ -43,7 +43,7 @@ const closeDropdown = () => {
              <div class="p-2 bg-white/15 rounded-xl backdrop-blur-sm">
                 <BookOpen class="w-5 h-5 text-white" />
              </div>
-             <span class="text-lg font-bold tracking-tight">Meridian</span>
+             <span class="text-lg font-bold tracking-tight">Royal Diadem</span>
           </div>
           
           <!-- Context Selector -->
@@ -146,7 +146,7 @@ const closeDropdown = () => {
          <div class="p-1.5 bg-primary-600 rounded-lg">
              <BookOpen class="w-5 h-5 text-white" />
          </div>
-         <span class="font-bold text-lg text-secondary-900">Meridian</span>
+         <span class="font-bold text-lg text-secondary-900">Royal Diadem</span>
       </div>
       
       <div class="flex items-center space-x-2">

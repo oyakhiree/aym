@@ -38,7 +38,7 @@ const closeDropdown = () => {
     <aside class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col z-50">
       <div class="flex flex-col flex-1 min-h-0 bg-white border-r border-secondary-100 shadow-sm">
         <!-- Brand & Context Selector -->
-        <div class="flex flex-col px-4 py-5 bg-gradient-to-br from-primary-600 via-primary-600 to-indigo-600 text-white">
+        <div class="flex flex-col px-4 py-5 bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700 text-white">
           <div class="flex items-center space-x-2.5 mb-4">
              <div class="p-2 bg-white/15 rounded-xl backdrop-blur-sm">
                 <BookOpen class="w-5 h-5 text-white" />

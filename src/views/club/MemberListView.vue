@@ -4,11 +4,16 @@ import { useRouter } from 'vue-router'
 import { useClubStore } from '@/stores/club'
 import { Plus, Search, Filter, Users, ChevronRight, Edit2, Trash2, UserX } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import AddMemberModal from '@/components/club/AddMemberModal.vue'
+import ViewMemberModal from '@/components/club/ViewMemberModal.vue'
 
 const router = useRouter()
 const clubStore = useClubStore()
 const searchQuery = ref('')
 const statusFilter = ref('all') // all, active, inactive
+const isAddModalOpen = ref(false)
+const isViewModalOpen = ref(false)
+const selectedMember = ref(null)
 
 const filteredMembers = computed(() => {
     return clubStore.members.filter(member => {
@@ -32,9 +37,11 @@ const handleToggleStatus = (id) => {
 }
 
 const goToMember = (id) => {
-    // In a real app, you'd navigate to detail view
-    // router.push(`/members/${id}`)
-    console.log('Navigate to member:', id)
+    const member = clubStore.members.find(m => m.id === id)
+    if (member) {
+        selectedMember.value = member
+        isViewModalOpen.value = true
+    }
 }
 </script>
 
@@ -50,7 +57,10 @@ const goToMember = (id) => {
           Manage your {{ stats.total }} registered members
         </p>
       </div>
-      <BaseButton class="w-full sm:w-auto shadow-lg shadow-primary-500/20">
+      <BaseButton 
+        @click="isAddModalOpen = true"
+        class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
+      >
         <Plus class="w-5 h-5 mr-2" />
         Add Member
       </BaseButton>
@@ -151,7 +161,7 @@ const goToMember = (id) => {
         <p class="text-secondary-500 text-sm mb-8 max-w-sm mx-auto leading-relaxed">
             {{ searchQuery ? `We couldn't find any members matching "${searchQuery}". Try adjusting your search or filters.` : 'Get started by adding your first club member.' }}
         </p>
-        <BaseButton v-if="!searchQuery" variant="primary">
+        <BaseButton v-if="!searchQuery" variant="primary" @click="isAddModalOpen = true">
             <Plus class="w-5 h-5 mr-2" />
             Add First Member
         </BaseButton>
@@ -301,5 +311,8 @@ const goToMember = (id) => {
     <div v-if="filteredMembers.length > 0" class="text-center text-xs font-medium text-secondary-400 py-4 uppercase tracking-wider">
         Showing {{ filteredMembers.length }} of {{ stats.total }} members
     </div>
+
+    <AddMemberModal :isOpen="isAddModalOpen" @close="isAddModalOpen = false" />
+    <ViewMemberModal :isOpen="isViewModalOpen" :member="selectedMember" @close="isViewModalOpen = false" />
   </div>
 </template>

@@ -21,12 +21,21 @@ export const useClubStore = defineStore('club', () => {
         }
     }
 
-    const addMember = (member) => {
-        members.value.push({
+    const addMember = (memberData) => {
+        // In a real app, this would be an API call
+        const newMember = {
             id: Math.random().toString(36).substr(2, 9),
-            status: 'Active',
-            ...member
-        })
+            firstName: memberData.firstName,
+            lastName: memberData.lastName,
+            dob: memberData.dob,
+            gender: memberData.gender,
+            class: memberData.class,
+            guardian: memberData.guardian,
+            status: memberData.status || 'Active', // Default to Active
+            joinedDate: new Date().toISOString(),
+            ...memberData // fallback for any extra fields
+        }
+        members.value.unshift(newMember) // Add to top of list
     }
 
     return {

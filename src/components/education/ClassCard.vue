@@ -1,10 +1,17 @@
 <script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { BookOpen, Award, Users, ChevronRight, User } from 'lucide-vue-next'
 
 const props = defineProps({
   classData: Object
 })
+
+const router = useRouter()
+
+const navigateToDetail = () => {
+  router.push({ name: 'class-detail', params: { id: props.classData.id } })
+}
 
 const isHonour = computed(() => props.classData.type === 'Honour')
 
@@ -17,7 +24,10 @@ const progressColor = computed(() => {
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl border border-secondary-100 p-5 shadow-sm hover:shadow-md hover:border-primary-100 transition-all duration-300 group cursor-pointer relative overflow-hidden">
+  <div 
+    @click="navigateToDetail"
+    class="bg-white rounded-2xl border border-secondary-100 p-5 shadow-sm hover:shadow-md hover:border-primary-100 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+  >
     
     <!-- Top Decoration -->
     <div class="absolute top-0 left-0 w-full h-1" :class="isHonour ? 'bg-indigo-500' : 'bg-primary-500'"></div>

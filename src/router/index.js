@@ -41,6 +41,12 @@ const router = createRouter({
             component: () => import('@/views/education/ClassDetailView.vue'),
             meta: { layout: 'dashboard' }
         },
+        {
+            path: '/events',
+            name: 'events',
+            component: () => import('@/views/education/EventsListView.vue'),
+            meta: { layout: 'dashboard' }
+        },
         { path: '/profile', redirect: '/' },
     ]
 })

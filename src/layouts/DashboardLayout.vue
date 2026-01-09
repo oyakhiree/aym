@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { Home, Users, BookOpen, User, Bell, ChevronDown, LogOut } from 'lucide-vue-next'
+import { Home, Users, BookOpen, User, Bell, ChevronDown, LogOut, Calendar } from 'lucide-vue-next'
 
 const router = useRouter()
 const route = useRoute()
@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
   { name: 'Members', href: '/members', icon: Users },
   { name: 'Education', href: '/classes', icon: BookOpen },
+  { name: 'Events', href: '/events', icon: Calendar },
   { name: 'Profile', href: '/profile', icon: User },
 ]
 

@@ -1,0 +1,95 @@
+AYM CONNECT FRONTEND DEMO - IMPLEMENTATION DOCUMENTATION
+======================================================
+Date: 2026-01-09
+Version: 1.0.0 (Demo)
+
+1. EXECUTIVE SUMMARY
+--------------------
+This document details the initialization and implementation of the "AYM Connect" frontend demo. 
+The project is a high-fidelity, mobile-first web application designed for managing Adventist Youth Ministry activities. 
+As per the revised requirements, the tech stack was shifted from Next.js to Vue.js 3 to better suit the specific engineering preferences for this phase.
+
+2. TECHNICAL ARCHITECTURE
+-------------------------
+A. Tech Stack
+   - Framework: Vue.js 3 (Composition API)
+   - Build Tool: Vite (for rapid development and optimized builds)
+   - Styling: Tailwind CSS v3 (Utility-first, configured for mobile-first design)
+   - State Management: Pinia (Modular stores for Auth, Club, Education)
+   - Routing: Vue Router 4 (Dynamic routing with meta layouts)
+   - Icons: Lucide-Vue-Next (Modern, consistant SVG icons)
+
+B. Project Structure
+   /frontend
+   ├── /src
+   │   ├── /assets
+   │   │   └── base.css          # Global styles & Tailwind directives
+   │   ├── /components
+   │   │   └── /ui               # Reusable atomic components (BaseButton, BaseInput, etc.)
+   │   ├── /layouts
+   │   │   ├── AuthLayout.vue    # Centered layout for login/signup
+   │   │   └── DashboardLayout.vue # Responsive layout (Sidebar desktop / Bottom Nav mobile)
+   │   ├── /router               # Route definitions and guards
+   │   ├── /stores               # Pinia stores (auth.js, club.js, education.js)
+   │   ├── /views                # Page components
+   │   │   ├── /auth             # LoginView
+   │   │   ├── /club             # ClubDashboard, MemberListView, MemberDetailView
+   │   │   └── /education        # ClassListView, ClassDetailView
+   │   ├── App.vue               # Root component with dynamic layout handling
+   │   └── main.js               # Application entry point
+   └── ...config files
+
+3. KEY FEATURES IMPLEMENTED
+---------------------------
+A. Mobile-First Design System
+   - The application uses a "Mobile First" CSS approach. All layouts start as mobile and adapt to larger screens (`md:` breakpoints).
+   - Navigation:
+     - Mobile: Fixed Bottom Navigation Bar (Home, Members, Education, Profile).
+     - Desktop: Fixed Left Sidebar navigation.
+   - Touch Targets: Buttons and inputs are sized (min 44px) for comfortable touch interaction.
+
+B. Authentication Module
+   - Simulated Authentication using `authStore`.
+   - Login View with role selection (Mock: Club Director, Super Admin, etc.).
+   - Protected Routes: Global navigation guard redirects unauthenticated users to `/login`.
+
+C. Club Management Module
+   - Dashboard: Visual cards displaying club metrics (Active Members, etc.).
+   - Member List: responsive view that switches between "Card Grid" on mobile and "Data Table" on desktop.
+   - Member Details: extensive profile view with "Edit Mode" to modify bio-data.
+   - Status Toggling: Real-time (mock) status updates (Active/Inactive) with visual feedback.
+
+D. Educational Management Module
+   - Class List: Overview of Active Progressive and Honour classes.
+   - Class Details/Attendance: Interface for instructors to view student lists and toggle daily attendance.
+
+4. ENGINEERING STANDARDS APPLIED
+--------------------------------
+- **Component Reusability**: UI elements like Cards, Buttons, and Inputs are abstracted into `src/components/ui` to ensure consistency.
+- **SOLID Principles**: Single Responsibility is maintained (Views handle layout, Stores handle logic/data, Components handle UI presentation).
+- **Clean Code**: Codebase is breathable, utilizing modern JavaScript (ES6+) and Vue 3 Composition API features (script setup).
+- **Scalability**: The directory structure allows for easy addition of new modules (e.g., Reports, Exam System) without cluttering existing folders.
+
+5. SETUP & RUN INSTRUCTIONS
+---------------------------
+1. Navigate to the frontend directory:
+   cd "c:\Work\AYM Connect\frontend"
+
+2. Install Dependencies:
+   npm install
+
+3. Run Development Server:
+   npm run dev
+
+4. Build for Production:
+   npm run build
+
+6. FUTURE ROADMAP (PENDING)
+---------------------------
+- Integration with Nest.js backend (replacing mock stores).
+- Implementation of the "Exam System" logic.
+- Real file uploads for Birth Certificates (Supabase Storage integration).
+- Conference/Area level dashboards.
+
+------------------------------------------------------
+End of Documentation

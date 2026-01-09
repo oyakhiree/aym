@@ -41,9 +41,9 @@ const sizeClasses = {
 
 const variantClasses = {
   primary: `
-    bg-gradient-to-b from-primary-500 to-primary-600 
+    bg-primary-600 
     text-white 
-    hover:from-primary-600 hover:to-primary-700 
+    hover:bg-primary-700 
     focus-visible:ring-primary-500 
     shadow-md shadow-primary-500/20 hover:shadow-lg hover:shadow-primary-500/30
   `,

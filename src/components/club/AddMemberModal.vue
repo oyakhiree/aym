@@ -56,26 +56,23 @@ const handleSubmit = () => {
   <Teleport to="body">
     <Transition
       enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition duration-150 ease-in"
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div v-if="isOpen" class="fixed inset-0 z-50 flex justify-center sm:block" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <!-- Backdrop -->
         <div class="fixed inset-0 bg-secondary-900/60 backdrop-blur-sm transition-opacity" @click="$emit('close')"></div>
 
-        <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+        <div class="flex flex-col justify-end min-h-screen sm:min-h-full sm:items-center sm:justify-center p-0 sm:p-4 text-center w-full">
           <Transition
             enter-active-class="transition duration-300 ease-out"
-            enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to-class="opacity-100 translate-y-0 sm:scale-100"
+            enter-from-class="translate-y-full sm:translate-y-4 sm:scale-95 opacity-0 sm:opacity-0"
+            enter-to-class="translate-y-0 sm:translate-y-0 sm:scale-100 opacity-100"
             leave-active-class="transition duration-200 ease-in"
-            leave-from-class="opacity-100 translate-y-0 sm:scale-100"
-            leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            leave-from-class="translate-y-0 sm:translate-y-0 sm:scale-100 opacity-100"
+            leave-to-class="translate-y-full sm:translate-y-4 sm:scale-95 opacity-0 sm:opacity-0"
           >
-            <div v-if="isOpen" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-secondary-100">
+            <div v-if="isOpen" class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] sm:max-h-none overflow-y-auto">
                 
               <!-- Header -->
               <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">

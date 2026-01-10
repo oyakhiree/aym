@@ -53,21 +53,13 @@ const upcomingExams = [
 <template>
   <div class="space-y-8 animate-in fade-in duration-500">
     <!-- Welcome Section -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between">
-      <div>
-        <h1 class="text-2xl font-bold text-secondary-900 tracking-tight">
-          Welcome back, {{ authStore.user?.name || 'Director' }} 👋
-        </h1>
-        <p class="text-secondary-500 mt-1">
-          Here's your club's "Mission Control" overview for today.
-        </p>
-      </div>
-      <div class="mt-4 md:mt-0 text-right">
-          <span class="text-sm font-medium text-secondary-400">Club Health</span>
-          <div class="flex items-center space-x-1 text-green-600 font-bold">
-              <span class="text-lg">94%</span> <span>Optimization</span>
-          </div>
-      </div>
+    <div>
+      <h1 class="text-2xl font-bold text-secondary-900 tracking-tight">
+        Welcome back, {{ authStore.user?.name || 'Director' }} 👋
+      </h1>
+      <p class="text-secondary-500 mt-1">
+        Here's your club's "Mission Control" overview for today.
+      </p>
     </div>
 
     <!-- Key Metrics Grid -->

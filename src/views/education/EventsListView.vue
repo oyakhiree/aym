@@ -12,7 +12,7 @@ const events = ref([
         description: 'A global celebration of Pathfinders. We will be marching at the conference headquarters.',
         date: '2026-09-19',
         location: 'Conference HQ, Lagos',
-        image: 'https://images.unsplash.com/photo-1526634333649-61ac04b281f6?q=80&w=2670&auto=format&fit=crop', // Mock image
+        image: 'https://plus.unsplash.com/premium_photo-1664303847960-586318f59035?q=80&w=2574&auto=format&fit=crop', // Updated reliable image
         attendees: 150
     },
     {

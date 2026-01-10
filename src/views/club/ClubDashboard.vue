@@ -1,22 +1,46 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useClubStore } from '@/stores/club'
+import { useEventStore } from '@/stores/event'
 import { useAuthStore } from '@/stores/auth'
 import MetricCard from '@/components/dashboard/MetricCard.vue'
 import QuickActions from '@/components/dashboard/QuickActions.vue'
 import MemberRosterWidget from '@/components/dashboard/MemberRosterWidget.vue'
 import ExamTrackerWidget from '@/components/dashboard/ExamTrackerWidget.vue'
+import AddMemberModal from '@/components/club/AddMemberModal.vue'
+import CreateEventModal from '@/components/education/CreateEventModal.vue'
 
+const router = useRouter()
 const clubStore = useClubStore()
+const eventStore = useEventStore()
 const authStore = useAuthStore()
 
+// Modal states
+const isAddMemberModalOpen = ref(false)
+const isCreateEventModalOpen = ref(false)
+
 const handleAction = (actionId) => {
-    console.log('Quick Action triggered:', actionId)
-    // Implement navigation or modal logic here
+    switch (actionId) {
+        case 'register':
+            isAddMemberModalOpen.value = true
+            break
+        case 'exam':
+            router.push('/classes')
+            break
+        case 'create-event':
+            isCreateEventModalOpen.value = true
+            break
+    }
+}
+
+const handleCreateEvent = (eventData) => {
+    eventStore.addEvent(eventData)
+    isCreateEventModalOpen.value = false
 }
 
 // --- Chart Configurations ---
-const membershipPulseSeries = [clubStore.activeMembersCount, clubStore.inactiveMembersCount || 2] // Mock inactive if store insufficient
+const membershipPulseSeries = [clubStore.activeMembersCount, clubStore.inactiveMembersCount || 2]
 const membershipPulseOptions = {
     chart: { type: 'donut', sparkline: { enabled: true } },
     colors: ['#4f46e5', '#e5e7eb'],
@@ -126,5 +150,16 @@ const upcomingExams = [
             />
         </div>
     </div>
+
+    <!-- Modals -->
+    <AddMemberModal 
+        :isOpen="isAddMemberModalOpen" 
+        @close="isAddMemberModalOpen = false" 
+    />
+    <CreateEventModal 
+        :isOpen="isCreateEventModalOpen" 
+        @close="isCreateEventModalOpen = false"
+        @create="handleCreateEvent"
+    />
   </div>
 </template>

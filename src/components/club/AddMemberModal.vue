@@ -84,7 +84,7 @@ const handleSubmit = () => {
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] sm:max-h-none overflow-y-auto"
+              class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] overflow-y-auto"
             >
               <!-- Header -->
               <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">

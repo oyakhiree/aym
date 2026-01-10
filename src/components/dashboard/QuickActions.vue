@@ -1,5 +1,5 @@
 <script setup>
-import { UserPlus, FileText, Award } from 'lucide-vue-next'
+import { UserPlus, Calendar, Award } from 'lucide-vue-next'
 
 const emit = defineEmits(['action'])
 
@@ -19,11 +19,11 @@ const actions = [
         id: 'exam' 
     },
     { 
-        label: 'Submit Report', 
-        description: 'Monthly aggregation',
-        icon: FileText, 
+        label: 'Create Event', 
+        description: 'Report a new club activity',
+        icon: Calendar, 
         color: 'emerald', 
-        id: 'report' 
+        id: 'create-event' 
     },
 ]
 

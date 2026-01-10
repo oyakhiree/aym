@@ -1,16 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { Plus } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import type { Student, Assignment } from '@/types'
 
-const props = defineProps({
-    roster: Array,
-    assignments: Array
-})
+interface Props {
+    roster: Student[]
+    assignments: Assignment[]
+}
 
-const emit = defineEmits(['createAssignment', 'updateGrade'])
+interface GradeUpdate {
+    studentId: string
+    assignmentId: string
+    score: number
+}
 
-const handleGrade = (studentId, assignmentId, event) => {
-    const score = parseInt(event.target.value) || 0
+defineProps<Props>()
+
+const emit = defineEmits<{
+    'createAssignment': []
+    'updateGrade': [data: GradeUpdate]
+}>()
+
+const handleGrade = (studentId: string, assignmentId: string, event: Event): void => {
+    const target = event.target as HTMLInputElement
+    const score = parseInt(target.value) || 0
     emit('updateGrade', { studentId, assignmentId, score })
 }
 </script>

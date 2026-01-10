@@ -1,13 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { Award } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { READINESS_THRESHOLD } from '@/constants/curriculum'
+import type { Student } from '@/types'
 
-const props = defineProps({
-    roster: Array
-})
+interface Props {
+    roster: Student[]
+}
 
-const emit = defineEmits(['requestExam'])
+defineProps<Props>()
+
+defineEmits<{
+    'requestExam': [studentId: string]
+}>()
 </script>
 
 <template>
@@ -31,8 +36,8 @@ const emit = defineEmits(['requestExam'])
                     <div 
                         class="h-10 w-10 rounded-full flex items-center justify-center font-bold text-sm ring-4 ring-opacity-20"
                         :class="[
-                            student.readinessScore >= 75 ? 'bg-emerald-100 text-emerald-700 ring-emerald-500' : 
-                            student.readinessScore >= 50 ? 'bg-amber-100 text-amber-700 ring-amber-500' : 
+                            (student.readinessScore ?? 0) >= 75 ? 'bg-emerald-100 text-emerald-700 ring-emerald-500' : 
+                            (student.readinessScore ?? 0) >= 50 ? 'bg-amber-100 text-amber-700 ring-amber-500' : 
                             'bg-red-100 text-red-700 ring-red-500'
                         ]"
                     >
@@ -46,8 +51,8 @@ const emit = defineEmits(['requestExam'])
                             class="h-full rounded-full transition-all duration-500"
                             :style="{ width: `${student.readinessScore || 0}%` }"
                             :class="[
-                                student.readinessScore >= 75 ? 'bg-emerald-500' : 
-                                student.readinessScore >= 50 ? 'bg-amber-500' : 
+                                (student.readinessScore ?? 0) >= 75 ? 'bg-emerald-500' : 
+                                (student.readinessScore ?? 0) >= 50 ? 'bg-amber-500' : 
                                 'bg-red-500'
                             ]"
                         ></div>

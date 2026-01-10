@@ -2,7 +2,7 @@
  * Utility function for generating unique IDs
  * Uses crypto.randomUUID when available, falls back to a secure alternative
  */
-export const generateId = () => {
+export const generateId = (): string => {
     // Modern browsers and Node 19+ support crypto.randomUUID
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
         return crypto.randomUUID()

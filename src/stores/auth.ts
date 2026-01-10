@@ -1,13 +1,19 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+
+interface User {
+    id: string
+    name: string
+    email: string
+    role: string
+    clubId: string
+}
 
 export const useAuthStore = defineStore('auth', () => {
-    const user = ref(null)
-    const isAuthenticated = ref(false)
-    const router = useRouter()
+    const user = ref<User | null>(null)
+    const isAuthenticated = ref<boolean>(false)
 
-    const login = async (role = 'Club Director') => {
+    const login = async (role: string = 'Club Director'): Promise<void> => {
         // Mock Login
         isAuthenticated.value = true
         user.value = {
@@ -17,11 +23,14 @@ export const useAuthStore = defineStore('auth', () => {
             role: role,
             clubId: 'club-001'
         }
+        // Set auth token for router guard
+        localStorage.setItem('aym_auth_token', 'mock_token_' + Date.now())
     }
 
-    const logout = () => {
+    const logout = (): void => {
         isAuthenticated.value = false
         user.value = null
+        localStorage.removeItem('aym_auth_token')
     }
 
     return {

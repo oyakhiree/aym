@@ -1,14 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import { Calendar, CheckCircle } from 'lucide-vue-next'
+import type { Student } from '@/types'
 
-const props = defineProps({
-    roster: Array,
-    selectedDate: String
-})
+interface Props {
+    roster: Student[]
+    selectedDate: string
+}
 
-const emit = defineEmits(['update:selectedDate', 'toggleAttendance'])
+defineProps<Props>()
 
-const handleAttendance = (studentId) => {
+const emit = defineEmits<{
+    'update:selectedDate': [value: string]
+    'toggleAttendance': [studentId: string]
+}>()
+
+const handleAttendance = (studentId: string): void => {
     emit('toggleAttendance', studentId)
 }
 </script>
@@ -24,7 +30,7 @@ const handleAttendance = (studentId) => {
             </div>
             <input 
                 :value="selectedDate"
-                @input="$emit('update:selectedDate', $event.target.value)"
+                @input="(e: Event) => $emit('update:selectedDate', (e.target as HTMLInputElement)?.value ?? '')"
                 type="date" 
                 class="rounded-lg border-secondary-200 text-sm focus:ring-primary-500 focus:border-primary-500"
             >

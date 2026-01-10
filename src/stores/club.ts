@@ -2,10 +2,11 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { generateId } from '@/utils/idGenerator'
 import { MEMBER_STATUS } from '@/constants/curriculum'
+import type { Member, MemberFormData, MemberStatus } from '@/types'
 
 export const useClubStore = defineStore('club', () => {
-    // Mock Data
-    const members = ref([
+    // State - Members
+    const members = ref<Member[]>([
         { id: '1', firstName: 'John', lastName: 'Doe', gender: 'Male', class: 'Friend', status: 'Active', dob: '2010-05-15', guardian: 'Mr. Doe' },
         { id: '2', firstName: 'Jane', lastName: 'Smith', gender: 'Female', class: 'Companion', status: 'Active', dob: '2009-08-20', guardian: 'Mrs. Smith' },
         { id: '3', firstName: 'Mike', lastName: 'Brown', gender: 'Male', class: 'Explorer', status: 'Inactive', dob: '2008-01-10', guardian: 'Mr. Brown' },
@@ -13,18 +14,33 @@ export const useClubStore = defineStore('club', () => {
         { id: '5', firstName: 'David', lastName: 'Lee', gender: 'Male', class: 'Voyager', status: 'Active', dob: '2006-03-30', guardian: 'Mr. Lee' },
     ])
 
-    const activeMembersCount = computed(() => members.value.filter(m => m.status === 'Active').length)
-    const inactiveMembersCount = computed(() => members.value.filter(m => m.status === 'Inactive').length)
+    // Computed
+    const activeMembersCount = computed<number>(() =>
+        members.value.filter(m => m.status === 'Active').length
+    )
 
-    const toggleStatus = (id) => {
+    const inactiveMembersCount = computed<number>(() =>
+        members.value.filter(m => m.status === 'Inactive').length
+    )
+
+    // Actions
+    const toggleStatus = (id: string): void => {
         const member = members.value.find(m => m.id === id)
         if (member) {
             member.status = member.status === 'Active' ? 'Inactive' : 'Active'
         }
     }
 
-    const addMember = (memberData) => {
-        const newMember = {
+    const addMember = (memberData: MemberFormData): void => {
+        // Handle status - could be boolean from form or string
+        let status: MemberStatus = MEMBER_STATUS.ACTIVE as MemberStatus
+        if (typeof memberData.status === 'boolean') {
+            status = memberData.status ? 'Active' : 'Inactive'
+        } else if (memberData.status) {
+            status = memberData.status
+        }
+
+        const newMember: Member = {
             id: generateId(),
             firstName: memberData.firstName,
             lastName: memberData.lastName,
@@ -32,11 +48,15 @@ export const useClubStore = defineStore('club', () => {
             gender: memberData.gender,
             class: memberData.class,
             guardian: memberData.guardian,
-            status: memberData.status || MEMBER_STATUS.ACTIVE,
-            joinedDate: new Date().toISOString(),
-            ...memberData
+            phone: memberData.phone,
+            status,
+            joinedDate: new Date().toISOString()
         }
         members.value.unshift(newMember)
+    }
+
+    const getMemberById = (id: string): Member | undefined => {
+        return members.value.find(m => m.id === id)
     }
 
     return {
@@ -44,6 +64,7 @@ export const useClubStore = defineStore('club', () => {
         activeMembersCount,
         inactiveMembersCount,
         toggleStatus,
-        addMember
+        addMember,
+        getMemberById
     }
 })

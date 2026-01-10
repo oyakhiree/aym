@@ -9,10 +9,11 @@ import {
     GRADE_WEIGHT,
     EXAM_STATUS
 } from '@/constants/curriculum'
+import type { ClassData, ClassFormData, Assignment, Student, ClassStats, ExamStatus } from '@/types'
 
 export const useClassStore = defineStore('class', () => {
     // State - Active Classes
-    const activeClasses = ref([
+    const activeClasses = ref<ClassData[]>([
         {
             id: '1',
             type: 'Progressive',
@@ -80,14 +81,14 @@ export const useClassStore = defineStore('class', () => {
     const honours = HONOURS
 
     // Computed
-    const stats = computed(() => ({
+    const stats = computed<ClassStats>(() => ({
         activeCount: activeClasses.value.filter(c => c.status === 'Active').length,
         totalStudents: activeClasses.value.reduce((acc, curr) => acc + curr.students, 0)
     }))
 
     // Actions
-    const addClass = (classData) => {
-        activeClasses.value.unshift({
+    const addClass = (classData: ClassFormData): void => {
+        const newClass: ClassData = {
             id: generateId(),
             students: 0,
             readiness: 0,
@@ -95,10 +96,15 @@ export const useClassStore = defineStore('class', () => {
             assignments: [],
             roster: [],
             ...classData
-        })
+        }
+        activeClasses.value.unshift(newClass)
     }
 
-    const updateAttendance = (classId, studentId, date, isPresent) => {
+    const getClassById = (id: string): ClassData | undefined => {
+        return activeClasses.value.find(c => c.id === id)
+    }
+
+    const updateAttendance = (classId: string, studentId: string, date: string, isPresent: boolean): void => {
         const cls = activeClasses.value.find(c => c.id === classId)
         if (!cls) return
 
@@ -109,10 +115,10 @@ export const useClassStore = defineStore('class', () => {
         }
     }
 
-    const addAssignment = (classId, assignment) => {
+    const addAssignment = (classId: string, assignment: Omit<Assignment, 'id' | 'date'>): void => {
         const cls = activeClasses.value.find(c => c.id === classId)
         if (cls) {
-            const newAssignment = {
+            const newAssignment: Assignment = {
                 id: generateId(),
                 date: new Date().toISOString().split('T')[0],
                 ...assignment
@@ -127,7 +133,7 @@ export const useClassStore = defineStore('class', () => {
         }
     }
 
-    const updateGrade = (classId, studentId, assignmentId, score) => {
+    const updateGrade = (classId: string, studentId: string, assignmentId: string, score: number): void => {
         const cls = activeClasses.value.find(c => c.id === classId)
         if (!cls) return
         const student = cls.roster.find(s => s.id === studentId)
@@ -139,12 +145,12 @@ export const useClassStore = defineStore('class', () => {
 
     /**
      * Core Business Logic: Calculate Readiness Score
-     * Uses constants from curriculum.js for weights and thresholds
+     * Uses constants for weights and thresholds
      */
-    const updateReadiness = (cls) => {
+    const updateReadiness = (cls: ClassData): void => {
         let totalClassReadiness = 0
 
-        cls.roster.forEach(student => {
+        cls.roster.forEach((student: Student) => {
             // 1. Attendance Score
             const days = Object.keys(student.attendance).length
             const presentDays = Object.values(student.attendance).filter(Boolean).length
@@ -164,7 +170,7 @@ export const useClassStore = defineStore('class', () => {
 
             // Exam Eligibility using constant threshold
             student.examEligible = student.readinessScore >= READINESS_THRESHOLD
-            student.examStatus = student.examStatus || EXAM_STATUS.NONE
+            student.examStatus = student.examStatus || (EXAM_STATUS.NONE as ExamStatus)
 
             totalClassReadiness += student.readinessScore
         })
@@ -179,6 +185,7 @@ export const useClassStore = defineStore('class', () => {
         honours,
         stats,
         addClass,
+        getClassById,
         updateAttendance,
         addAssignment,
         updateGrade

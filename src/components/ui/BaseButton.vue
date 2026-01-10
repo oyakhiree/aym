@@ -1,27 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps({
-  variant: {
-    type: String,
-    default: 'primary', // primary, secondary, outline, ghost, danger
-  },
-  size: {
-    type: String,
-    default: 'md', // sm, md, lg
-  },
-  block: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  }
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
+type ButtonSize = 'sm' | 'md' | 'lg'
+
+interface Props {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  block?: boolean
+  disabled?: boolean
+  loading?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  block: false,
+  disabled: false,
+  loading: false
 })
 
 const baseClasses = `

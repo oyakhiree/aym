@@ -47,24 +47,37 @@ const colorClasses = {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <button 
-            v-for="action in actions" 
-            :key="action.id"
-            @click="$emit('action', action.id)"
-            class="group flex items-center p-4 bg-white border border-secondary-100/80 rounded-2xl shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-200 text-left"
-        >
-            <div 
-                class="p-3 rounded-xl mr-4 transition-all duration-200" 
-                :class="[colorClasses[action.color].bg, colorClasses[action.color].text, colorClasses[action.color].groupHover]"
-            >
-                <component :is="action.icon" class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />
-            </div>
-            <div class="flex-1 min-w-0">
-                <span class="block font-semibold text-secondary-900 text-sm">{{ action.label }}</span>
-                <span class="text-xs text-secondary-500 truncate block">{{ action.description }}</span>
-            </div>
-            <svg class="w-5 h-5 text-secondary-300 group-hover:text-secondary-500 transition-colors ml-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
-    </div>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <button 
+      v-for="action in actions" 
+      :key="action.id"
+      class="group flex items-center p-4 bg-white border border-secondary-100/80 rounded-2xl shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-200 text-left"
+      @click="$emit('action', action.id)"
+    >
+      <div 
+        class="p-3 rounded-xl mr-4 transition-all duration-200" 
+        :class="[colorClasses[action.color].bg, colorClasses[action.color].text, colorClasses[action.color].groupHover]"
+      >
+        <component
+          :is="action.icon"
+          class="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+        />
+      </div>
+      <div class="flex-1 min-w-0">
+        <span class="block font-semibold text-secondary-900 text-sm">{{ action.label }}</span>
+        <span class="text-xs text-secondary-500 truncate block">{{ action.description }}</span>
+      </div>
+      <svg
+        class="w-5 h-5 text-secondary-300 group-hover:text-secondary-500 transition-colors ml-2 flex-shrink-0"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      ><path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"
+      /></svg>
+    </button>
+  </div>
 </template>

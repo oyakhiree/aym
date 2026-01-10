@@ -55,80 +55,91 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="currentClass" class="space-y-6 pb-20 md:pb-0 animate-in fade-in">
-        
-        <!-- Header -->
-        <div class="flex items-center gap-4">
-            <button 
-                @click="router.back()"
-                class="p-2 text-secondary-500 hover:text-secondary-700 hover:bg-secondary-100 rounded-full transition-all"
-            >
-                <ArrowLeft class="w-6 h-6" />
-            </button>
-            <div>
-                <h1 class="text-2xl font-bold text-secondary-900 leading-tight">{{ currentClass.name }}</h1>
-                <p class="text-sm text-secondary-500 flex items-center gap-2">
-                    {{ currentClass.type }} Class • <span class="text-primary-600 font-medium">{{ currentClass.students }} Students</span>
-                </p>
-            </div>
-            <div class="ml-auto">
-                <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-600 border border-emerald-100">
-                    active
-                </div>
-            </div>
+  <div
+    v-if="currentClass"
+    class="space-y-6 pb-20 md:pb-0 animate-in fade-in"
+  >
+    <!-- Header -->
+    <div class="flex items-center gap-4">
+      <button 
+        class="p-2 text-secondary-500 hover:text-secondary-700 hover:bg-secondary-100 rounded-full transition-all"
+        @click="router.back()"
+      >
+        <ArrowLeft class="w-6 h-6" />
+      </button>
+      <div>
+        <h1 class="text-2xl font-bold text-secondary-900 leading-tight">
+          {{ currentClass.name }}
+        </h1>
+        <p class="text-sm text-secondary-500 flex items-center gap-2">
+          {{ currentClass.type }} Class • <span class="text-primary-600 font-medium">{{ currentClass.students }} Students</span>
+        </p>
+      </div>
+      <div class="ml-auto">
+        <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-600 border border-emerald-100">
+          active
         </div>
-
-        <!-- Tabs -->
-        <div class="border-b border-secondary-200">
-            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                <button
-                    v-for="tab in tabs"
-                    :key="tab"
-                    @click="activeTab = tab"
-                    class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200"
-                    :class="[
-                        activeTab === tab
-                            ? 'border-primary-500 text-primary-600'
-                            : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-secondary-300'
-                    ]"
-                >
-                    {{ tab }}
-                </button>
-            </nav>
-        </div>
-
-        <!-- Tab Content (Using Child Components) -->
-        <AttendanceTab 
-            v-if="activeTab === 'Attendance'"
-            :roster="currentClass.roster"
-            :selectedDate="selectedDate"
-            @update:selectedDate="selectedDate = $event"
-            @toggleAttendance="handleAttendance"
-        />
-
-        <AssignmentsTab 
-            v-if="activeTab === 'Assignments'"
-            :roster="currentClass.roster"
-            :assignments="currentClass.assignments"
-            @createAssignment="isAssignmentModalOpen = true"
-            @updateGrade="handleGrade"
-        />
-
-        <ExamsTab 
-            v-if="activeTab === 'Exams'"
-            :roster="currentClass.roster"
-            @requestExam="requestExam"
-        />
-
-        <!-- Modals -->
-        <CreateAssignmentModal 
-            :isOpen="isAssignmentModalOpen" 
-            @close="isAssignmentModalOpen = false"
-            @create="handleCreateAssignment"
-        />
-
+      </div>
     </div>
-    <div v-else class="text-center py-20">
-        <p class="text-secondary-500">Loading class details...</p>
+
+    <!-- Tabs -->
+    <div class="border-b border-secondary-200">
+      <nav
+        class="-mb-px flex space-x-8"
+        aria-label="Tabs"
+      >
+        <button
+          v-for="tab in tabs"
+          :key="tab"
+          class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-all duration-200"
+          :class="[
+            activeTab === tab
+              ? 'border-primary-500 text-primary-600'
+              : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-secondary-300'
+          ]"
+          @click="activeTab = tab"
+        >
+          {{ tab }}
+        </button>
+      </nav>
     </div>
+
+    <!-- Tab Content (Using Child Components) -->
+    <AttendanceTab 
+      v-if="activeTab === 'Attendance'"
+      :roster="currentClass.roster"
+      :selected-date="selectedDate"
+      @update:selected-date="selectedDate = $event"
+      @toggle-attendance="handleAttendance"
+    />
+
+    <AssignmentsTab 
+      v-if="activeTab === 'Assignments'"
+      :roster="currentClass.roster"
+      :assignments="currentClass.assignments"
+      @create-assignment="isAssignmentModalOpen = true"
+      @update-grade="handleGrade"
+    />
+
+    <ExamsTab 
+      v-if="activeTab === 'Exams'"
+      :roster="currentClass.roster"
+      @request-exam="requestExam"
+    />
+
+    <!-- Modals -->
+    <CreateAssignmentModal 
+      :is-open="isAssignmentModalOpen" 
+      @close="isAssignmentModalOpen = false"
+      @create="handleCreateAssignment"
+    />
+  </div>
+  <div
+    v-else
+    class="text-center py-20"
+  >
+    <p class="text-secondary-500">
+      Loading class details...
+    </p>
+  </div>
 </template>

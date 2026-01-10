@@ -88,45 +88,45 @@ const upcomingExams = [
 
     <!-- Key Metrics Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard 
-            title="Membership Pulse" 
-            :value="clubStore.members.length" 
-            subtitle="Total Members"
-            :chart-series="membershipPulseSeries"
-            :chart-options="membershipPulseOptions"
-            type="donut"
-            color="indigo"
-            :trend="12"
-        />
-        <MetricCard 
-            title="Class Progression" 
-            value="68%" 
-            subtitle="On Track"
-            :chart-series="classProgressionSeries"
-            :chart-options="classProgressionOptions"
-            type="bar"
-            color="emerald"
-            :trend="5"
-        />
-        <MetricCard 
-            title="Honours Earned" 
-            value="142" 
-            subtitle="This Quarter"
-            color="purple"
-            :trend="18"
-        >
-           <!-- Custom content or icon fallback could go here if no chart -->
-        </MetricCard>
-        <MetricCard 
-            title="Exam Readiness" 
-            value="8" 
-            subtitle="Eligible Candidates"
-            :chart-series="examReadinessSeries"
-            :chart-options="examReadinessOptions"
-            type="radialBar"
-            color="amber"
-            :trend="-2"
-        />
+      <MetricCard 
+        title="Membership Pulse" 
+        :value="clubStore.members.length" 
+        subtitle="Total Members"
+        :chart-series="membershipPulseSeries"
+        :chart-options="membershipPulseOptions"
+        type="donut"
+        color="indigo"
+        :trend="12"
+      />
+      <MetricCard 
+        title="Class Progression" 
+        value="68%" 
+        subtitle="On Track"
+        :chart-series="classProgressionSeries"
+        :chart-options="classProgressionOptions"
+        type="bar"
+        color="emerald"
+        :trend="5"
+      />
+      <MetricCard 
+        title="Honours Earned" 
+        value="142" 
+        subtitle="This Quarter"
+        color="purple"
+        :trend="18"
+      >
+        <!-- Custom content or icon fallback could go here if no chart -->
+      </MetricCard>
+      <MetricCard 
+        title="Exam Readiness" 
+        value="8" 
+        subtitle="Eligible Candidates"
+        :chart-series="examReadinessSeries"
+        :chart-options="examReadinessOptions"
+        type="radialBar"
+        color="amber"
+        :trend="-2"
+      />
     </div>
 
     <!-- Quick Actions -->
@@ -134,32 +134,32 @@ const upcomingExams = [
 
     <!-- Feature Widgets -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Member Management (Roster) - Takes 2 cols -->
-        <div class="lg:col-span-2 h-[500px]">
-            <MemberRosterWidget 
-                :members="clubStore.members" 
-                @toggle-status="clubStore.toggleStatus"
-            />
-        </div>
+      <!-- Member Management (Roster) - Takes 2 cols -->
+      <div class="lg:col-span-2 h-[500px]">
+        <MemberRosterWidget 
+          :members="clubStore.members" 
+          @toggle-status="clubStore.toggleStatus"
+        />
+      </div>
         
-        <!-- Exam & Class Tracker - Takes 1 col -->
-        <div class="h-[500px]">
-            <ExamTrackerWidget 
-                :pending-exams="1" 
-                :upcoming-exams="upcomingExams"
-            />
-        </div>
+      <!-- Exam & Class Tracker - Takes 1 col -->
+      <div class="h-[500px]">
+        <ExamTrackerWidget 
+          :pending-exams="1" 
+          :upcoming-exams="upcomingExams"
+        />
+      </div>
     </div>
 
     <!-- Modals -->
     <AddMemberModal 
-        :isOpen="isAddMemberModalOpen" 
-        @close="isAddMemberModalOpen = false" 
+      :is-open="isAddMemberModalOpen" 
+      @close="isAddMemberModalOpen = false" 
     />
     <CreateEventModal 
-        :isOpen="isCreateEventModalOpen" 
-        @close="isCreateEventModalOpen = false"
-        @create="handleCreateEvent"
+      :is-open="isCreateEventModalOpen" 
+      @close="isCreateEventModalOpen = false"
+      @create="handleCreateEvent"
     />
   </div>
 </template>

@@ -84,7 +84,7 @@ const handleSubmit = () => {
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] overflow-y-auto"
+              class="relative w-full transform rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
             >
               <!-- Header -->
               <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">
@@ -108,7 +108,7 @@ const handleSubmit = () => {
               </div>
 
               <!-- Body -->
-              <div class="px-6 py-6 space-y-6">
+              <div class="px-6 py-6 space-y-6 flex-1 overflow-y-auto">
                 <!-- Personal Info Section -->
                 <div>
                   <h4 class="text-xs font-semibold text-secondary-400 uppercase tracking-wider mb-4 flex items-center gap-2">

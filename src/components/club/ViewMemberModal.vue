@@ -48,7 +48,7 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-xl border-t sm:border border-secondary-100 max-h-[90vh] sm:max-h-none overflow-y-auto"
+              class="relative w-full transform rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-xl border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
             >
               <!-- Header with Cover/Avatar -->
               <div class="relative bg-gradient-to-br from-primary-600 to-indigo-700 h-32">
@@ -77,7 +77,7 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
               </div>
 
               <!-- Body -->
-              <div class="px-6 pb-8 pt-2 space-y-6">
+              <div class="px-6 pb-8 pt-2 space-y-6 flex-1 overflow-y-auto">
                 <div>
                   <h2 class="text-2xl font-bold text-secondary-900">
                     {{ member.firstName }} {{ member.lastName }}

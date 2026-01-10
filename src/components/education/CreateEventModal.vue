@@ -84,7 +84,7 @@ const handleSubmit = () => {
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-lg border-t sm:border border-secondary-100"
+              class="relative w-full transform rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-lg border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
             >
               <!-- Header -->
               <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">
@@ -102,7 +102,7 @@ const handleSubmit = () => {
               </div>
 
               <!-- Body -->
-              <div class="px-6 py-6 space-y-4">
+              <div class="px-6 py-6 space-y-4 flex-1 overflow-y-auto">
                 <div>
                   <label class="block text-sm font-medium text-secondary-700 mb-1">Event Title <span class="text-red-500">*</span></label>
                   <input

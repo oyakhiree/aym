@@ -1,50 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCurriculumStore } from '@/stores/curriculum'
 import { Plus, Search, MapPin } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import CreateEventModal from '@/components/education/CreateEventModal.vue'
 
-// Mock Events Data
-const events = ref([
-    {
-        id: '1',
-        title: 'World Pathfinder Day',
-        description: 'A global celebration of Pathfinders. We will be marching at the conference headquarters.',
-        date: '2026-09-19',
-        location: 'Conference HQ, Lagos',
-        image: 'https://plus.unsplash.com/premium_photo-1664303847960-586318f59035?q=80&w=2574&auto=format&fit=crop', // Updated reliable image
-        attendees: 150
-    },
-    {
-        id: '2',
-        title: 'Nature Hiking Adventure',
-        description: 'An adventurous hike through the hills to learn about nature and creation.',
-        date: '2026-05-12',
-        location: 'Olumo Rock',
-        image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2670&auto=format&fit=crop',
-        attendees: 45
-    },
-    {
-        id: '3',
-        title: 'Community Service: Clean Up',
-        description: 'Cleaning up the local market square as part of our GYD activities.',
-        date: '2026-03-18',
-        location: 'Magboro Market',
-        image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2670&auto=format&fit=crop',
-        attendees: 30
-    }
-])
+const router = useRouter()
+const store = useCurriculumStore()
 
 const isCreateModalOpen = ref(false)
 const searchQuery = ref('')
 
 const handleCreateEvent = (eventData) => {
-    events.value.unshift({
-        id: Math.random().toString(36).substr(2, 9),
-        ...eventData,
-        image: eventData.image || 'https://images.unsplash.com/photo-1526634333649-61ac04b281f6?q=80&w=2670&auto=format&fit=crop', // Fallback
-        attendees: 0
-    })
+    store.addEvent(eventData)
+}
+
+const navigateToEvent = (id) => {
+    router.push(`/events/${id}`)
 }
 </script>
 
@@ -66,12 +39,12 @@ const handleCreateEvent = (eventData) => {
     <!-- Stats -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
        <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 flex flex-col justify-center">
-            <span class="text-2xl font-bold text-indigo-700">{{ events.length }}</span>
+            <span class="text-2xl font-bold text-indigo-700">{{ store.events.length }}</span>
             <span class="text-xs font-semibold text-indigo-500 uppercase tracking-wider">Total Events</span>
        </div>
        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex flex-col justify-center">
-            <span class="text-2xl font-bold text-emerald-700">{{ events.reduce((acc, curr) => acc + curr.attendees, 0) }}</span>
-            <span class="text-xs font-semibold text-emerald-500 uppercase tracking-wider">Total Attendees</span>
+            <span class="text-2xl font-bold text-emerald-700">{{ store.events.reduce((acc, curr) => acc + (curr.report ? curr.report.attendance : 0), 0) }}</span>
+            <span class="text-xs font-semibold text-emerald-500 uppercase tracking-wider">Total Attendees (Reported)</span>
        </div>
     </div>
 
@@ -91,9 +64,10 @@ const handleCreateEvent = (eventData) => {
     <!-- Events Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div 
-            v-for="event in events.filter(e => e.title.toLowerCase().includes(searchQuery.toLowerCase()))" 
+            v-for="event in store.events.filter(e => e.title.toLowerCase().includes(searchQuery.toLowerCase()))" 
             :key="event.id"
-            class="bg-white rounded-2xl border border-secondary-100 overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col"
+            @click="navigateToEvent(event.id)"
+            class="bg-white rounded-2xl border border-secondary-100 overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col cursor-pointer"
         >
             <div class="h-48 w-full overflow-hidden relative">
                 <img :src="event.image" alt="Event Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -111,8 +85,8 @@ const handleCreateEvent = (eventData) => {
                         <MapPin class="w-3.5 h-3.5" />
                         {{ event.location }}
                      </div>
-                     <div class="ml-auto font-medium bg-secondary-50 px-2 py-1 rounded-md">
-                        {{ event.attendees }} Attending
+                     <div class="ml-auto font-medium bg-secondary-50 px-2 py-1 rounded-md text-secondary-600">
+                        {{ event.report ? event.report.attendance : '-' }} Report
                      </div>
                 </div>
             </div>

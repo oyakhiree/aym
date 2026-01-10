@@ -1,13 +1,14 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import { X, Calendar, MapPin, Image } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
 const props = defineProps({
-  isOpen: Boolean
+  isOpen: Boolean,
+  eventToEdit: Object // Optional event object for editing
 })
 
-const emit = defineEmits(['close', 'create'])
+const emit = defineEmits(['close', 'create', 'update'])
 
 const form = reactive({
     title: '',
@@ -17,17 +18,34 @@ const form = reactive({
     image: ''
 })
 
+// Watch for changes when modal opens/closes or edit target changes
+watch(() => props.isOpen, (newVal) => {
+    if (newVal) {
+        if (props.eventToEdit) {
+            // Edit Mode: Pre-fill
+            Object.assign(form, { ...props.eventToEdit })
+        } else {
+            // Create Mode: Reset
+            form.title = ''
+            form.description = ''
+            form.date = ''
+            form.location = ''
+            form.image = ''
+        }
+    }
+})
+
 const isFormValid = computed(() => form.title && form.date)
 
 const handleSubmit = () => {
     if(!isFormValid.value) return
-    emit('create', { ...form })
-    // Reset
-    form.title = ''
-    form.description = ''
-    form.date = ''
-    form.location = ''
-    form.image = ''
+    const payload = { ...form }
+    
+    if (props.eventToEdit) {
+        emit('update', { id: props.eventToEdit.id, ...payload })
+    } else {
+        emit('create', payload)
+    }
     emit('close')
 }
 </script>
@@ -60,7 +78,7 @@ const handleSubmit = () => {
               <!-- Header -->
               <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">
                 <div>
-                   <h3 class="text-lg font-bold text-secondary-900 leading-6">Create New Event</h3>
+                   <h3 class="text-lg font-bold text-secondary-900 leading-6">{{ eventToEdit ? 'Edit Event' : 'Create New Event' }}</h3>
                 </div>
                 <button @click="$emit('close')" class="rounded-full p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-100 transition-all">
                   <X class="w-5 h-5" />
@@ -124,7 +142,7 @@ const handleSubmit = () => {
                     :disabled="!isFormValid"
                     class="w-full sm:w-auto"
                 >
-                  Create Event
+                   {{ eventToEdit ? 'Save Changes' : 'Create Event' }}
                 </BaseButton>
               </div>
 

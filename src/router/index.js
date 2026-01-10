@@ -60,11 +60,14 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login'];
     const authRequired = !publicPages.includes(to.path);
-    // In a real app check store. But for demo simplified:
-    // const auth = useAuthStore()
-    // if (authRequired && !auth.user) {
-    //   return next('/login');
-    // }
+
+    // For demo purposes, we'll use a simple localStorage check
+    // In production, verify JWT token validity with the backend
+    const isAuthenticated = localStorage.getItem('aym_auth_token') || true // Default true for demo
+
+    if (authRequired && !isAuthenticated) {
+        return next('/login');
+    }
     next();
 });
 

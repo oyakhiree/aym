@@ -1,8 +1,17 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { generateId } from '@/utils/idGenerator'
+import {
+    PROGRESSIVE_CLASSES,
+    HONOURS,
+    READINESS_THRESHOLD,
+    ATTENDANCE_WEIGHT,
+    GRADE_WEIGHT,
+    EXAM_STATUS
+} from '@/constants/curriculum'
 
-export const useCurriculumStore = defineStore('curriculum', () => {
-    // Mock Data - Active Classes
+export const useClassStore = defineStore('class', () => {
+    // State - Active Classes
     const activeClasses = ref([
         {
             id: '1',
@@ -10,10 +19,9 @@ export const useCurriculumStore = defineStore('curriculum', () => {
             name: 'Friend',
             instructor: 'Master Guide John',
             students: 4,
-            readiness: 85, // Avg readiness
+            readiness: 85,
             startDate: '2026-01-05',
             status: 'Active',
-            // Mock Roster & Data
             assignments: [
                 { id: 'hw1', title: 'Memorize Psalm 23', maxScore: 100, type: 'Memory Verse', date: '2026-01-06' },
                 { id: 'cw1', title: 'Knot Tying Practical', maxScore: 50, type: 'Classwork', date: '2026-01-10' }
@@ -32,7 +40,7 @@ export const useCurriculumStore = defineStore('curriculum', () => {
                 {
                     id: 's3', name: 'Mike Brown',
                     attendance: { '2026-01-05': false, '2026-01-06': false, '2026-01-07': true },
-                    grades: { 'hw1': 0, 'cw1': 30 } // 0 indicates missing/graded 0
+                    grades: { 'hw1': 0, 'cw1': 30 }
                 },
                 {
                     id: 's4', name: 'Sarah Wilson',
@@ -67,68 +75,20 @@ export const useCurriculumStore = defineStore('curriculum', () => {
         },
     ])
 
-    // Mock Data - Events
-    const events = ref([
-        {
-            id: '1',
-            title: 'World Pathfinder Day',
-            description: 'A global celebration of Pathfinders. We will be marching at the conference headquarters.',
-            date: '2026-09-19',
-            location: 'Conference HQ, Lagos',
-            image: 'https://plus.unsplash.com/premium_photo-1664303847960-586318f59035?q=80&w=2574&auto=format&fit=crop',
-            attendees: 150,
-            report: null // No report yet
-        },
-        {
-            id: '2',
-            title: 'Nature Hiking Adventure',
-            description: 'An adventurous hike through the hills to learn about nature and creation.',
-            date: '2026-05-12',
-            location: 'Olumo Rock',
-            image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2670&auto=format&fit=crop',
-            attendees: 45,
-            report: {
-                summary: 'The hike was a resounding success. We identified 15 species of birds.',
-                attendance: 42,
-                images: [
-                    'https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2670&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=2673&auto=format&fit=crop'
-                ]
-            }
-        },
-        {
-            id: '3',
-            title: 'Community Service: Clean Up',
-            description: 'Cleaning up the local market square as part of our GYD activities.',
-            date: '2026-03-18',
-            location: 'Magboro Market',
-            image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2670&auto=format&fit=crop',
-            attendees: 30,
-            report: null
-        }
-    ])
+    // Expose constants for use in components
+    const progressiveClasses = PROGRESSIVE_CLASSES
+    const honours = HONOURS
 
-    // Mock Data - Master List (Available options)
-    const progressiveClasses = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide']
-    const honours = [
-        'Christian Citizenship',
-        'Stewardship',
-        'Basic Rescue',
-        'Camping Skills I',
-        'Camping Skills II',
-        'Drilling & Marching'
-    ]
+    // Computed
+    const stats = computed(() => ({
+        activeCount: activeClasses.value.filter(c => c.status === 'Active').length,
+        totalStudents: activeClasses.value.reduce((acc, curr) => acc + curr.students, 0)
+    }))
 
-    const stats = computed(() => {
-        return {
-            activeCount: activeClasses.value.filter(c => c.status === 'Active').length,
-            totalStudents: activeClasses.value.reduce((acc, curr) => acc + curr.students, 0)
-        }
-    })
-
+    // Actions
     const addClass = (classData) => {
         activeClasses.value.unshift({
-            id: Math.random().toString(36).substr(2, 9),
+            id: generateId(),
             students: 0,
             readiness: 0,
             status: 'Active',
@@ -138,9 +98,6 @@ export const useCurriculumStore = defineStore('curriculum', () => {
         })
     }
 
-    // --- Actions ---
-
-    // Record Attendance: date string (YYYY-MM-DD), updates for all students in list (or toggle single)
     const updateAttendance = (classId, studentId, date, isPresent) => {
         const cls = activeClasses.value.find(c => c.id === classId)
         if (!cls) return
@@ -155,15 +112,16 @@ export const useCurriculumStore = defineStore('curriculum', () => {
     const addAssignment = (classId, assignment) => {
         const cls = activeClasses.value.find(c => c.id === classId)
         if (cls) {
-            cls.assignments.push({
-                id: Math.random().toString(36).substr(2, 9),
+            const newAssignment = {
+                id: generateId(),
                 date: new Date().toISOString().split('T')[0],
                 ...assignment
-            })
+            }
+            cls.assignments.push(newAssignment)
             // Initialize grades for this assignment
             cls.roster.forEach(s => {
                 if (!s.grades) s.grades = {}
-                s.grades[assignment.id] = 0 // Default or null
+                s.grades[newAssignment.id] = 0
             })
             updateReadiness(cls)
         }
@@ -179,9 +137,10 @@ export const useCurriculumStore = defineStore('curriculum', () => {
         }
     }
 
-    // Core Business Logic: Calculate Readiness
-    // Readiness = (Attendance % * 0.4) + (Assignment Avg % * 0.6)
-    // Exam eligibility requires > 75% Total Score
+    /**
+     * Core Business Logic: Calculate Readiness Score
+     * Uses constants from curriculum.js for weights and thresholds
+     */
     const updateReadiness = (cls) => {
         let totalClassReadiness = 0
 
@@ -200,12 +159,12 @@ export const useCurriculumStore = defineStore('curriculum', () => {
             })
             const gradePct = maxSum > 0 ? (gradeSum / maxSum) * 100 : 100
 
-            // Weighted Score
-            student.readinessScore = Math.round((attendancePct * 0.4) + (gradePct * 0.6))
+            // Weighted Score using constants
+            student.readinessScore = Math.round((attendancePct * ATTENDANCE_WEIGHT) + (gradePct * GRADE_WEIGHT))
 
-            // Exam Eligibility
-            student.examEligible = student.readinessScore >= 75
-            student.examStatus = student.examStatus || 'None' // None, Requested, Approved, Taken
+            // Exam Eligibility using constant threshold
+            student.examEligible = student.readinessScore >= READINESS_THRESHOLD
+            student.examStatus = student.examStatus || EXAM_STATUS.NONE
 
             totalClassReadiness += student.readinessScore
         })
@@ -214,48 +173,14 @@ export const useCurriculumStore = defineStore('curriculum', () => {
         cls.readiness = cls.roster.length > 0 ? Math.round(totalClassReadiness / cls.roster.length) : 0
     }
 
-    // --- Event Actions ---
-    const addEvent = (eventData) => {
-        events.value.unshift({
-            id: Math.random().toString(36).substr(2, 9),
-            ...eventData,
-            image: eventData.image || 'https://images.unsplash.com/photo-1526634333649-61ac04b281f6?q=80&w=2670&auto=format&fit=crop',
-            attendees: 0,
-            report: null
-        })
-    }
-
-    const updateEvent = (id, updates) => {
-        const index = events.value.findIndex(e => e.id === id)
-        if (index !== -1) {
-            events.value[index] = { ...events.value[index], ...updates }
-        }
-    }
-
-    const submitEventReport = (id, reportData) => {
-        const event = events.value.find(e => e.id === id)
-        if (event) {
-            event.report = {
-                submittedAt: new Date().toISOString(),
-                ...reportData
-            }
-            // Update main attendee count if reported differently?
-            if (reportData.attendance) event.attendees = reportData.attendance
-        }
-    }
-
     return {
         activeClasses,
-        events, // Exported
         progressiveClasses,
         honours,
         stats,
         addClass,
         updateAttendance,
         addAssignment,
-        updateGrade,
-        addEvent,
-        updateEvent,
-        submitEventReport
+        updateGrade
     }
 })

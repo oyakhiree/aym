@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { useCurriculumStore } from '@/stores/curriculum'
+import { useClassStore } from '@/stores/class'
 import { Plus, Search, BookOpen, Award, GraduationCap } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ClassCard from '@/components/education/ClassCard.vue'
 import CreateClassModal from '@/components/education/CreateClassModal.vue'
 
-const store = useCurriculumStore()
+const store = useClassStore()
 const activeTab = ref('Progressive') // Progressive, Honour
 const searchQuery = ref('')
 const isCreateModalOpen = ref(false)

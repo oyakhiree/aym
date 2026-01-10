@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { generateId } from '@/utils/idGenerator'
+import { MEMBER_STATUS } from '@/constants/curriculum'
 
 export const useClubStore = defineStore('club', () => {
     // Mock Data
@@ -22,20 +24,19 @@ export const useClubStore = defineStore('club', () => {
     }
 
     const addMember = (memberData) => {
-        // In a real app, this would be an API call
         const newMember = {
-            id: Math.random().toString(36).substr(2, 9),
+            id: generateId(),
             firstName: memberData.firstName,
             lastName: memberData.lastName,
             dob: memberData.dob,
             gender: memberData.gender,
             class: memberData.class,
             guardian: memberData.guardian,
-            status: memberData.status || 'Active', // Default to Active
+            status: memberData.status || MEMBER_STATUS.ACTIVE,
             joinedDate: new Date().toISOString(),
-            ...memberData // fallback for any extra fields
+            ...memberData
         }
-        members.value.unshift(newMember) // Add to top of list
+        members.value.unshift(newMember)
     }
 
     return {

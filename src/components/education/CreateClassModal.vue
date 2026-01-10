@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, computed } from 'vue'
-import { useCurriculumStore } from '@/stores/curriculum'
+import { useClassStore } from '@/stores/class'
 import { X, BookOpen, Award, User, Calendar } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
@@ -9,7 +9,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
-const store = useCurriculumStore()
+const store = useClassStore()
 
 const form = reactive({
     type: 'Progressive',

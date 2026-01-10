@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useCurriculumStore } from '@/stores/curriculum'
+import { useEventStore } from '@/stores/event'
 import { 
     ArrowLeft, Calendar, MapPin, Edit, FileText, Image, 
     UploadCloud, CheckCircle, Users 
@@ -11,7 +11,7 @@ import CreateEventModal from '@/components/education/CreateEventModal.vue'
 
 const router = useRouter()
 const route = useRoute()
-const store = useCurriculumStore()
+const store = useEventStore()
 
 const eventId = route.params.id
 const event = computed(() => store.events.find(e => e.id === eventId))

@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useCurriculumStore } from '@/stores/curriculum'
+import { useEventStore } from '@/stores/event'
 import { Plus, Search, MapPin } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import CreateEventModal from '@/components/education/CreateEventModal.vue'
 
 const router = useRouter()
-const store = useCurriculumStore()
+const store = useEventStore()
 
 const isCreateModalOpen = ref(false)
 const searchQuery = ref('')

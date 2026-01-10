@@ -3,6 +3,7 @@ import { reactive, computed } from 'vue'
 import { useClubStore } from '@/stores/club'
 import { X, Upload, Calendar, User, Users, Phone, Shield } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { PROGRESSIVE_CLASSES } from '@/constants/curriculum'
 
 const props = defineProps({
   isOpen: Boolean
@@ -23,7 +24,7 @@ const form = reactive({
   status: true // true = Active, false = Inactive
 })
 
-const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide']
+const classes = PROGRESSIVE_CLASSES
 
 const isFormValid = computed(() => {
   return form.firstName && form.lastName && form.dob && form.guardian

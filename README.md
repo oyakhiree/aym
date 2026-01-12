@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Development-blue)
 ![Version](https://img.shields.io/badge/Version-1.0.0-green)
-![Tech](https://img.shields.io/badge/Stack-Vue3%20%7C%20Vite%20%7C%20Tailwind-blueviolet)
+![Tech](https://img.shields.io/badge/Stack-Vue3%20%7C%20TypeScript%20%7C%20Vite%20%7C%20Tailwind-blueviolet)
 
 > A modern, mobile-first web platform for managing the administrative and educational activities of the Adventist Youth Ministry (Pathfinder and Adventurer Clubs) within the Lagos Mainland Conference.
 
@@ -25,11 +25,13 @@ AYM Connect digitizes the manual reporting workflows of Youth Clubs. It serves a
 ## 🛠️ Technology Stack
 
 - **Frontend Framework**: [Vue.js 3](https://vuejs.org/) (Composition API)
+- **Language**: [TypeScript](https://www.typescriptlang.org/) & JavaScript (Incremental Migration)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS v3](https://tailwindcss.com/)
+  - **Typography**: [Inter](https://fonts.google.com/specimen/Inter) (Google Fonts)
 - **State Management**: [Pinia](https://pinia.vuejs.org/)
 - **Routing**: [Vue Router 4](https://router.vuejs.org/)
-- **Icons**: [Lucide Vue](https://lucide.dev/)
+- **Icons**: [Lucide Vue Next](https://lucide.dev/)
 
 ## 🚀 Getting Started
 
@@ -43,7 +45,7 @@ AYM Connect digitizes the manual reporting workflows of Youth Clubs. It serves a
 1. Clone the repository:
    ```bash
    git clone <repository_url>
-   cd "AYM Connect/frontend"
+   cd "aym"
    ```
 
 2. Install dependencies:
@@ -70,22 +72,27 @@ Create an optimized production build:
 npm run build
 ```
 
+This will run `vue-tsc` for type check and `vite build`.
+
 ## 📂 Project Structure
 
 ```
 src/
-├── assets/          # Static assets and global styles
+├── assets/          # Static assets and global styles (Inter font config, tailwind)
 ├── components/      # Vue Components
+│   ├── club/        # Club-specific business components (Modals, Lists)
+│   ├── dashboard/   # Dashboard specific widgets (Metrics, Quick Actions)
+│   ├── education/   # Education tracking components (Tabs, Modals)
 │   └── ui/          # Reusable atomic UI elements (Buttons, Inputs, Cards)
 ├── layouts/         # App Layouts (AuthLayout, DashboardLayout)
-├── router/          # Route definitions and navigation guards
-├── stores/          # Pinia State Stores (Auth, Club, Education)
+├── router/          # Route definitions
+├── stores/          # Pinia State Stores (Auth, Club, Class, Event)
 ├── views/           # Page Views
 │   ├── auth/        # Authentication pages
 │   ├── club/        # Club management pages
 │   └── education/   # Education/Class pages
 ├── App.vue          # Root component
-└── main.js          # Entry point
+└── main.ts          # Entry point
 ```
 
 ## 🧪 Quality Control
@@ -93,6 +100,11 @@ src/
 Run the linter to ensure code quality:
 ```bash
 npm run lint
+```
+
+Run type checking:
+```bash
+npm run type-check
 ```
 
 ## 🤝 Contributing

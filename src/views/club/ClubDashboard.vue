@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useClubStore } from '@/stores/club'
 import { useEventStore } from '@/stores/event'
@@ -45,25 +45,26 @@ const membershipPulseOptions = {
     chart: { type: 'donut', sparkline: { enabled: true } },
     colors: ['#4f46e5', '#e5e7eb'],
     labels: ['Active', 'Inactive'],
-    plotOptions: { pie: { donut: { size: '65%' } } },
-    tooltip: { enabled: true },
-    stroke: { show: false }
+    plotOptions: { pie: { donut: { size: '75%', labels: { show: false } } } },
+    tooltip: { enabled: false },
+    stroke: { width: 0 }
 }
 
 const classProgressionSeries = [{ name: 'Progress', data: [80, 45, 60, 90, 30] }]
 const classProgressionOptions = {
     chart: { type: 'bar', sparkline: { enabled: true } },
     colors: ['#10b981'],
-    plotOptions: { bar: { borderRadius: 4, columnWidth: '60%' } },
+    plotOptions: { bar: { borderRadius: 3, columnWidth: '65%' } },
     xaxis: { categories: ['Friend', 'Comp', 'Expl', 'Rang', 'Voy'] },
-    tooltip: { fixed: { enabled: false }, x: { show: true }, y: { title: { formatter: () => '' } } }
+    tooltip: { fixed: { enabled: false }, x: { show: false }, y: { title: { formatter: () => '' } }, marker: { show: false } }
 }
 
 const examReadinessSeries = [75]
 const examReadinessOptions = {
     chart: { type: 'radialBar', sparkline: { enabled: true } },
     colors: ['#f59e0b'],
-    plotOptions: { radialBar: { hollow: { size: '60%' }, track: { background: '#fef3c7' }, dataLabels: { show: false } } }
+    plotOptions: { radialBar: { hollow: { size: '65%' }, track: { background: '#fef3c7', strokeWidth: '100%' }, dataLabels: { show: false } } },
+    stroke: { lineCap: 'round' }
 }
 
 // Mock Data for Exam Widget
@@ -71,25 +72,31 @@ const upcomingExams = [
     { id: 1, title: 'Guide Class Assessment', date: 'Oct 24, 2025', status: 'Ready' },
     { id: 2, title: 'Standard Usage Review', date: 'Nov 02, 2025', status: 'Pending' }
 ]
-
 </script>
 
 <template>
-  <div class="space-y-8 animate-in fade-in duration-500">
+  <div class="space-y-6 animate-in fade-in duration-700">
     <!-- Welcome Section -->
-    <div>
-      <h1 class="text-2xl font-bold text-secondary-900 tracking-tight">
-        Welcome back, {{ authStore.user?.name || 'Director' }} 👋
-      </h1>
-      <p class="text-secondary-500 mt-1">
-        Here's your club's "Mission Control" overview for today.
-      </p>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-secondary-900 tracking-tight leading-tight">
+          Welcome back, {{ authStore.user?.name || 'Director' }}
+        </h1>
+        <p class="text-secondary-500 font-medium mt-1 text-lg">
+          Here's your club's overview for today.
+        </p>
+      </div>
+      <div class="hidden md:block">
+          <span class="text-xs font-semibold text-secondary-400 uppercase tracking-wider bg-white px-3 py-1 rounded-full border border-secondary-100 shadow-sm">
+            Last updated: Just now
+          </span>
+      </div>
     </div>
 
     <!-- Key Metrics Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
       <MetricCard 
-        title="Membership Pulse" 
+        title="Active Membership" 
         :value="clubStore.members.length" 
         subtitle="Total Members"
         :chart-series="membershipPulseSeries"
@@ -130,10 +137,13 @@ const upcomingExams = [
     </div>
 
     <!-- Quick Actions -->
-    <QuickActions @action="handleAction" />
+    <div>
+        <h2 class="text-lg font-bold text-secondary-900 mb-4 px-1">Quick Actions</h2>
+        <QuickActions @action="handleAction" />
+    </div>
 
     <!-- Feature Widgets -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
       <!-- Member Management (Roster) - Takes 2 cols -->
       <div class="lg:col-span-2 h-[500px]">
         <MemberRosterWidget 

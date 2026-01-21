@@ -240,14 +240,14 @@ const closeDropdown = () => {
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-4 left-4 right-4 bg-white/90 backdrop-blur-xl border border-white/20 shadow-xl shadow-secondary-900/5 rounded-2xl flex justify-between px-1 py-1 z-40 ring-1 ring-black/5">
+    <nav class="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-3xl flex justify-between items-center p-2 gap-2 z-40 ring-1 ring-black/5">
       <router-link
         v-for="item in navigation"
         :key="item.name"
         :to="item.href"
-        class="flex flex-col items-center justify-center flex-1 py-2 rounded-xl transition-all duration-300 relative overflow-hidden group"
+        class="flex flex-col items-center justify-center flex-1 py-3 rounded-2xl transition-all duration-300 relative overflow-hidden group"
         :class="[
-          route.path === item.href ? 'text-primary-700 bg-primary-50/50' : 'text-secondary-400 hover:text-secondary-600'
+          route.path === item.href ? 'text-primary-600 bg-primary-50/80' : 'text-secondary-400 hover:text-secondary-600 active:bg-secondary-50'
         ]"
       >
         <component

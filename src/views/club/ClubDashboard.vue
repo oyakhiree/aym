@@ -77,12 +77,12 @@ const upcomingExams = [
 <template>
   <div class="space-y-6 animate-in fade-in duration-700">
     <!-- Welcome Section -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 md:px-0">
       <div>
-        <h1 class="text-3xl font-semibold text-secondary-900 tracking-tight leading-tight">
+        <h1 class="text-2xl md:text-3xl font-semibold text-secondary-900 tracking-tight leading-tight">
           Welcome back, {{ authStore.user?.name || 'Director' }}
         </h1>
-        <p class="text-secondary-500 font-medium mt-1 text-lg">
+        <p class="text-secondary-500 font-medium mt-1 text-base md:text-lg">
           Here's your club's overview for today.
         </p>
       </div>
@@ -93,47 +93,59 @@ const upcomingExams = [
       </div>
     </div>
 
-    <!-- Key Metrics Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-      <MetricCard 
-        title="Active Membership" 
-        :value="clubStore.members.length" 
-        subtitle="Total Members"
-        :chart-series="membershipPulseSeries"
-        :chart-options="membershipPulseOptions"
-        type="donut"
-        color="indigo"
-        :trend="12"
-      />
-      <MetricCard 
-        title="Class Progression" 
-        value="68%" 
-        subtitle="On Track"
-        :chart-series="classProgressionSeries"
-        :chart-options="classProgressionOptions"
-        type="bar"
-        color="emerald"
-        :trend="5"
-      />
-      <MetricCard 
-        title="Honours Earned" 
-        value="142" 
-        subtitle="This Quarter"
-        color="purple"
-        :trend="18"
-      >
-        <!-- Custom content or icon fallback could go here if no chart -->
-      </MetricCard>
-      <MetricCard 
-        title="Exam Readiness" 
-        value="8" 
-        subtitle="Eligible Candidates"
-        :chart-series="examReadinessSeries"
-        :chart-options="examReadinessOptions"
-        type="radialBar"
-        color="amber"
-        :trend="-2"
-      />
+    <!-- Key Metrics Grid (Scrollable on Mobile, Grid on Desktop) -->
+    <div class="flex md:grid md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5 overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <MetricCard 
+          title="Active Membership" 
+          :value="clubStore.members.length" 
+          subtitle="Total Members"
+          :chart-series="membershipPulseSeries"
+          :chart-options="membershipPulseOptions"
+          type="donut"
+          color="indigo"
+          :trend="12"
+          class="h-full"
+        />
+      </div>
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <MetricCard 
+          title="Class Progression" 
+          value="68%" 
+          subtitle="On Track"
+          :chart-series="classProgressionSeries"
+          :chart-options="classProgressionOptions"
+          type="bar"
+          color="emerald"
+          :trend="5"
+          class="h-full"
+        />
+      </div>
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <MetricCard 
+          title="Honours Earned" 
+          value="142" 
+          subtitle="This Quarter"
+          color="purple"
+          :trend="18"
+          class="h-full"
+        >
+          <!-- Custom content or icon fallback could go here if no chart -->
+        </MetricCard>
+      </div>
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <MetricCard 
+          title="Exam Readiness" 
+          value="8" 
+          subtitle="Eligible Candidates"
+          :chart-series="examReadinessSeries"
+          :chart-options="examReadinessOptions"
+          type="radialBar"
+          color="amber"
+          :trend="-2"
+          class="h-full"
+        />
+      </div>
     </div>
 
     <!-- Quick Actions -->

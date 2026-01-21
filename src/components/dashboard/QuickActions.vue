@@ -50,11 +50,11 @@ const colorClasses = {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
     <button 
       v-for="action in actions" 
       :key="action.id"
-      class="group relative flex flex-col p-5 bg-white border border-secondary-100/60 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      class="group relative flex flex-col p-5 bg-white border border-secondary-100/60 rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg [&:nth-child(odd):last-child]:col-span-2 sm:[&:nth-child(odd):last-child]:col-auto"
       :class="[colorClasses[action.color].border, colorClasses[action.color].shadow]"
       @click="$emit('action', action.id)"
     >

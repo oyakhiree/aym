@@ -79,7 +79,7 @@ const upcomingExams = [
     <!-- Welcome Section -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold text-secondary-900 tracking-tight leading-tight">
+        <h1 class="text-3xl font-semibold text-secondary-900 tracking-tight leading-tight">
           Welcome back, {{ authStore.user?.name || 'Director' }}
         </h1>
         <p class="text-secondary-500 font-medium mt-1 text-lg">
@@ -138,7 +138,7 @@ const upcomingExams = [
 
     <!-- Quick Actions -->
     <div>
-        <h2 class="text-lg font-bold text-secondary-900 mb-4 px-1">Quick Actions</h2>
+        <h2 class="text-lg font-semibold text-secondary-900 mb-4 px-1">Quick Actions</h2>
         <QuickActions @action="handleAction" />
     </div>
 

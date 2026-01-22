@@ -59,18 +59,18 @@ const colorClasses = {
       @click="$emit('action', action.id)"
     >
       <div class="flex justify-between items-start w-full mb-3">
-          <div 
-            class="p-2.5 rounded-xl transition-all duration-300" 
-            :class="[colorClasses[action.color].bg, colorClasses[action.color].text]"
-          >
-            <component
-              :is="action.icon"
-              class="w-5 h-5"
-            />
-          </div>
-          <div class="p-1 rounded-full bg-secondary-50 text-secondary-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -mr-1 -mt-1">
-             <ArrowRight class="w-3.5 h-3.5" />
-          </div>
+        <div 
+          class="p-2.5 rounded-xl transition-all duration-300" 
+          :class="[colorClasses[action.color].bg, colorClasses[action.color].text]"
+        >
+          <component
+            :is="action.icon"
+            class="w-5 h-5"
+          />
+        </div>
+        <div class="p-1 rounded-full bg-secondary-50 text-secondary-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -mr-1 -mt-1">
+          <ArrowRight class="w-3.5 h-3.5" />
+        </div>
       </div>
       
       <div class="text-left">

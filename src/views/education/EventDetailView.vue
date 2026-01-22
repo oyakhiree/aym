@@ -77,41 +77,41 @@ const goBack = () => router.push('/events')
       >
       <!-- Gradient Overlay -->
       <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-10 flex flex-col justify-between">
-         <!-- Top Action Bar -->
+        <!-- Top Action Bar -->
         <div class="flex justify-between items-start">
-             <button
-              class="p-2.5 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-all border border-white/10 group/btn"
-              @click="goBack"
-            >
-              <ArrowLeft class="w-5 h-5 group-hover/btn:-translate-x-0.5 transition-transform" />
-            </button>
+          <button
+            class="p-2.5 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-all border border-white/10 group/btn"
+            @click="goBack"
+          >
+            <ArrowLeft class="w-5 h-5 group-hover/btn:-translate-x-0.5 transition-transform" />
+          </button>
 
-            <BaseButton
-                variant="primary"
-                class="hidden sm:flex shadow-xl shadow-black/20 border-0 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white"
-                @click="isEditModalOpen = true"
-            >
-                <Edit class="w-4 h-4 mr-2" />
-                Edit Event
-            </BaseButton>
+          <BaseButton
+            variant="primary"
+            class="hidden sm:flex shadow-xl shadow-black/20 border-0 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white"
+            @click="isEditModalOpen = true"
+          >
+            <Edit class="w-4 h-4 mr-2" />
+            Edit Event
+          </BaseButton>
         </div>
 
         <div class="space-y-4 max-w-3xl">
-            <!-- Badges -->
-            <div class="flex flex-wrap items-center gap-3">
-                 <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
-                  <Calendar class="w-3.5 h-3.5" />
-                  {{ new Date(event.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-                </div>
-                 <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
-                  <MapPin class="w-3.5 h-3.5" />
-                  {{ event.location }}
-                </div>
+          <!-- Badges -->
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
+              <Calendar class="w-3.5 h-3.5" />
+              {{ new Date(event.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
             </div>
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
+              <MapPin class="w-3.5 h-3.5" />
+              {{ event.location }}
+            </div>
+          </div>
 
-            <h1 class="text-3xl md:text-5xl font-bold leading-tight text-white tracking-tight">
-              {{ event.title }}
-            </h1>
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight text-white tracking-tight">
+            {{ event.title }}
+          </h1>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ const goBack = () => router.push('/events')
           </h3>
           <div class="prose prose-sm md:prose-base prose-headings:font-bold prose-p:text-secondary-600 prose-a:text-primary-600 max-w-none">
             <p class="whitespace-pre-line leading-relaxed text-secondary-600">
-                {{ event.description }}
+              {{ event.description }}
             </p>
           </div>
         </section>
@@ -167,20 +167,20 @@ const goBack = () => router.push('/events')
               <div class="space-y-2">
                 <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide">Actual Attendance</label>
                 <div class="relative">
-                     <Users class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-400" />
-                    <input
-                      v-model="reportForm.attendance"
-                      type="number"
-                      class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 bg-secondary-50/30"
-                      placeholder="0"
-                    >
+                  <Users class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                  <input
+                    v-model="reportForm.attendance"
+                    type="number"
+                    class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 bg-secondary-50/30"
+                    placeholder="0"
+                  >
                 </div>
               </div>
               <div class="space-y-2">
                 <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide">Upload Photos</label>
                 <div class="flex items-center gap-2 w-full p-2.5 border border-dashed border-secondary-300 rounded-xl bg-secondary-50 hover:bg-secondary-100 transition-colors cursor-pointer relative group">
                   <div class="p-2 bg-white rounded-lg shadow-sm group-hover:scale-105 transition-transform">
-                      <UploadCloud class="w-5 h-5 text-primary-500" />
+                    <UploadCloud class="w-5 h-5 text-primary-500" />
                   </div>
                   <span class="text-sm text-secondary-500 font-medium">Select images...</span>
                   <input
@@ -237,7 +237,7 @@ const goBack = () => router.push('/events')
             </div>
                      
             <div class="prose prose-sm max-w-none text-secondary-600 bg-secondary-50 p-5 rounded-2xl border border-secondary-100/50">
-                <p>{{ event.report.summary }}</p>
+              <p>{{ event.report.summary }}</p>
             </div>
           </div>
         </section>

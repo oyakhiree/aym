@@ -52,50 +52,50 @@ const handleToggle = (id) => {
     <!-- Member List -->
     <div class="flex-1 overflow-y-auto">
       <div class="px-3 pb-2 space-y-1">
-          <template v-if="filteredMembers.length > 0">
-            <div 
-              v-for="member in filteredMembers" 
-              :key="member.id" 
-              class="p-3 hover:bg-secondary-50/80 rounded-xl transition-all duration-200 flex items-center justify-between group cursor-pointer border border-transparent hover:border-secondary-100/50"
-            >
-              <div class="flex items-center space-x-3.5 min-w-0">
-                <div class="relative">
-                     <div class="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-600 font-bold text-xs ring-2 ring-white shadow-sm">
-                      {{ member.firstName[0] }}{{ member.lastName[0] }}
-                    </div>
-                     <div 
-                        class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white"
-                        :class="member.status === 'Active' ? 'bg-emerald-500' : 'bg-secondary-400'"
-                     />
-                </div>
-               
-                <div class="min-w-0">
-                  <p class="text-sm font-semibold text-secondary-900 truncate group-hover:text-primary-700 transition-colors">
-                    {{ member.firstName }} {{ member.lastName }}
-                  </p>
-                  <p class="text-[11px] font-medium text-secondary-500 uppercase tracking-wide">
-                    {{ member.class }}
-                  </p>
-                </div>
-              </div>
-                        
-              <!-- Actions -->
-              <button class="p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-200/50 rounded-lg opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100">
-                  <MoreHorizontal class="w-4 h-4" />
-              </button>
-            </div>
-          </template>
-          <div
-            v-else
-            class="h-40 flex flex-col items-center justify-center text-center"
+        <template v-if="filteredMembers.length > 0">
+          <div 
+            v-for="member in filteredMembers" 
+            :key="member.id" 
+            class="p-3 hover:bg-secondary-50/80 rounded-xl transition-all duration-200 flex items-center justify-between group cursor-pointer border border-transparent hover:border-secondary-100/50"
           >
-            <div class="w-10 h-10 bg-secondary-50 rounded-full flex items-center justify-center mb-3">
-              <Search class="w-4 h-4 text-secondary-400" />
+            <div class="flex items-center space-x-3.5 min-w-0">
+              <div class="relative">
+                <div class="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-600 font-bold text-xs ring-2 ring-white shadow-sm">
+                  {{ member.firstName[0] }}{{ member.lastName[0] }}
+                </div>
+                <div 
+                  class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white"
+                  :class="member.status === 'Active' ? 'bg-emerald-500' : 'bg-secondary-400'"
+                />
+              </div>
+               
+              <div class="min-w-0">
+                <p class="text-sm font-semibold text-secondary-900 truncate group-hover:text-primary-700 transition-colors">
+                  {{ member.firstName }} {{ member.lastName }}
+                </p>
+                <p class="text-[11px] font-medium text-secondary-500 uppercase tracking-wide">
+                  {{ member.class }}
+                </p>
+              </div>
             </div>
-            <p class="text-secondary-500 text-xs font-medium">
-              No members found.
-            </p>
+                        
+            <!-- Actions -->
+            <button class="p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-200/50 rounded-lg opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100">
+              <MoreHorizontal class="w-4 h-4" />
+            </button>
           </div>
+        </template>
+        <div
+          v-else
+          class="h-40 flex flex-col items-center justify-center text-center"
+        >
+          <div class="w-10 h-10 bg-secondary-50 rounded-full flex items-center justify-center mb-3">
+            <Search class="w-4 h-4 text-secondary-400" />
+          </div>
+          <p class="text-secondary-500 text-xs font-medium">
+            No members found.
+          </p>
+        </div>
       </div>
     </div>
         

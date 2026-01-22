@@ -52,28 +52,28 @@ const colorClasses = {
     <div class="relative z-10 flex justify-between items-start h-full">
       <div class="flex flex-col justify-between h-full flex-1 min-w-0">
         <div>
-           <h3 class="text-xs font-semibold text-secondary-500 uppercase tracking-wider mb-2">
+          <h3 class="text-xs font-semibold text-secondary-500 uppercase tracking-wider mb-2">
             {{ title }}
-           </h3>
-           <div class="flex items-baseline gap-2.5 flex-wrap">
-             <span class="text-3xl font-semibold text-secondary-900 tracking-tight">{{ value }}</span>
-           </div>
+          </h3>
+          <div class="flex items-baseline gap-2.5 flex-wrap">
+            <span class="text-3xl font-semibold text-secondary-900 tracking-tight">{{ value }}</span>
+          </div>
         </div>
         
         <div class="flex items-center gap-3 mt-4">
-             <span 
-              v-if="trend" 
-              class="text-[10px] font-bold px-2 py-1 rounded-lg inline-flex items-center gap-1" 
-              :class="[trendColor, trendBg]"
-            >
-              {{ trendIcon }} {{ Math.abs(trend) }}%
-            </span>
-             <p
-              v-if="subtitle"
-              class="text-xs font-medium text-secondary-400 truncate"
-            >
-              {{ subtitle }}
-            </p>
+          <span 
+            v-if="trend" 
+            class="text-[10px] font-bold px-2 py-1 rounded-lg inline-flex items-center gap-1" 
+            :class="[trendColor, trendBg]"
+          >
+            {{ trendIcon }} {{ Math.abs(trend) }}%
+          </span>
+          <p
+            v-if="subtitle"
+            class="text-xs font-medium text-secondary-400 truncate"
+          >
+            {{ subtitle }}
+          </p>
         </div>
       </div>
         

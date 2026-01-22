@@ -79,17 +79,26 @@ const progressColor = computed(() => {
       <!-- Footer Stats -->
       <div class="pt-4 border-t border-secondary-100/60 flex items-center justify-between">
         <div class="flex items-center gap-4">
-           <!-- Students -->
-           <div class="flex items-center gap-1.5" title="Enrolled Students">
-             <Users class="w-4 h-4 text-secondary-400" />
-             <span class="text-sm font-bold text-secondary-700">{{ classData.students }}</span>
-           </div>
+          <!-- Students -->
+          <div
+            class="flex items-center gap-1.5"
+            title="Enrolled Students"
+          >
+            <Users class="w-4 h-4 text-secondary-400" />
+            <span class="text-sm font-bold text-secondary-700">{{ classData.students }}</span>
+          </div>
 
-           <!-- Readiness -->
-           <div class="flex items-center gap-1.5" title="Exam Readiness">
-             <div class="w-2 h-2 rounded-full" :class="progressColor" />
-             <span class="text-sm font-bold text-secondary-700">{{ classData.readiness }}%</span>
-           </div>
+          <!-- Readiness -->
+          <div
+            class="flex items-center gap-1.5"
+            title="Exam Readiness"
+          >
+            <div
+              class="w-2 h-2 rounded-full"
+              :class="progressColor"
+            />
+            <span class="text-sm font-bold text-secondary-700">{{ classData.readiness }}%</span>
+          </div>
         </div>
 
         <button class="w-8 h-8 flex items-center justify-center rounded-full bg-secondary-50 text-secondary-400 group-hover:bg-primary-600 group-hover:text-white transition-all duration-300">

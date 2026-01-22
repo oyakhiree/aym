@@ -45,7 +45,11 @@ const closeDropdown = () => {
         <div class="flex flex-col px-6 py-8">
           <div class="flex items-center space-x-3 mb-8">
             <div class="h-10 w-10 overflow-hidden rounded-xl shadow-sm border border-secondary-100/50">
-              <img src="/aym logo.png" alt="AYM Logo" class="h-full w-full object-contain" />
+              <img
+                src="/aym logo.png"
+                alt="AYM Logo"
+                class="h-full w-full object-contain"
+              >
             </div>
             <span class="text-xl font-semibold tracking-tight text-secondary-900">Royal Diadem</span>
           </div>
@@ -60,8 +64,8 @@ const closeDropdown = () => {
               @click="toggleContext"
             >
               <div class="flex flex-col items-start">
-                 <span class="text-xs font-medium text-secondary-400 uppercase tracking-wider mb-0.5">Club Context</span>
-                 <span class="text-sm font-medium text-secondary-900 group-hover:text-primary-600 transition-colors">{{ currentContext }} Club</span>
+                <span class="text-xs font-medium text-secondary-400 uppercase tracking-wider mb-0.5">Club Context</span>
+                <span class="text-sm font-medium text-secondary-900 group-hover:text-primary-600 transition-colors">{{ currentContext }} Club</span>
               </div>
               <ChevronDown 
                 class="w-4 h-4 text-secondary-400 transition-transform duration-200" 
@@ -136,31 +140,31 @@ const closeDropdown = () => {
         <!-- User Profile & Notifications -->
         <div class="flex-shrink-0 p-6">
           <div class="bg-secondary-50/50 rounded-2xl p-1 border border-secondary-100/50">
-             <div class="flex items-center p-3">
-                <div class="relative">
-                     <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-primary-100 to-indigo-100 flex items-center justify-center text-primary-700 font-bold text-sm flex-shrink-0 shadow-inner">
-                      JD
-                    </div>
-                    <span class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+            <div class="flex items-center p-3">
+              <div class="relative">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-primary-100 to-indigo-100 flex items-center justify-center text-primary-700 font-bold text-sm flex-shrink-0 shadow-inner">
+                  JD
                 </div>
+                <span class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+              </div>
                 
-                <div class="ml-3 flex-1 min-w-0">
-                  <p class="text-sm font-semibold text-secondary-900 truncate">
-                    Jane Doe
-                  </p>
-                  <p class="text-[11px] font-medium text-secondary-500 truncate uppercase tracking-tight">
-                    {{ currentContext }} Director
-                  </p>
-                </div>
-             </div>
-             <div class="grid grid-cols-2 gap-1 mt-1">
-                 <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-secondary-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
-                   <Bell class="w-4 h-4" />
-                 </button>
-                 <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-red-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
-                   <LogOut class="w-4 h-4" />
-                 </button>
-             </div>
+              <div class="ml-3 flex-1 min-w-0">
+                <p class="text-sm font-semibold text-secondary-900 truncate">
+                  Jane Doe
+                </p>
+                <p class="text-[11px] font-medium text-secondary-500 truncate uppercase tracking-tight">
+                  {{ currentContext }} Director
+                </p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-1 mt-1">
+              <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-secondary-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
+                <Bell class="w-4 h-4" />
+              </button>
+              <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-red-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
+                <LogOut class="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +174,11 @@ const closeDropdown = () => {
     <header class="md:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-secondary-100/60 h-16 flex items-center justify-between px-4 transition-all duration-300">
       <div class="flex items-center space-x-3">
         <div class="h-8 w-8 overflow-hidden rounded-lg shadow-sm border border-secondary-100/50">
-          <img src="/aym logo.png" alt="AYM Logo" class="h-full w-full object-contain" />
+          <img
+            src="/aym logo.png"
+            alt="AYM Logo"
+            class="h-full w-full object-contain"
+          >
         </div>
         <span class="font-semibold text-lg text-secondary-900 tracking-tight">Royal Diadem</span>
       </div>
@@ -223,8 +231,8 @@ const closeDropdown = () => {
           :class="currentContext === 'Adventurer' ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50'" 
           @click="setContext('Adventurer')"
         >
-           <span class="font-medium">Adventurer Club</span>
-           <div
+          <span class="font-medium">Adventurer Club</span>
+          <div
             v-if="currentContext === 'Adventurer'"
             class="w-2 h-2 rounded-full bg-primary-600 shadow-sm"
           />

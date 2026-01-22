@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useClubStore } from '@/stores/club'
+import { useSearchable } from '@/composables/useSearchable'
+import { useDisclosure } from '@/composables/useDisclosure'
 import { Plus, Search, Filter, Users, UserX } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import AddMemberModal from '@/components/club/AddMemberModal.vue'
@@ -9,21 +11,26 @@ import MemberCardList from '@/components/club/MemberCardList.vue'
 import MemberTable from '@/components/club/MemberTable.vue'
 
 const clubStore = useClubStore()
-// Force HMR update
-const searchQuery = ref('')
+
+// State
 const statusFilter = ref('all') // all, active, inactive
-const isAddModalOpen = ref(false)
-const isViewModalOpen = ref(false)
 const selectedMember = ref(null)
 
+// Composables
+const { isOpen: isAddModalOpen, open: openAddModal, close: closeAddModal } = useDisclosure()
+const { isOpen: isViewModalOpen, open: openViewModal, close: closeViewModal } = useDisclosure()
+
+const { searchQuery, filteredItems: searchedMembers } = useSearchable(
+    computed(() => clubStore.members), 
+    [ 'firstName', 'lastName', (item) => `${item.firstName} ${item.lastName}` ]
+)
+
 const filteredMembers = computed(() => {
-    return clubStore.members.filter(member => {
-        const fullName = `${member.firstName} ${member.lastName}`.toLowerCase()
-        const matchesSearch = fullName.includes(searchQuery.value.toLowerCase())
+    return searchedMembers.value.filter(member => {
         const matchesStatus = statusFilter.value === 'all' || 
             (statusFilter.value === 'active' && member.status === 'Active') ||
             (statusFilter.value === 'inactive' && member.status === 'Inactive')
-        return matchesSearch && matchesStatus
+        return matchesStatus
     })
 })
 
@@ -41,7 +48,7 @@ const goToMember = (id) => {
     const member = clubStore.members.find(m => m.id === id)
     if (member) {
         selectedMember.value = member
-        isViewModalOpen.value = true
+        openViewModal()
     }
 }
 </script>
@@ -60,7 +67,7 @@ const goToMember = (id) => {
       </div>
       <BaseButton 
         class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
-        @click="isAddModalOpen = true"
+        @click="openAddModal"
       >
         <Plus class="w-5 h-5 mr-2" />
         Add Member
@@ -196,7 +203,7 @@ const goToMember = (id) => {
       <BaseButton
         v-if="!searchQuery"
         variant="primary"
-        @click="isAddModalOpen = true"
+        @click="openAddModal"
       >
         <Plus class="w-5 h-5 mr-2" />
         Add First Member
@@ -231,12 +238,12 @@ const goToMember = (id) => {
 
     <AddMemberModal
       :is-open="isAddModalOpen"
-      @close="isAddModalOpen = false"
+      @close="closeAddModal"
     />
     <ViewMemberModal
       :is-open="isViewModalOpen"
       :member="selectedMember"
-      @close="isViewModalOpen = false"
+      @close="closeViewModal"
     />
   </div>
 </template>

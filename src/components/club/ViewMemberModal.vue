@@ -72,8 +72,8 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
                       {{ member.firstName[0] }}{{ member.lastName[0] }}
                     </div>
                     <span 
-                       class="absolute bottom-2 right-1 w-5 h-5 rounded-full border-[3px] border-white shadow-sm"
-                       :class="member.status === 'Active' ? 'bg-emerald-500' : 'bg-amber-400'"
+                      class="absolute bottom-2 right-1 w-5 h-5 rounded-full border-[3px] border-white shadow-sm"
+                      :class="member.status === 'Active' ? 'bg-emerald-500' : 'bg-amber-400'"
                     />
                   </div>
 
@@ -103,7 +103,7 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
                   <!-- Personal Info -->
                   <div class="col-span-2 sm:col-span-1 space-y-4">
                     <h4 class="text-xs font-bold text-secondary-400 uppercase tracking-wider flex items-center gap-2">
-                       Personal Details
+                      Personal Details
                     </h4>
                     
                     <div class="space-y-4">
@@ -112,18 +112,26 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
                           <User class="w-4 h-4" />
                         </div>
                         <div>
-                          <p class="text-xs text-secondary-500 font-medium">Gender</p>
-                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">{{ member.gender }}</p>
+                          <p class="text-xs text-secondary-500 font-medium">
+                            Gender
+                          </p>
+                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">
+                            {{ member.gender }}
+                          </p>
                         </div>
                       </div>
 
                       <div class="flex items-start gap-3 group">
-                         <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
+                        <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
                           <Calendar class="w-4 h-4" />
                         </div>
                         <div>
-                          <p class="text-xs text-secondary-500 font-medium">Date of Birth</p>
-                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">{{ member.dob }}</p>
+                          <p class="text-xs text-secondary-500 font-medium">
+                            Date of Birth
+                          </p>
+                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">
+                            {{ member.dob }}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -132,26 +140,32 @@ const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide'
                   <!-- Guardian Info -->
                   <div class="col-span-2 sm:col-span-1 space-y-4">
                     <h4 class="text-xs font-bold text-secondary-400 uppercase tracking-wider flex items-center gap-2">
-                       Guardian Info
+                      Guardian Info
                     </h4>
                     
                     <div class="space-y-4">
                       <div class="flex items-start gap-3 group">
-                         <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
+                        <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
                           <Shield class="w-4 h-4" />
                         </div>
                         <div>
-                          <p class="text-xs text-secondary-500 font-medium">Guardian Name</p>
-                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">{{ member.guardian }}</p>
+                          <p class="text-xs text-secondary-500 font-medium">
+                            Guardian Name
+                          </p>
+                          <p class="text-sm font-semibold text-secondary-900 mt-0.5">
+                            {{ member.guardian }}
+                          </p>
                         </div>
                       </div>
 
                       <div class="flex items-start gap-3 group">
-                         <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
+                        <div class="p-2 rounded-lg bg-secondary-50 text-secondary-400 group-hover:text-primary-600 group-hover:bg-primary-50 transition-colors">
                           <Phone class="w-4 h-4" />
                         </div>
                         <div>
-                          <p class="text-xs text-secondary-500 font-medium">Phone</p>
+                          <p class="text-xs text-secondary-500 font-medium">
+                            Phone
+                          </p>
                           <p class="text-sm font-semibold text-secondary-900 mt-0.5 text-primary-600 hover:underline cursor-pointer">
                             +234 812 345 6789
                           </p>

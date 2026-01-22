@@ -1,23 +1,29 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useClassStore } from '@/stores/class'
+import { useSearchable } from '@/composables/useSearchable'
+import { useDisclosure } from '@/composables/useDisclosure'
 import { Plus, Search, BookOpen, Award, GraduationCap } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import StatsOverview from '@/components/ui/StatsOverview.vue'
 import ClassCard from '@/components/education/ClassCard.vue'
 import CreateClassModal from '@/components/education/CreateClassModal.vue'
 
 const store = useClassStore()
+
+// State
 const activeTab = ref('Progressive') // Progressive, Honour
-const searchQuery = ref('')
-const isCreateModalOpen = ref(false)
+
+// Composables
+const { isOpen: isCreateModalOpen, open: openCreateModal, close: closeCreateModal } = useDisclosure()
+
+const { searchQuery, filteredItems: searchedClasses } = useSearchable(
+    computed(() => store.activeClasses),
+    [ 'name', 'instructor' ]
+)
 
 const filteredClasses = computed(() => {
-    return store.activeClasses.filter(c => {
-        const matchesTab = c.type === activeTab.value
-        const matchesSearch = c.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-                              c.instructor.toLowerCase().includes(searchQuery.value.toLowerCase())
-        return matchesTab && matchesSearch
-    })
+    return searchedClasses.value.filter(c => c.type === activeTab.value)
 })
 </script>
 
@@ -35,7 +41,7 @@ const filteredClasses = computed(() => {
       </div>
       <BaseButton 
         class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
-        @click="isCreateModalOpen = true"
+        @click="openCreateModal"
       >
         <Plus class="w-5 h-5 mr-2" />
         Start New Class
@@ -43,34 +49,12 @@ const filteredClasses = computed(() => {
     </div>
 
     <!-- Stats Overview (Snap Scroll) -->
-    <div class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto py-2 md:p-1 -mx-4 px-4 md:mx-0 snap-x snap-mandatory scrollbar-hide">
-      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
-        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
-          <BookOpen class="w-6 h-6" />
-        </div>
-        <div>
-          <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
-            Active Classes
-          </p>
-          <p class="text-2xl font-bold text-secondary-900">
-            {{ store.stats.activeCount }}
-          </p>
-        </div>
-      </div>
-      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
-        <div class="p-3 bg-purple-50 text-purple-600 rounded-xl">
-          <GraduationCap class="w-6 h-6" />
-        </div>
-        <div>
-          <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
-            Enrolled Students
-          </p>
-          <p class="text-2xl font-bold text-secondary-900">
-            {{ store.stats.totalStudents }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <StatsOverview 
+        :stats="[
+            { label: 'Active Classes', value: store.stats.activeCount, icon: BookOpen, color: 'blue' },
+            { label: 'Enrolled Students', value: store.stats.totalStudents, icon: GraduationCap, color: 'purple' }
+        ]"
+    />
 
     <!-- Tabs & Search -->
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-1 rounded-2xl border border-secondary-100 sm:p-2 sticky top-20 z-20 shadow-sm">
@@ -136,7 +120,7 @@ const filteredClasses = computed(() => {
       <BaseButton
         v-if="!searchQuery"
         class="mt-6"
-        @click="isCreateModalOpen = true"
+        @click="openCreateModal"
       >
         Start New Class
       </BaseButton>
@@ -144,7 +128,7 @@ const filteredClasses = computed(() => {
 
     <CreateClassModal
       :is-open="isCreateModalOpen"
-      @close="isCreateModalOpen = false"
+      @close="closeCreateModal"
     />
   </div>
 </template>

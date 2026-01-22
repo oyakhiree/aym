@@ -87,9 +87,9 @@ const upcomingExams = [
         </p>
       </div>
       <div class="hidden md:block">
-          <span class="text-xs font-semibold text-secondary-400 uppercase tracking-wider bg-white px-3 py-1 rounded-full border border-secondary-100 shadow-sm">
-            Last updated: Just now
-          </span>
+        <span class="text-xs font-semibold text-secondary-400 uppercase tracking-wider bg-white px-3 py-1 rounded-full border border-secondary-100 shadow-sm">
+          Last updated: Just now
+        </span>
       </div>
     </div>
 
@@ -150,8 +150,10 @@ const upcomingExams = [
 
     <!-- Quick Actions -->
     <div>
-        <h2 class="text-lg font-semibold text-secondary-900 mb-4 px-1">Quick Actions</h2>
-        <QuickActions @action="handleAction" />
+      <h2 class="text-lg font-semibold text-secondary-900 mb-4 px-1">
+        Quick Actions
+      </h2>
+      <QuickActions @action="handleAction" />
     </div>
 
     <!-- Feature Widgets -->

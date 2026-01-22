@@ -124,7 +124,12 @@ const handleSubmit = () => {
                         v-model="form.name"
                         class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-3 px-3 bg-secondary-50/30 appearance-none"
                       >
-                        <option value="" disabled>Choose a class...</option>
+                        <option
+                          value=""
+                          disabled
+                        >
+                          Choose a class...
+                        </option>
                         <option
                           v-for="item in availableClasses"
                           :key="item"
@@ -134,13 +139,13 @@ const handleSubmit = () => {
                         </option>
                       </select>
                       <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                         <BookOpen class="h-4 w-4 text-secondary-400" />
+                        <BookOpen class="h-4 w-4 text-secondary-400" />
                       </div>
                     </div>
                   </div>
 
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <div class="space-y-1.5">
+                    <div class="space-y-1.5">
                       <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Instructor <span class="text-red-500">*</span></label>
                       <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

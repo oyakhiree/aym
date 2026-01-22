@@ -17,21 +17,21 @@ const props = defineProps({
   <div class="bg-white rounded-2xl border border-secondary-100/60 shadow-sm shadow-secondary-200/40 flex flex-col h-full overflow-hidden">
     <!-- Header -->
     <div class="p-6 pb-4 flex items-center justify-between">
-        <div>
-          <h3 class="font-semibold text-secondary-900 text-base tracking-tight">
-            Exam Portal
-          </h3>
-          <p class="text-xs text-secondary-500 font-medium mt-1">
-            Assessment schedule
-          </p>
-        </div>
-         <span 
-          v-if="pendingExams > 0" 
-          class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100 ring-1 ring-amber-500/10"
-        >
-          <Clock class="w-2.5 h-2.5 mr-1" />
-          {{ pendingExams }} PENDING
-        </span>
+      <div>
+        <h3 class="font-semibold text-secondary-900 text-base tracking-tight">
+          Exam Portal
+        </h3>
+        <p class="text-xs text-secondary-500 font-medium mt-1">
+          Assessment schedule
+        </p>
+      </div>
+      <span 
+        v-if="pendingExams > 0" 
+        class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100 ring-1 ring-amber-500/10"
+      >
+        <Clock class="w-2.5 h-2.5 mr-1" />
+        {{ pendingExams }} PENDING
+      </span>
     </div>
         
     <!-- Empty State -->
@@ -60,48 +60,48 @@ const props = defineProps({
       class="flex-1 overflow-y-auto"
     >
       <div class="px-3 pb-2 space-y-2">
-           <div 
-            v-for="exam in upcomingExams" 
-            :key="exam.id" 
-            class="p-4 bg-secondary-50/50 hover:bg-indigo-50/30 rounded-xl transition-all border border-transparent hover:border-indigo-100 group"
-          >
-            <div class="flex justify-between items-start mb-2">
-              <span class="text-sm font-bold text-secondary-900 group-hover:text-indigo-900 transition-colors">{{ exam.title }}</span>
-              <span 
-                class="text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider"
-                :class="exam.status === 'Ready' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'"
-              >
-                {{ exam.status }}
-              </span>
-            </div>
-            <div class="flex items-center text-xs font-medium text-secondary-500 mb-3">
-              <Calendar class="w-3.5 h-3.5 mr-1.5 text-secondary-400" /> {{ exam.date }}
-            </div>
-            <div
-              v-if="exam.status === 'Ready'"
-              class="flex justify-end"
+        <div 
+          v-for="exam in upcomingExams" 
+          :key="exam.id" 
+          class="p-4 bg-secondary-50/50 hover:bg-indigo-50/30 rounded-xl transition-all border border-transparent hover:border-indigo-100 group"
+        >
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-sm font-bold text-secondary-900 group-hover:text-indigo-900 transition-colors">{{ exam.title }}</span>
+            <span 
+              class="text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider"
+              :class="exam.status === 'Ready' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'"
             >
-              <button class="text-[10px] bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-all font-bold shadow-sm shadow-indigo-200 hover:shadow-md hover:shadow-indigo-300 transform active:scale-95">
-                Generate Codes
-              </button>
-            </div>
+              {{ exam.status }}
+            </span>
           </div>
-            
-          <!-- Pending State -->
+          <div class="flex items-center text-xs font-medium text-secondary-500 mb-3">
+            <Calendar class="w-3.5 h-3.5 mr-1.5 text-secondary-400" /> {{ exam.date }}
+          </div>
           <div
-            v-if="pendingExams > 0 && upcomingExams.length === 0"
-            class="p-6 text-center"
+            v-if="exam.status === 'Ready'"
+            class="flex justify-end"
           >
-            <div class="inline-flex items-center justify-center p-3 bg-amber-50 rounded-2xl mb-3 ring-4 ring-amber-50/50">
-              <Clock class="w-5 h-5 text-amber-500" />
-            </div>
-            <h4 class="text-secondary-900 font-bold text-sm mb-1">
-              Awaiting Approval
-            </h4>
-            <p class="text-xs text-secondary-500 max-w-[200px] mx-auto">
-              Your exam request is pending Area Coordinator review.
-            </p>
+            <button class="text-[10px] bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 transition-all font-bold shadow-sm shadow-indigo-200 hover:shadow-md hover:shadow-indigo-300 transform active:scale-95">
+              Generate Codes
+            </button>
           </div>
+        </div>
+            
+        <!-- Pending State -->
+        <div
+          v-if="pendingExams > 0 && upcomingExams.length === 0"
+          class="p-6 text-center"
+        >
+          <div class="inline-flex items-center justify-center p-3 bg-amber-50 rounded-2xl mb-3 ring-4 ring-amber-50/50">
+            <Clock class="w-5 h-5 text-amber-500" />
+          </div>
+          <h4 class="text-secondary-900 font-bold text-sm mb-1">
+            Awaiting Approval
+          </h4>
+          <p class="text-xs text-secondary-500 max-w-[200px] mx-auto">
+            Your exam request is pending Area Coordinator review.
+          </p>
+        </div>
       </div>
     </div>
         

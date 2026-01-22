@@ -24,14 +24,14 @@ const emit = defineEmits(['view', 'toggleStatus'])
         <div class="flex items-center gap-4">
           <!-- Avatar container with status indicator ring -->
           <div class="relative">
-             <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-secondary-50 to-white flex items-center justify-center text-secondary-700 font-bold text-sm border border-white shadow-sm ring-1 ring-secondary-100/50">
-               {{ member.firstName[0] }}{{ member.lastName[0] }}
-             </div>
-             <!-- Status Dot -->
-             <span 
-               class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm"
-               :class="member.status === 'Active' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'"
-             />
+            <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-secondary-50 to-white flex items-center justify-center text-secondary-700 font-bold text-sm border border-white shadow-sm ring-1 ring-secondary-100/50">
+              {{ member.firstName[0] }}{{ member.lastName[0] }}
+            </div>
+            <!-- Status Dot -->
+            <span 
+              class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm"
+              :class="member.status === 'Active' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'"
+            />
           </div>
 
           <div class="flex flex-col">

@@ -9,7 +9,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['toggle-status'])
+defineEmits(['toggle-status'])
 
 const searchQuery = ref('')
 
@@ -20,10 +20,6 @@ const filteredMembers = computed(() => {
             )
             .slice(0, 5)
 })
-
-const handleToggle = (id) => {
-    emit('toggle-status', id)
-}
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup>
-import { Calendar, CheckCircle, Clock, FileText, ChevronRight } from 'lucide-vue-next'
+import { Calendar, CheckCircle, Clock, ChevronRight } from 'lucide-vue-next'
 
-const props = defineProps({
+defineProps({
     pendingExams: {
         type: Number,
         default: 0

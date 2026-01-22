@@ -1,7 +1,7 @@
 <script setup>
 import { UserPlus, Calendar, Award, ArrowRight } from 'lucide-vue-next'
 
-const emit = defineEmits(['action'])
+defineEmits(['action'])
 
 const actions = [
     { 

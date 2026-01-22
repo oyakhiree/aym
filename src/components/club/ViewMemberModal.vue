@@ -1,16 +1,12 @@
 <script setup>
-import { computed } from 'vue'
-import { X, Calendar, User, Users, Phone, Shield, FileText, Edit2, Mail, MapPin } from 'lucide-vue-next'
-import BaseButton from '@/components/ui/BaseButton.vue'
+import { X, Calendar, User, Phone, Shield, FileText, Edit2 } from 'lucide-vue-next'
 
-const props = defineProps({
+defineProps({
   isOpen: Boolean,
   member: Object
 })
 
-const emit = defineEmits(['close'])
-
-const classes = ['Friend', 'Companion', 'Explorer', 'Ranger', 'Voyager', 'Guide']
+defineEmits(['close'])
 
 </script>
 

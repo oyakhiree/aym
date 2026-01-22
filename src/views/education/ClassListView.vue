@@ -50,10 +50,10 @@ const filteredClasses = computed(() => {
 
     <!-- Stats Overview (Snap Scroll) -->
     <StatsOverview 
-        :stats="[
-            { label: 'Active Classes', value: store.stats.activeCount, icon: BookOpen, color: 'blue' },
-            { label: 'Enrolled Students', value: store.stats.totalStudents, icon: GraduationCap, color: 'purple' }
-        ]"
+      :stats="[
+        { label: 'Active Classes', value: store.stats.activeCount, icon: BookOpen, color: 'blue' },
+        { label: 'Enrolled Students', value: store.stats.totalStudents, icon: GraduationCap, color: 'purple' }
+      ]"
     />
 
     <!-- Tabs & Search -->

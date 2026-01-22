@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useEventStore } from '@/stores/event'
 import { useSearchable } from '@/composables/useSearchable'
@@ -52,15 +52,15 @@ const navigateToEvent = (id) => {
 
     <!-- Stats (Snap Scroll on Mobile) -->
     <StatsOverview 
-        :stats="[
-            { label: 'Total Events', value: store.events.length, icon: Calendar, color: 'indigo' },
-            { 
-               label: 'Total Attendees', 
-               value: store.events.reduce((acc, curr) => acc + (curr.report ? curr.report.attendance : 0), 0), 
-               icon: Users, 
-               color: 'emerald' 
-            }
-        ]"
+      :stats="[
+        { label: 'Total Events', value: store.events.length, icon: Calendar, color: 'indigo' },
+        { 
+          label: 'Total Attendees', 
+          value: store.events.reduce((acc, curr) => acc + (curr.report ? curr.report.attendance : 0), 0), 
+          icon: Users, 
+          color: 'emerald' 
+        }
+      ]"
     />
 
     <!-- Search -->

@@ -1,9 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { Home, Users, BookOpen, User, Bell, ChevronDown, LogOut, Calendar, Menu } from 'lucide-vue-next'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { Home, Users, BookOpen, User, Bell, ChevronDown, LogOut, Calendar } from 'lucide-vue-next'
 
-const router = useRouter()
 const route = useRoute()
 
 const navigation = [

@@ -3,7 +3,7 @@ import { reactive, computed } from 'vue'
 import { X, FileText, ClipboardList } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
-const props = defineProps({
+defineProps({
   isOpen: Boolean
 })
 

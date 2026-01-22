@@ -2,7 +2,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useClassStore } from '@/stores/class'
-import BaseButton from '@/components/ui/BaseButton.vue'
 import CreateAssignmentModal from '@/components/education/CreateAssignmentModal.vue'
 import AttendanceTab from '@/components/education/AttendanceTab.vue'
 import AssignmentsTab from '@/components/education/AssignmentsTab.vue'

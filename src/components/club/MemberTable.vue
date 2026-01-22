@@ -1,11 +1,24 @@
-<script setup>
+<script setup lang="ts">
 import { Edit2, Trash2 } from 'lucide-vue-next'
+import type { Member } from '@/types'
 
-const props = defineProps({
-    members: Array
-})
+/**
+ * MemberTable - Desktop table view for member list
+ * 
+ * This component and MemberCardList share the same interface contract
+ * for consistent behavior across different viewport sizes.
+ */
+interface Props {
+    members: Member[]
+}
 
-const emit = defineEmits(['view', 'toggleStatus', 'delete'])
+defineProps<Props>()
+
+defineEmits<{
+    view: [id: string]
+    toggleStatus: [id: string]
+    delete: [id: string]
+}>()
 </script>
 
 <template>

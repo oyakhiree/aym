@@ -1,11 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { ChevronRight } from 'lucide-vue-next'
+import type { Member } from '@/types'
 
-const props = defineProps({
-    members: Array
-})
+/**
+ * MemberCardList - Mobile card view for member list
+ * 
+ * This component and MemberTable share the same interface contract
+ * for consistent behavior across different viewport sizes.
+ */
+interface Props {
+    members: Member[]
+}
 
-const emit = defineEmits(['view', 'toggleStatus'])
+defineProps<Props>()
+
+defineEmits<{
+    view: [id: string]
+    toggleStatus: [id: string]
+}>()
 </script>
 
 <template>

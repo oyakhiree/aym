@@ -23,26 +23,29 @@ const colorClasses = {
 </script>
 
 <template>
-    <div class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto py-2 md:p-1 -mx-4 px-4 md:mx-0 snap-x snap-mandatory scrollbar-hide">
+  <div class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto py-2 md:p-1 -mx-4 px-4 md:mx-0 snap-x snap-mandatory scrollbar-hide">
+    <div 
+      v-for="(stat, idx) in stats"
+      :key="idx"
+      class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow"
+    >
       <div 
-        v-for="(stat, idx) in stats"
-        :key="idx"
-        class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow"
+        class="p-3 rounded-xl border"
+        :class="colorClasses[stat.color] || colorClasses.primary"
       >
-        <div 
-            class="p-3 rounded-xl border"
-            :class="colorClasses[stat.color] || colorClasses.primary"
-        >
-          <component :is="stat.icon" class="w-6 h-6" />
-        </div>
-        <div>
-          <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
-            {{ stat.label }}
-          </p>
-          <p class="text-2xl font-bold text-secondary-900">
-            {{ stat.value }}
-          </p>
-        </div>
+        <component
+          :is="stat.icon"
+          class="w-6 h-6"
+        />
+      </div>
+      <div>
+        <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
+          {{ stat.label }}
+        </p>
+        <p class="text-2xl font-bold text-secondary-900">
+          {{ stat.value }}
+        </p>
       </div>
     </div>
+  </div>
 </template>

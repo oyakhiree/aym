@@ -4,7 +4,7 @@ import { useClassStore } from '@/stores/class'
 import { X, BookOpen, Award, User, Calendar } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
-const props = defineProps({
+defineProps({
   isOpen: Boolean
 })
 

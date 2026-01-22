@@ -5,7 +5,7 @@ import { X, Upload, Calendar, User, Users, Phone, Shield } from 'lucide-vue-next
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { PROGRESSIVE_CLASSES } from '@/constants/curriculum'
 
-const props = defineProps({
+defineProps({
   isOpen: Boolean
 })
 

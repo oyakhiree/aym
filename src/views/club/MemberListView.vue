@@ -9,6 +9,7 @@ import MemberCardList from '@/components/club/MemberCardList.vue'
 import MemberTable from '@/components/club/MemberTable.vue'
 
 const clubStore = useClubStore()
+// Force HMR update
 const searchQuery = ref('')
 const statusFilter = ref('all') // all, active, inactive
 const isAddModalOpen = ref(false)
@@ -67,7 +68,7 @@ const goToMember = (id) => {
     </div>
 
     <!-- Stats Bar (Horizontal Scroll on Mobile) -->
-    <div class="flex md:grid md:grid-cols-3 gap-3 md:gap-4 overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
+    <div class="flex md:grid md:grid-cols-3 gap-3 md:gap-4 overflow-x-auto py-2 md:p-1 -mx-4 px-4 md:mx-0 snap-x snap-mandatory scrollbar-hide">
       <!-- Total -->
       <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
         <button 

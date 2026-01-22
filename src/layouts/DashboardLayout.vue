@@ -44,8 +44,8 @@ const closeDropdown = () => {
         <!-- Brand & Context Selector -->
         <div class="flex flex-col px-6 py-8">
           <div class="flex items-center space-x-3 mb-8">
-            <div class="p-2 bg-primary-600 rounded-xl shadow-lg shadow-primary-600/20">
-              <BookOpen class="w-5 h-5 text-white" />
+            <div class="h-10 w-10 overflow-hidden rounded-xl shadow-sm border border-secondary-100/50">
+              <img src="/aym logo.png" alt="AYM Logo" class="h-full w-full object-contain" />
             </div>
             <span class="text-xl font-semibold tracking-tight text-secondary-900">Royal Diadem</span>
           </div>
@@ -169,8 +169,8 @@ const closeDropdown = () => {
     <!-- Mobile Header -->
     <header class="md:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-secondary-100/60 h-16 flex items-center justify-between px-4 transition-all duration-300">
       <div class="flex items-center space-x-3">
-        <div class="p-1.5 bg-primary-600 rounded-lg shadow-md shadow-primary-600/20">
-          <BookOpen class="w-5 h-5 text-white" />
+        <div class="h-8 w-8 overflow-hidden rounded-lg shadow-sm border border-secondary-100/50">
+          <img src="/aym logo.png" alt="AYM Logo" class="h-full w-full object-contain" />
         </div>
         <span class="font-semibold text-lg text-secondary-900 tracking-tight">Royal Diadem</span>
       </div>

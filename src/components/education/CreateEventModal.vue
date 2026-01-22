@@ -84,17 +84,20 @@ const handleSubmit = () => {
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-lg border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
+              class="relative w-full transform rounded-t-3xl sm:rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-lg border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
             >
               <!-- Header -->
-              <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">
+              <div class="bg-white px-6 py-5 flex items-start justify-between">
                 <div>
-                  <h3 class="text-lg font-bold text-secondary-900 leading-6">
+                  <h3 class="text-xl font-bold text-secondary-900 leading-6 tracking-tight">
                     {{ eventToEdit ? 'Edit Event' : 'Create New Event' }}
                   </h3>
+                  <p class="text-sm text-secondary-500 mt-1">
+                    {{ eventToEdit ? 'Update event details below.' : 'Plan a new activity for the club.' }}
+                  </p>
                 </div>
                 <button
-                  class="rounded-full p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-100 transition-all"
+                  class="rounded-full p-2 -mr-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-50 transition-all"
                   @click="$emit('close')"
                 >
                   <X class="w-5 h-5" />
@@ -102,28 +105,30 @@ const handleSubmit = () => {
               </div>
 
               <!-- Body -->
-              <div class="px-6 py-6 space-y-4 flex-1 overflow-y-auto">
+              <div class="px-6 pb-6 space-y-5 flex-1 overflow-y-auto">
                 <div>
-                  <label class="block text-sm font-medium text-secondary-700 mb-1">Event Title <span class="text-red-500">*</span></label>
+                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Event Title <span class="text-red-500">*</span></label>
                   <input
                     v-model="form.title"
                     type="text"
-                    class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                    class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-3 px-4 bg-secondary-50/30"
+                    placeholder="e.g. Summer Hiking Trip"
                   >
                 </div>
                  
                 <div>
-                  <label class="block text-sm font-medium text-secondary-700 mb-1">Description</label>
+                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Description</label>
                   <textarea
                     v-model="form.description"
                     rows="3"
-                    class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                    class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-3 px-4 bg-secondary-50/30 resize-none"
+                    placeholder="Briefly describe the event..."
                   />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-sm font-medium text-secondary-700 mb-1">Date <span class="text-red-500">*</span></label>
+                    <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Date <span class="text-red-500">*</span></label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Calendar class="h-4 w-4 text-secondary-400" />
@@ -136,7 +141,7 @@ const handleSubmit = () => {
                     </div>
                   </div>
                   <div>
-                    <label class="block text-sm font-medium text-secondary-700 mb-1">Location</label>
+                    <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Location</label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <MapPin class="h-4 w-4 text-secondary-400" />
@@ -145,13 +150,14 @@ const handleSubmit = () => {
                         v-model="form.location"
                         type="text"
                         class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        placeholder="City, Venue"
                       >
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-secondary-700 mb-1">Cover Image URL</label>
+                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Cover Image URL</label>
                   <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <Image class="h-4 w-4 text-secondary-400" />
@@ -160,23 +166,23 @@ const handleSubmit = () => {
                       v-model="form.image"
                       type="text"
                       placeholder="https://..."
-                      class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                      class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                     >
                   </div>
                 </div>
               </div>
 
               <!-- Footer -->
-              <div class="bg-secondary-50/50 px-6 py-4 border-t border-secondary-100 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+              <div class="bg-white px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-2 pb-6 border-t border-secondary-50">
                 <button 
-                  class="w-full sm:w-auto px-4 py-2.5 border border-secondary-300 shadow-sm text-sm font-medium rounded-xl text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all" 
+                  class="w-full sm:w-auto px-6 py-2.5 border border-secondary-200 shadow-sm text-sm font-medium rounded-xl text-secondary-600 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all" 
                   @click="$emit('close')"
                 >
                   Cancel
                 </button>
                 <BaseButton 
                   :disabled="!isFormValid" 
-                  class="w-full sm:w-auto"
+                  class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
                   @click="handleSubmit"
                 >
                   {{ eventToEdit ? 'Save Changes' : 'Create Event' }}

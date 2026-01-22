@@ -78,22 +78,51 @@ This will run `vue-tsc` for type check and `vite build`.
 
 ```
 src/
-├── assets/          # Static assets and global styles (Inter font config, tailwind)
+├── assets/          # Static assets (images, fonts, global CSS)
 ├── components/      # Vue Components
-│   ├── club/        # Club-specific business components (Modals, Lists)
-│   ├── dashboard/   # Dashboard specific widgets (Metrics, Quick Actions)
-│   ├── education/   # Education tracking components (Tabs, Modals)
-│   └── ui/          # Reusable atomic UI elements (Buttons, Inputs, Cards)
+│   ├── club/        # Club-specific components (AddMemberModal, MemberTable, etc.)
+│   ├── dashboard/   # Dashboard widgets (Metrics, Quick Actions, Charts)
+│   ├── education/   # Education components (ClassCard, AttendanceTab, ExamsTab)
+│   └── ui/          # Reusable atomic UI elements (BaseButton, StatsOverview)
+├── composables/     # Vue Composition API utilities
+│   ├── useDisclosure.ts   # Modal open/close state management
+│   ├── useErrorHandler.ts # Standardized async error handling
+│   └── useSearchable.ts   # Reusable search/filter logic
+├── constants/       # Application constants and configuration
+│   └── curriculum.ts      # Progressive classes, Honours, thresholds
 ├── layouts/         # App Layouts (AuthLayout, DashboardLayout)
-├── router/          # Route definitions
-├── stores/          # Pinia State Stores (Auth, Club, Class, Event)
+├── mocks/           # Mock data for development/testing
+│   ├── members.ts   # Sample member data
+│   ├── classes.ts   # Sample class data
+│   ├── events.ts    # Sample event data
+│   └── index.ts     # Central export
+├── router/          # Vue Router configuration
+├── stores/          # Pinia State Stores
+│   ├── auth.ts      # Authentication state
+│   ├── club.ts      # Member management
+│   ├── class.ts     # Class/education tracking
+│   └── event.ts     # Event management
+├── types/           # TypeScript type definitions
+│   └── index.ts     # Centralized type exports (Member, ClassData, Event, etc.)
+├── utils/           # Utility functions
+│   └── idGenerator.ts # UUID generation utility
 ├── views/           # Page Views
-│   ├── auth/        # Authentication pages
-│   ├── club/        # Club management pages
-│   └── education/   # Education/Class pages
+│   ├── auth/        # Authentication pages (Login)
+│   ├── club/        # Club pages (MemberList, MemberDetail)
+│   ├── dashboard/   # Dashboard home page
+│   └── education/   # Education pages (ClassList, ClassDetail, Events)
 ├── App.vue          # Root component
-└── main.ts          # Entry point
+└── main.ts          # Application entry point
 ```
+
+### Architecture Highlights
+
+| Pattern | Implementation |
+|---------|----------------|
+| **Composables** | Reusable logic extracted into `useSearchable`, `useDisclosure`, `useErrorHandler` |
+| **Separation of Concerns** | Mock data separated from Pinia stores into `/mocks` |
+| **Type Safety** | Centralized TypeScript definitions in `/types` |
+| **Constants** | Business rules (class names, thresholds) in `/constants` |
 
 ## 🧪 Quality Control
 

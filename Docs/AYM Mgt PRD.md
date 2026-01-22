@@ -13,7 +13,7 @@
 | Version | 1.1 |
 | Status | Draft |
 | Timeline | 3 Months |
-| Tech Stack | Frontend: React (Next.js), TypeScript Backend/DB: Supabase (Auth, Postgres, Edge Functions) |
+| Tech Stack | Frontend: Vue 3, TypeScript, Vite, Pinia Backend/DB: Supabase (Auth, Postgres, Edge Functions) |
 
 ## 
 
@@ -157,10 +157,11 @@ This feature replaces manual paper exams. It applies to both Honour Classes (e.g
 
 ### 4.1. Stack Decisions
 
-* Frontend: Next.js 14 (App Router). Excellent for handling the static dashboards and dynamic exam pages.  
-* Styling: Tailwind CSS (Mobile responsiveness is critical for Instructors in the field).  
-* Database: Supabase (PostgreSQL).  
-* State Management: TanStack Query (for data fetching and caching).
+* Frontend: Vue 3 (Composition API). Explicitly chosen for its maintainability and gentle learning curve for future contributors.
+* Build Tool: Vite. For simplified configuration and fast HMR.
+* Styling: Tailwind CSS (Mobile responsiveness is critical for Instructors in the field).
+* Database: Supabase (PostgreSQL).
+* State Management: Pinia (for complex client-side state like managing active exam sessions and offline data).
 
 ### 4.2. Database Schema (Supabase)
 

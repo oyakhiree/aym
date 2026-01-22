@@ -69,7 +69,7 @@ const handleSubmit = () => {
       >
         <!-- Backdrop -->
         <div
-          class="fixed inset-0 bg-secondary-900/60 backdrop-blur-sm transition-opacity"
+          class="fixed inset-0 bg-secondary-900/40 backdrop-blur-sm transition-opacity"
           @click="$emit('close')"
         />
 
@@ -84,23 +84,23 @@ const handleSubmit = () => {
           >
             <div
               v-if="isOpen"
-              class="relative w-full transform rounded-t-2xl sm:rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border-t sm:border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
+              class="relative w-full transform rounded-t-3xl sm:rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:max-w-2xl border border-secondary-100 max-h-[90vh] flex flex-col overflow-hidden"
             >
-              <!-- Header -->
-              <div class="bg-secondary-50/50 px-6 py-4 border-b border-secondary-100 flex items-center justify-between">
+              <!-- Header (Cleaner) -->
+              <div class="bg-white px-6 py-5 flex items-start justify-between">
                 <div>
                   <h3
                     id="modal-title"
-                    class="text-lg font-bold text-secondary-900 leading-6"
+                    class="text-xl font-bold text-secondary-900 leading-6 tracking-tight"
                   >
                     New Member Registration
                   </h3>
-                  <p class="text-sm text-secondary-500 mt-0.5">
-                    Add a new pathfinder or adventurer to your club roster.
+                  <p class="text-sm text-secondary-500 mt-1">
+                    Add a new pathfinder or adventurer to your roster.
                   </p>
                 </div>
                 <button
-                  class="rounded-full p-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-100 transition-all"
+                  class="rounded-full p-2 -mr-2 text-secondary-400 hover:text-secondary-600 hover:bg-secondary-50 transition-all"
                   @click="$emit('close')"
                 >
                   <X class="w-5 h-5" />
@@ -108,7 +108,7 @@ const handleSubmit = () => {
               </div>
 
               <!-- Body -->
-              <div class="px-6 py-6 space-y-6 flex-1 overflow-y-auto">
+              <div class="px-6 pb-6 space-y-6 flex-1 overflow-y-auto">
                 <!-- Personal Info Section -->
                 <div>
                   <h4 class="text-xs font-semibold text-secondary-400 uppercase tracking-wider mb-4 flex items-center gap-2">
@@ -116,25 +116,25 @@ const handleSubmit = () => {
                   </h4>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">First Name <span class="text-red-500">*</span></label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">First Name <span class="text-red-500">*</span></label>
                       <input
                         v-model="form.firstName"
                         type="text"
-                        class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        class="block w-full rounded-lg border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                         placeholder="e.g. John"
                       >
                     </div>
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Last Name <span class="text-red-500">*</span></label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Last Name <span class="text-red-500">*</span></label>
                       <input
                         v-model="form.lastName"
                         type="text"
-                        class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        class="block w-full rounded-lg border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                         placeholder="e.g. Doe"
                       >
                     </div>
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Date of Birth <span class="text-red-500">*</span></label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Date of Birth <span class="text-red-500">*</span></label>
                       <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                           <Calendar class="h-4 w-4 text-secondary-400" />
@@ -142,15 +142,15 @@ const handleSubmit = () => {
                         <input
                           v-model="form.dob"
                           type="date"
-                          class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                          class="block w-full rounded-lg border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                         >
                       </div>
                     </div>
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Gender</label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Gender</label>
                       <select
                         v-model="form.gender"
-                        class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        class="block w-full rounded-lg border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                       >
                         <option>Male</option>
                         <option>Female</option>
@@ -159,7 +159,7 @@ const handleSubmit = () => {
                   </div>
                 </div>
 
-                <hr class="border-secondary-100">
+                <hr class="border-secondary-100/50">
 
                 <!-- Club Info Section -->
                 <div>
@@ -168,10 +168,10 @@ const handleSubmit = () => {
                   </h4>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Class Assignment</label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Class Assignment</label>
                       <select
                         v-model="form.class"
-                        class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        class="block w-full rounded-lg border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                       >
                         <option
                           v-for="c in classes"
@@ -183,7 +183,7 @@ const handleSubmit = () => {
                       </select>
                     </div>
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Initial Status</label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Initial Status</label>
                       <div class="flex items-center gap-3 pt-2">
                         <button 
                           class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2" 
@@ -206,7 +206,7 @@ const handleSubmit = () => {
                   </div>
                 </div>
 
-                <hr class="border-secondary-100">
+                <hr class="border-secondary-100/50">
 
                 <!-- Guardian Info Section -->
                 <div>
@@ -215,16 +215,16 @@ const handleSubmit = () => {
                   </h4>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Guardian Name <span class="text-red-500">*</span></label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Guardian Name <span class="text-red-500">*</span></label>
                       <input
                         v-model="form.guardian"
                         type="text"
-                        class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                        class="block w-full rounded-lg border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                         placeholder="Parent/Guardian Full Name"
                       >
                     </div>
                     <div class="space-y-1.5">
-                      <label class="text-sm font-medium text-secondary-700">Phone Number</label>
+                      <label class="text-xs font-semibold text-secondary-600 uppercase tracking-wide">Phone Number</label>
                       <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                           <Phone class="h-4 w-4 text-secondary-400" />
@@ -232,7 +232,7 @@ const handleSubmit = () => {
                         <input
                           v-model="form.phone"
                           type="tel"
-                          class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3"
+                          class="block w-full rounded-lg border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
                           placeholder="+234..."
                         >
                       </div>
@@ -241,8 +241,8 @@ const handleSubmit = () => {
                 </div>
 
                 <!-- File Upload -->
-                <div class="bg-secondary-50 border border-dashed border-secondary-300 rounded-xl p-4 flex flex-col items-center justify-center text-center hover:bg-secondary-100 transition-colors cursor-pointer group">
-                  <div class="p-3 bg-white rounded-full shadow-sm mb-2 group-hover:scale-110 transition-transform">
+                <div class="bg-secondary-50 border border-dashed border-secondary-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:bg-secondary-100 hover:border-secondary-300 transition-all cursor-pointer group">
+                  <div class="p-3 bg-white rounded-xl shadow-sm mb-2 group-hover:scale-110 transition-transform">
                     <Upload class="w-5 h-5 text-primary-600" />
                   </div>
                   <p class="text-sm font-medium text-secondary-900">
@@ -255,16 +255,16 @@ const handleSubmit = () => {
               </div>
 
               <!-- Footer -->
-              <div class="bg-secondary-50/50 px-6 py-4 border-t border-secondary-100 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+              <div class="bg-white px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-2 pb-6">
                 <button 
-                  class="w-full sm:w-auto px-4 py-2.5 border border-secondary-300 shadow-sm text-sm font-medium rounded-xl text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all" 
+                  class="w-full sm:w-auto px-6 py-2.5 border border-secondary-200 shadow-sm text-sm font-medium rounded-xl text-secondary-600 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all" 
                   @click="$emit('close')"
                 >
                   Cancel
                 </button>
                 <BaseButton 
                   :disabled="!isFormValid" 
-                  class="w-full sm:w-auto"
+                  class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
                   @click="handleSubmit"
                 >
                   Add Member

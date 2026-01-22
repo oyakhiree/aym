@@ -50,7 +50,7 @@ const goToMember = (id) => {
     <!-- Header -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-secondary-900 tracking-tight">
+        <h1 class="text-2xl font-semibold text-secondary-900 tracking-tight">
           Club Members
         </h1>
         <p class="text-secondary-500 mt-1">
@@ -67,34 +67,30 @@ const goToMember = (id) => {
     </div>
 
     <!-- Stats Bar -->
-    <div class="grid grid-cols-3 gap-3 sm:gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
       <!-- Total -->
       <button 
-        class="p-4 rounded-2xl border transition-all duration-200 text-left group relative overflow-hidden"
-        :class="statusFilter === 'all' ? 'bg-white border-primary-200 shadow-md ring-1 ring-primary-100' : 'bg-white border-secondary-100 hover:border-secondary-200 hover:shadow-sm'"
+        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
+        :class="{ 'ring-2 ring-primary-500/20 border-primary-200': statusFilter === 'all' }"
         @click="statusFilter = 'all'"
       >
-        <div
-          v-if="statusFilter === 'all'"
-          class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary-50 to-primary-100 rounded-bl-full -mr-8 -mt-8 opacity-50"
-        />
-        <div class="flex items-center justify-between relative z-10">
+        <div class="flex items-center justify-between mb-4 relative z-10">
           <div
-            class="p-2.5 rounded-xl transition-colors duration-200"
-            :class="statusFilter === 'all' ? 'bg-primary-50 text-primary-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-secondary-100'"
+            class="p-2 rounded-xl transition-colors duration-200"
+            :class="statusFilter === 'all' ? 'bg-primary-50 text-primary-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-primary-50 group-hover:text-primary-600'"
           >
             <Users class="w-5 h-5" />
           </div>
           <span
             v-if="statusFilter === 'all'"
-            class="w-2 h-2 rounded-full bg-primary-500"
+            class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"
           />
         </div>
-        <div class="mt-3 relative z-10">
-          <p class="text-2xl font-bold text-secondary-900 tracking-tight">
+        <div class="relative z-10">
+          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
             {{ stats.total }}
           </p>
-          <p class="text-xs font-medium text-secondary-500 mt-0.5">
+          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
             Total Members
           </p>
         </div>
@@ -102,64 +98,56 @@ const goToMember = (id) => {
             
       <!-- Active -->
       <button 
-        class="p-4 rounded-2xl border transition-all duration-200 text-left group relative overflow-hidden"
-        :class="statusFilter === 'active' ? 'bg-white border-emerald-200 shadow-md ring-1 ring-emerald-100' : 'bg-white border-secondary-100 hover:border-secondary-200 hover:shadow-sm'"
+        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
+        :class="{ 'ring-2 ring-emerald-500/20 border-emerald-200': statusFilter === 'active' }"
         @click="statusFilter = 'active'"
       >
-        <div
-          v-if="statusFilter === 'active'"
-          class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-bl-full -mr-8 -mt-8 opacity-50"
-        />
-        <div class="flex items-center justify-between relative z-10">
+        <div class="flex items-center justify-between mb-4 relative z-10">
           <div
-            class="p-2.5 rounded-xl transition-colors duration-200"
+            class="p-2 rounded-xl transition-colors duration-200"
             :class="statusFilter === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'"
           >
             <Users class="w-5 h-5" />
           </div>
           <span
             v-if="statusFilter === 'active'"
-            class="w-2 h-2 rounded-full bg-emerald-500"
+            class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
           />
         </div>
-        <div class="mt-3 relative z-10">
-          <p class="text-2xl font-bold text-secondary-900 tracking-tight">
+        <div class="relative z-10">
+          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
             {{ stats.active }}
           </p>
-          <p class="text-xs font-medium text-secondary-500 mt-0.5">
-            Active
+          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
+            Active Members
           </p>
         </div>
       </button>
             
       <!-- Inactive -->
       <button 
-        class="p-4 rounded-2xl border transition-all duration-200 text-left group relative overflow-hidden"
-        :class="statusFilter === 'inactive' ? 'bg-white border-amber-200 shadow-md ring-1 ring-amber-100' : 'bg-white border-secondary-100 hover:border-secondary-200 hover:shadow-sm'"
+        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
+        :class="{ 'ring-2 ring-amber-500/20 border-amber-200': statusFilter === 'inactive' }"
         @click="statusFilter = 'inactive'"
       >
-        <div
-          v-if="statusFilter === 'inactive'"
-          class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-50 to-amber-100 rounded-bl-full -mr-8 -mt-8 opacity-50"
-        />
-        <div class="flex items-center justify-between relative z-10">
+        <div class="flex items-center justify-between mb-4 relative z-10">
           <div
-            class="p-2.5 rounded-xl transition-colors duration-200"
+            class="p-2 rounded-xl transition-colors duration-200"
             :class="statusFilter === 'inactive' ? 'bg-amber-50 text-amber-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-amber-50 group-hover:text-amber-600'"
           >
             <UserX class="w-5 h-5" />
           </div>
           <span
             v-if="statusFilter === 'inactive'"
-            class="w-2 h-2 rounded-full bg-amber-500"
+            class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
           />
         </div>
-        <div class="mt-3 relative z-10">
-          <p class="text-2xl font-bold text-secondary-900 tracking-tight">
+        <div class="relative z-10">
+          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
             {{ stats.inactive }}
           </p>
-          <p class="text-xs font-medium text-secondary-500 mt-0.5">
-            Inactive
+          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
+            Inactive Members
           </p>
         </div>
       </button>

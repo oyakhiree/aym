@@ -66,91 +66,97 @@ const goToMember = (id) => {
       </BaseButton>
     </div>
 
-    <!-- Stats Bar -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+    <!-- Stats Bar (Horizontal Scroll on Mobile) -->
+    <div class="flex md:grid md:grid-cols-3 gap-3 md:gap-4 overflow-x-auto pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
       <!-- Total -->
-      <button 
-        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
-        :class="{ 'ring-2 ring-primary-500/20 border-primary-200': statusFilter === 'all' }"
-        @click="statusFilter = 'all'"
-      >
-        <div class="flex items-center justify-between mb-4 relative z-10">
-          <div
-            class="p-2 rounded-xl transition-colors duration-200"
-            :class="statusFilter === 'all' ? 'bg-primary-50 text-primary-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-primary-50 group-hover:text-primary-600'"
-          >
-            <Users class="w-5 h-5" />
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <button 
+          class="w-full p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden h-full"
+          :class="{ 'ring-2 ring-primary-500/20 border-primary-200': statusFilter === 'all' }"
+          @click="statusFilter = 'all'"
+        >
+          <div class="flex items-center justify-between mb-4 relative z-10">
+            <div
+              class="p-2 rounded-xl transition-colors duration-200"
+              :class="statusFilter === 'all' ? 'bg-primary-50 text-primary-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-primary-50 group-hover:text-primary-600'"
+            >
+              <Users class="w-5 h-5" />
+            </div>
+            <span
+              v-if="statusFilter === 'all'"
+              class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"
+            />
           </div>
-          <span
-            v-if="statusFilter === 'all'"
-            class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"
-          />
-        </div>
-        <div class="relative z-10">
-          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
-            {{ stats.total }}
-          </p>
-          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
-            Total Members
-          </p>
-        </div>
-      </button>
+          <div class="relative z-10">
+            <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
+              {{ stats.total }}
+            </p>
+            <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
+              Total Members
+            </p>
+          </div>
+        </button>
+      </div>
             
       <!-- Active -->
-      <button 
-        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
-        :class="{ 'ring-2 ring-emerald-500/20 border-emerald-200': statusFilter === 'active' }"
-        @click="statusFilter = 'active'"
-      >
-        <div class="flex items-center justify-between mb-4 relative z-10">
-          <div
-            class="p-2 rounded-xl transition-colors duration-200"
-            :class="statusFilter === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'"
-          >
-            <Users class="w-5 h-5" />
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <button 
+          class="w-full p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden h-full"
+          :class="{ 'ring-2 ring-emerald-500/20 border-emerald-200': statusFilter === 'active' }"
+          @click="statusFilter = 'active'"
+        >
+          <div class="flex items-center justify-between mb-4 relative z-10">
+            <div
+              class="p-2 rounded-xl transition-colors duration-200"
+              :class="statusFilter === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'"
+            >
+              <Users class="w-5 h-5" />
+            </div>
+            <span
+              v-if="statusFilter === 'active'"
+              class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+            />
           </div>
-          <span
-            v-if="statusFilter === 'active'"
-            class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
-          />
-        </div>
-        <div class="relative z-10">
-          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
-            {{ stats.active }}
-          </p>
-          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
-            Active Members
-          </p>
-        </div>
-      </button>
+          <div class="relative z-10">
+            <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
+              {{ stats.active }}
+            </p>
+            <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
+              Active Members
+            </p>
+          </div>
+        </button>
+      </div>
             
       <!-- Inactive -->
-      <button 
-        class="p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden"
-        :class="{ 'ring-2 ring-amber-500/20 border-amber-200': statusFilter === 'inactive' }"
-        @click="statusFilter = 'inactive'"
-      >
-        <div class="flex items-center justify-between mb-4 relative z-10">
-          <div
-            class="p-2 rounded-xl transition-colors duration-200"
-            :class="statusFilter === 'inactive' ? 'bg-amber-50 text-amber-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-amber-50 group-hover:text-amber-600'"
-          >
-            <UserX class="w-5 h-5" />
+      <div class="min-w-[85%] sm:min-w-[45%] md:min-w-0 snap-center">
+        <button 
+          class="w-full p-5 rounded-2xl bg-white border border-secondary-100 shadow-sm hover:shadow-md hover:border-secondary-200 transition-all duration-300 text-left group relative overflow-hidden h-full"
+          :class="{ 'ring-2 ring-amber-500/20 border-amber-200': statusFilter === 'inactive' }"
+          @click="statusFilter = 'inactive'"
+        >
+          <div class="flex items-center justify-between mb-4 relative z-10">
+            <div
+              class="p-2 rounded-xl transition-colors duration-200"
+              :class="statusFilter === 'inactive' ? 'bg-amber-50 text-amber-600' : 'bg-secondary-50 text-secondary-500 group-hover:bg-amber-50 group-hover:text-amber-600'"
+            >
+              <UserX class="w-5 h-5" />
+            </div>
+            <span
+              v-if="statusFilter === 'inactive'"
+              class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
+            />
           </div>
-          <span
-            v-if="statusFilter === 'inactive'"
-            class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
-          />
-        </div>
-        <div class="relative z-10">
-          <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
-            {{ stats.inactive }}
-          </p>
-          <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
-            Inactive Members
-          </p>
-        </div>
-      </button>
+          <div class="relative z-10">
+            <p class="text-3xl font-semibold text-secondary-900 tracking-tight">
+              {{ stats.inactive }}
+            </p>
+            <p class="text-xs font-medium text-secondary-500 mt-1 uppercase tracking-wide">
+              Inactive Members
+            </p>
+          </div>
+        </button>
+      </div>
     </div>
 
     <!-- Search & Filters -->

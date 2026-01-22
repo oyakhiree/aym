@@ -20,33 +20,30 @@ const emit = defineEmits(['view', 'toggleStatus'])
       <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-2xl" />
 
       <div class="flex-shrink-0">
-        <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center text-primary-700 font-bold text-sm shadow-inner ring-2 ring-white">
+        <div class="h-12 w-12 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 font-bold text-sm border border-primary-100/50">
           {{ member.firstName[0] }}{{ member.lastName[0] }}
         </div>
       </div>
       <div class="flex-1 min-w-0">
-        <p class="text-sm font-bold text-secondary-900 truncate group-hover:text-primary-700 transition-colors">
-          {{ member.firstName }} {{ member.lastName }}
-        </p>
+        <div class="flex items-center justify-between">
+          <p class="text-sm font-bold text-secondary-900 truncate group-hover:text-primary-700 transition-colors">
+            {{ member.firstName }} {{ member.lastName }}
+          </p>
+          <span 
+             class="text-[10px] font-semibold px-2 py-0.5 rounded-full border"
+             :class="member.status === 'Active' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-secondary-50 text-secondary-500 border-secondary-100'"
+          >
+            {{ member.status }}
+          </span>
+        </div>
         <div class="flex items-center gap-2 mt-1">
-          <span class="text-xs font-medium px-2 py-0.5 rounded-md bg-secondary-100 text-secondary-600">
+          <span class="text-xs font-medium px-2 py-0.5 rounded-md bg-secondary-50 text-secondary-600 border border-secondary-100">
             {{ member.class }}
           </span>
           <span class="text-xs text-secondary-400">• {{ member.gender }}</span>
         </div>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Status Toggle -->
-        <button 
-          class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-          :class="[member.status === 'Active' ? 'bg-emerald-500' : 'bg-secondary-200']"
-          @click.stop="$emit('toggleStatus', member.id)"
-        >
-          <span 
-            class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out"
-            :class="[member.status === 'Active' ? 'translate-x-5' : 'translate-x-0']"
-          />
-        </button>
         <ChevronRight class="w-5 h-5 text-secondary-300 group-hover:text-primary-500 transition-colors" />
       </div>
     </div>

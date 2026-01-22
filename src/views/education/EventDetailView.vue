@@ -66,37 +66,26 @@ const goBack = () => router.push('/events')
 <template>
   <div
     v-if="event"
-    class="space-y-6 pb-20 md:pb-0 animate-in fade-in"
+    class="space-y-8 pb-20 md:pb-0 animate-in fade-in"
   >
-    <!-- Hero / Header -->
-    <div class="relative h-64 md:h-80 w-full rounded-2xl overflow-hidden shadow-sm group">
+    <!-- Cinematic Header -->
+    <div class="relative h-72 md:h-96 w-full rounded-3xl overflow-hidden shadow-2xl group">
       <img
         :src="event.image"
         alt="Event Cover"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
       >
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6 flex flex-col justify-end text-white">
-        <button
-          class="absolute top-4 left-4 p-2 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-colors"
-          @click="goBack"
-        >
-          <ArrowLeft class="w-5 h-5" />
-        </button>
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-10 flex flex-col justify-between">
+        <!-- Top Action Bar -->
+        <div class="flex justify-between items-start">
+          <button
+            class="p-2.5 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-all border border-white/10 group/btn"
+            @click="goBack"
+          >
+            <ArrowLeft class="w-5 h-5 group-hover/btn:-translate-x-0.5 transition-transform" />
+          </button>
 
-        <div class="flex items-end justify-between">
-          <div>
-            <div class="flex items-center gap-2 text-primary-200 mb-2 font-medium">
-              <Calendar class="w-4 h-4" />
-              {{ new Date(event.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-            </div>
-            <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-2">
-              {{ event.title }}
-            </h1>
-            <div class="flex items-center gap-2 text-gray-300 text-sm">
-              <MapPin class="w-4 h-4 text-gray-400" />
-              {{ event.location }}
-            </div>
-          </div>
           <BaseButton
             variant="primary"
             class="hidden sm:flex shadow-xl shadow-black/20 border-0 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white"
@@ -105,6 +94,24 @@ const goBack = () => router.push('/events')
             <Edit class="w-4 h-4 mr-2" />
             Edit Event
           </BaseButton>
+        </div>
+
+        <div class="space-y-4 max-w-3xl">
+          <!-- Badges -->
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
+              <Calendar class="w-3.5 h-3.5" />
+              {{ new Date(event.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold text-white/90 border border-white/10">
+              <MapPin class="w-3.5 h-3.5" />
+              {{ event.location }}
+            </div>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight text-white tracking-tight">
+            {{ event.title }}
+          </h1>
         </div>
       </div>
     </div>
@@ -119,55 +126,63 @@ const goBack = () => router.push('/events')
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Left Column: Details & Description -->
-      <div class="lg:col-span-2 space-y-8">
+      <div class="lg:col-span-2 space-y-10">
         <section>
-          <h3 class="text-lg font-bold text-secondary-900 mb-3 flex items-center gap-2">
+          <h3 class="text-xl font-bold text-secondary-900 mb-4 flex items-center gap-2">
             <FileText class="w-5 h-5 text-secondary-500" />
             About This Event
           </h3>
-          <p class="text-secondary-600 leading-relaxed whitespace-pre-line">
-            {{ event.description }}
-          </p>
+          <div class="prose prose-sm md:prose-base prose-headings:font-bold prose-p:text-secondary-600 prose-a:text-primary-600 max-w-none">
+            <p class="whitespace-pre-line leading-relaxed text-secondary-600">
+              {{ event.description }}
+            </p>
+          </div>
         </section>
 
         <!-- Report Section -->
-        <section class="bg-white rounded-2xl border border-secondary-100 p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-6">
+        <section class="bg-white rounded-3xl border border-secondary-100 p-6 md:p-8 shadow-sm">
+          <div class="flex items-center justify-between mb-8 pb-6 border-b border-secondary-50">
             <div>
-              <h3 class="text-lg font-bold text-secondary-900">
+              <h3 class="text-xl font-bold text-secondary-900">
                 Event Report
               </h3>
-              <p class="text-sm text-secondary-500">
-                {{ event.report ? 'Report submitted successfully' : 'Submit post-event details' }}
+              <p class="text-sm text-secondary-500 mt-1">
+                {{ event.report ? 'Report submitted successfully' : 'Submit post-event outcomes and photos' }}
               </p>
             </div>
             <div
               v-if="event.report"
-              class="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100"
+              class="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-4 py-1.5 rounded-full text-sm font-bold border border-emerald-100/50 shadow-sm"
             >
-              <CheckCircle class="w-3.5 h-3.5" /> Filed
+              <CheckCircle class="w-4 h-4" /> Filed
             </div>
           </div>
 
           <div
             v-if="!event.report"
-            class="space-y-5"
+            class="space-y-6"
           >
             <!-- Report Form -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div class="space-y-1.5">
-                <label class="text-sm font-medium text-secondary-700">Actual Attendance</label>
-                <input
-                  v-model="reportForm.attendance"
-                  type="number"
-                  class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide">Actual Attendance</label>
+                <div class="relative">
+                  <Users class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                  <input
+                    v-model="reportForm.attendance"
+                    type="number"
+                    class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 bg-secondary-50/30"
+                    placeholder="0"
+                  >
+                </div>
               </div>
-              <div class="space-y-1.5">
-                <label class="text-sm font-medium text-secondary-700">Upload Photos</label>
-                <div class="flex items-center gap-2 w-full p-2 border border-dashed border-secondary-300 rounded-xl bg-secondary-50 hover:bg-secondary-100 transition-colors cursor-pointer relative">
-                  <UploadCloud class="w-5 h-5 text-secondary-400 ml-2" />
-                  <span class="text-sm text-secondary-500">Select images...</span>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide">Upload Photos</label>
+                <div class="flex items-center gap-2 w-full p-2.5 border border-dashed border-secondary-300 rounded-xl bg-secondary-50 hover:bg-secondary-100 transition-colors cursor-pointer relative group">
+                  <div class="p-2 bg-white rounded-lg shadow-sm group-hover:scale-105 transition-transform">
+                    <UploadCloud class="w-5 h-5 text-primary-500" />
+                  </div>
+                  <span class="text-sm text-secondary-500 font-medium">Select images...</span>
                   <input
                     type="file"
                     multiple
@@ -179,20 +194,20 @@ const goBack = () => router.push('/events')
               </div>
             </div>
                     
-            <div class="space-y-1.5">
-              <label class="text-sm font-medium text-secondary-700">Detailed Summary / Remarks</label>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide">Detailed Summary</label>
               <textarea
                 v-model="reportForm.summary"
                 rows="4"
-                class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 px-4"
+                class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 py-3 px-4 bg-secondary-50/30 resize-none"
                 placeholder="How did the event go? Any incidents or highlights?"
               />
             </div>
 
-            <div class="flex justify-end pt-2">
+            <div class="flex justify-end pt-4">
               <BaseButton
                 :loading="isReportSubmitting"
-                class="w-full sm:w-auto"
+                class="w-full sm:w-auto px-8 py-3 shadow-lg shadow-primary-500/20"
                 @click="submitReport"
               >
                 Submit Report
@@ -205,27 +220,24 @@ const goBack = () => router.push('/events')
             class="space-y-6"
           >
             <!-- Read Only Report View -->
-            <div class="grid grid-cols-2 gap-4 bg-secondary-50/50 p-4 rounded-xl border border-secondary-100">
+            <div class="grid grid-cols-2 gap-4 bg-secondary-50/50 p-5 rounded-2xl border border-secondary-100">
               <div>
-                <span class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">Attendance</span>
-                <div class="text-2xl font-bold text-secondary-900 flex items-center gap-2">
+                <span class="text-xs font-bold text-secondary-500 uppercase tracking-wider">Attendance</span>
+                <div class="text-3xl font-bold text-secondary-900 flex items-center gap-2 mt-1">
                   {{ event.report.attendance }}
-                  <Users class="w-5 h-5 text-secondary-400" />
+                  <span class="text-sm font-medium text-secondary-400">Attendees</span>
                 </div>
               </div>
-              <div>
-                <span class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">Submitted On</span>
-                <div class="text-sm font-medium text-secondary-700 mt-1">
+              <div class="text-right">
+                <span class="text-xs font-bold text-secondary-500 uppercase tracking-wider">Submitted On</span>
+                <div class="text-sm font-bold text-secondary-900 mt-2 bg-white inline-block px-3 py-1 rounded-lg border border-secondary-200 shadow-sm">
                   {{ new Date(event.report.submittedAt).toLocaleDateString() }}
                 </div>
               </div>
             </div>
                      
-            <div>
-              <span class="text-xs font-bold text-secondary-900 uppercase tracking-wider block mb-2">Summary</span>
-              <p class="text-secondary-600 text-sm leading-relaxed">
-                {{ event.report.summary }}
-              </p>
+            <div class="prose prose-sm max-w-none text-secondary-600 bg-secondary-50 p-5 rounded-2xl border border-secondary-100/50">
+              <p>{{ event.report.summary }}</p>
             </div>
           </div>
         </section>
@@ -233,7 +245,7 @@ const goBack = () => router.push('/events')
 
       <!-- Right Column: Gallery (Mock) -->
       <div class="space-y-6">
-        <h3 class="text-lg font-bold text-secondary-900 flex items-center gap-2">
+        <h3 class="text-xl font-bold text-secondary-900 flex items-center gap-2">
           <Image class="w-5 h-5 text-secondary-500" />
           Gallery
         </h3>
@@ -245,21 +257,21 @@ const goBack = () => router.push('/events')
           <div
             v-for="(img, idx) in reportForm.images"
             :key="idx"
-            class="aspect-square rounded-xl overflow-hidden bg-secondary-100 border border-secondary-100 shadow-sm group relative"
+            class="aspect-square rounded-2xl overflow-hidden bg-secondary-100 border border-secondary-100 shadow-sm group relative"
           >
             <img
               :src="img"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             >
           </div>
         </div>
         <div
           v-else
-          class="text-center py-10 bg-secondary-50 rounded-2xl border border-secondary-100 border-dashed text-secondary-400"
+          class="text-center py-16 bg-secondary-50/50 rounded-3xl border-2 border-dashed border-secondary-200 text-secondary-400"
         >
-          <Image class="w-8 h-8 mx-auto mb-2 opacity-50" />
-          <p class="text-sm">
-            No photos uploaded yet
+          <Image class="w-10 h-10 mx-auto mb-3 opacity-30" />
+          <p class="text-sm font-medium">
+            No photos uploaded
           </p>
         </div>
       </div>

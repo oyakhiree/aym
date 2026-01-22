@@ -1,23 +1,29 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useClassStore } from '@/stores/class'
+import { useSearchable } from '@/composables/useSearchable'
+import { useDisclosure } from '@/composables/useDisclosure'
 import { Plus, Search, BookOpen, Award, GraduationCap } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import StatsOverview from '@/components/ui/StatsOverview.vue'
 import ClassCard from '@/components/education/ClassCard.vue'
 import CreateClassModal from '@/components/education/CreateClassModal.vue'
 
 const store = useClassStore()
+
+// State
 const activeTab = ref('Progressive') // Progressive, Honour
-const searchQuery = ref('')
-const isCreateModalOpen = ref(false)
+
+// Composables
+const { isOpen: isCreateModalOpen, open: openCreateModal, close: closeCreateModal } = useDisclosure()
+
+const { searchQuery, filteredItems: searchedClasses } = useSearchable(
+    computed(() => store.activeClasses),
+    [ 'name', 'instructor' ]
+)
 
 const filteredClasses = computed(() => {
-    return store.activeClasses.filter(c => {
-        const matchesTab = c.type === activeTab.value
-        const matchesSearch = c.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-                              c.instructor.toLowerCase().includes(searchQuery.value.toLowerCase())
-        return matchesTab && matchesSearch
-    })
+    return searchedClasses.value.filter(c => c.type === activeTab.value)
 })
 </script>
 
@@ -26,7 +32,7 @@ const filteredClasses = computed(() => {
     <!-- Header -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-secondary-900 tracking-tight">
+        <h1 class="text-2xl font-semibold text-secondary-900 tracking-tight">
           Education & Classes
         </h1>
         <p class="text-secondary-500 mt-1">
@@ -35,51 +41,29 @@ const filteredClasses = computed(() => {
       </div>
       <BaseButton 
         class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
-        @click="isCreateModalOpen = true"
+        @click="openCreateModal"
       >
         <Plus class="w-5 h-5 mr-2" />
         Start New Class
       </BaseButton>
     </div>
 
-    <!-- Stats Overview -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4">
-        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
-          <BookOpen class="w-6 h-6" />
-        </div>
-        <div>
-          <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
-            Active Classes
-          </p>
-          <p class="text-2xl font-bold text-secondary-900">
-            {{ store.stats.activeCount }}
-          </p>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-2xl border border-secondary-100 shadow-sm flex items-center gap-4">
-        <div class="p-3 bg-purple-50 text-purple-600 rounded-xl">
-          <GraduationCap class="w-6 h-6" />
-        </div>
-        <div>
-          <p class="text-xs font-semibold text-secondary-500 uppercase tracking-wider">
-            Enrolled Students
-          </p>
-          <p class="text-2xl font-bold text-secondary-900">
-            {{ store.stats.totalStudents }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <!-- Stats Overview (Snap Scroll) -->
+    <StatsOverview 
+      :stats="[
+        { label: 'Active Classes', value: store.stats.activeCount, icon: BookOpen, color: 'blue' },
+        { label: 'Enrolled Students', value: store.stats.totalStudents, icon: GraduationCap, color: 'purple' }
+      ]"
+    />
 
     <!-- Tabs & Search -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-1 rounded-2xl border border-secondary-100 sm:p-2 sticky top-20 z-10 shadow-sm">
-      <div class="flex p-1 bg-secondary-100/50 rounded-xl w-full sm:w-auto">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-1 rounded-2xl border border-secondary-100 sm:p-2 sticky top-20 z-20 shadow-sm">
+      <div class="flex p-1 bg-secondary-50/50 rounded-xl w-full sm:w-auto">
         <button 
           v-for="tab in ['Progressive', 'Honour']" 
           :key="tab"
-          class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-200"
-          :class="activeTab === tab ? 'bg-white text-primary-600 shadow-sm' : 'text-secondary-500 hover:text-secondary-700'"
+          class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200"
+          :class="activeTab === tab ? 'bg-white text-primary-600 shadow-sm ring-1 ring-black/5' : 'text-secondary-500 hover:text-secondary-700'"
           @click="activeTab = tab"
         >
           <BookOpen
@@ -94,15 +78,15 @@ const filteredClasses = computed(() => {
         </button>
       </div>
 
-      <div class="relative w-full sm:w-72">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search class="h-4 w-4 text-secondary-400" />
+      <div class="relative w-full sm:w-72 group">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors group-focus-within:text-primary-500">
+          <Search class="h-4 w-4 text-secondary-400 group-focus-within:text-primary-500" />
         </div>
         <input 
           v-model="searchQuery" 
           type="text" 
           placeholder="Search classes..." 
-          class="block w-full rounded-xl border-secondary-200 pl-10 sm:text-sm py-2.5 focus:border-primary-500 focus:ring-primary-500 transition-all bg-secondary-50/50 focus:bg-white"
+          class="block w-full rounded-xl border-secondary-200 pl-10 sm:text-sm py-2.5 focus:border-primary-500 focus:ring-primary-500/20 transition-all bg-secondary-50/30 focus:bg-white header-search"
         >
       </div>
     </div>
@@ -136,7 +120,7 @@ const filteredClasses = computed(() => {
       <BaseButton
         v-if="!searchQuery"
         class="mt-6"
-        @click="isCreateModalOpen = true"
+        @click="openCreateModal"
       >
         Start New Class
       </BaseButton>
@@ -144,7 +128,7 @@ const filteredClasses = computed(() => {
 
     <CreateClassModal
       :is-open="isCreateModalOpen"
-      @close="isCreateModalOpen = false"
+      @close="closeCreateModal"
     />
   </div>
 </template>

@@ -1,9 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { Home, Users, BookOpen, User, Bell, ChevronDown, LogOut, Calendar } from 'lucide-vue-next'
 
-const router = useRouter()
 const route = useRoute()
 
 const navigation = [
@@ -35,19 +34,23 @@ const closeDropdown = () => {
 
 <template>
   <div
-    class="min-h-screen bg-secondary-50 font-sans text-secondary-900"
+    class="min-h-screen bg-[#FDFDFD] font-sans text-secondary-900"
     @click="closeDropdown"
   >
     <!-- Desktop Sidebar -->
-    <aside class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col z-50">
-      <div class="flex flex-col flex-1 min-h-0 bg-white border-r border-secondary-100 shadow-sm">
+    <aside class="hidden md:fixed md:inset-y-0 md:flex md:w-72 md:flex-col z-50">
+      <div class="flex flex-col flex-1 min-h-0 bg-white border-r border-secondary-100/60">
         <!-- Brand & Context Selector -->
-        <div class="flex flex-col px-4 py-5 bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700 text-white">
-          <div class="flex items-center space-x-2.5 mb-4">
-            <div class="p-2 bg-white/15 rounded-xl backdrop-blur-sm">
-              <BookOpen class="w-5 h-5 text-white" />
+        <div class="flex flex-col px-6 py-8">
+          <div class="flex items-center space-x-3 mb-8">
+            <div class="h-10 w-10 overflow-hidden rounded-xl shadow-sm border border-secondary-100/50">
+              <img
+                src="/aym logo.png"
+                alt="AYM Logo"
+                class="h-full w-full object-contain"
+              >
             </div>
-            <span class="text-lg font-bold tracking-tight">Royal Diadem</span>
+            <span class="text-xl font-semibold tracking-tight text-secondary-900">Royal Diadem</span>
           </div>
           
           <!-- Context Selector -->
@@ -56,47 +59,50 @@ const closeDropdown = () => {
             @click.stop
           >
             <button 
-              class="w-full flex items-center justify-between px-3 py-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition-all duration-200 border border-white/10 text-sm font-medium" 
+              class="w-full flex items-center justify-between px-4 py-3 bg-secondary-50/50 hover:bg-secondary-50 rounded-2xl transition-all duration-200 border border-secondary-100/50 group" 
               @click="toggleContext"
             >
-              <span>{{ currentContext }} Club</span>
+              <div class="flex flex-col items-start">
+                <span class="text-xs font-medium text-secondary-400 uppercase tracking-wider mb-0.5">Club Context</span>
+                <span class="text-sm font-medium text-secondary-900 group-hover:text-primary-600 transition-colors">{{ currentContext }} Club</span>
+              </div>
               <ChevronDown 
-                class="w-4 h-4 text-white/70 transition-transform duration-200" 
+                class="w-4 h-4 text-secondary-400 transition-transform duration-200" 
                 :class="{ 'rotate-180': showContextDropdown }"
               />
             </button>
              
             <!-- Dropdown -->
             <Transition
-              enter-active-class="transition ease-out duration-100"
-              enter-from-class="transform opacity-0 scale-95"
-              enter-to-class="transform opacity-100 scale-100"
-              leave-active-class="transition ease-in duration-75"
-              leave-from-class="transform opacity-100 scale-100"
-              leave-to-class="transform opacity-0 scale-95"
+              enter-active-class="transition ease-out duration-200"
+              enter-from-class="transform opacity-0 scale-95 -translate-y-2"
+              enter-to-class="transform opacity-100 scale-100 translate-y-0"
+              leave-active-class="transition ease-in duration-150"
+              leave-from-class="transform opacity-100 scale-100 translate-y-0"
+              leave-to-class="transform opacity-0 scale-95 -translate-y-2"
             >
               <div
                 v-if="showContextDropdown"
-                class="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-secondary-100 py-1 overflow-hidden text-secondary-800 z-50"
+                class="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl shadow-secondary-200/20 border border-secondary-100/80 p-1.5 overflow-hidden text-secondary-800 z-50 ring-1 ring-black/5"
               >
                 <button 
-                  class="w-full text-left px-4 py-2.5 text-sm hover:bg-secondary-50 flex items-center justify-between transition-colors" 
+                  class="w-full text-left px-4 py-3 text-sm rounded-xl hover:bg-secondary-50 flex items-center justify-between transition-colors group" 
                   @click="setContext('Pathfinder')"
                 >
-                  Pathfinder Club
+                  <span :class="currentContext === 'Pathfinder' ? 'font-semibold text-secondary-900' : 'text-secondary-600'">Pathfinder Club</span>
                   <div
                     v-if="currentContext === 'Pathfinder'"
-                    class="w-2 h-2 rounded-full bg-primary-600"
+                    class="w-2 h-2 rounded-full bg-primary-600 shadow-sm"
                   />
                 </button>
                 <button 
-                  class="w-full text-left px-4 py-2.5 text-sm hover:bg-secondary-50 flex items-center justify-between transition-colors" 
+                  class="w-full text-left px-4 py-3 text-sm rounded-xl hover:bg-secondary-50 flex items-center justify-between transition-colors group" 
                   @click="setContext('Adventurer')"
                 >
-                  Adventurer Club
+                  <span :class="currentContext === 'Adventurer' ? 'font-semibold text-secondary-900' : 'text-secondary-600'">Adventurer Club</span>
                   <div
                     v-if="currentContext === 'Adventurer'"
-                    class="w-2 h-2 rounded-full bg-primary-600"
+                    class="w-2 h-2 rounded-full bg-primary-600 shadow-sm"
                   />
                 </button>
               </div>
@@ -105,22 +111,22 @@ const closeDropdown = () => {
         </div>
 
         <!-- Navigation -->
-        <div class="flex-1 flex flex-col overflow-y-auto py-5 px-3">
-          <nav class="space-y-1">
+        <div class="flex-1 flex flex-col overflow-y-auto px-4">
+          <nav class="space-y-1.5">
             <router-link
               v-for="item in navigation"
               :key="item.name"
               :to="item.href"
-              class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200"
+              class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-2xl transition-all duration-200"
               :class="[
                 route.path === item.href
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900'
+                  ? 'bg-primary-50 text-primary-700 shadow-sm shadow-primary-500/10'
+                  : 'text-secondary-500 hover:bg-secondary-50 hover:text-secondary-900 hover:translate-x-1'
               ]"
             >
               <component
                 :is="item.icon"
-                class="mr-3 flex-shrink-0 h-5 w-5 transition-colors"
+                class="mr-3.5 flex-shrink-0 h-[1.15rem] w-[1.15rem] transition-colors duration-200"
                 :class="[
                   route.path === item.href ? 'text-primary-600' : 'text-secondary-400 group-hover:text-secondary-600'
                 ]"
@@ -131,47 +137,54 @@ const closeDropdown = () => {
         </div>
         
         <!-- User Profile & Notifications -->
-        <div class="flex-shrink-0 border-t border-secondary-100 p-4">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-semibold text-secondary-400 uppercase tracking-wider">Alerts</span>
-            <button class="relative p-2 text-secondary-500 hover:text-primary-600 hover:bg-secondary-50 transition-colors rounded-full">
-              <Bell class="w-5 h-5" />
-              <span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white" />
-            </button>
-          </div>
-          
-          <div class="flex items-center p-3 rounded-xl bg-secondary-50/70 border border-secondary-100">
-            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-primary-200 to-indigo-200 flex items-center justify-center text-primary-700 font-bold text-sm flex-shrink-0">
-              JD
+        <div class="flex-shrink-0 p-6">
+          <div class="bg-secondary-50/50 rounded-2xl p-1 border border-secondary-100/50">
+            <div class="flex items-center p-3">
+              <div class="relative">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-primary-100 to-indigo-100 flex items-center justify-center text-primary-700 font-bold text-sm flex-shrink-0 shadow-inner">
+                  JD
+                </div>
+                <span class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+              </div>
+                
+              <div class="ml-3 flex-1 min-w-0">
+                <p class="text-sm font-semibold text-secondary-900 truncate">
+                  Jane Doe
+                </p>
+                <p class="text-[11px] font-medium text-secondary-500 truncate uppercase tracking-tight">
+                  {{ currentContext }} Director
+                </p>
+              </div>
             </div>
-            <div class="ml-3 flex-1 min-w-0">
-              <p class="text-sm font-semibold text-secondary-900 truncate">
-                Jane Doe
-              </p>
-              <p class="text-xs text-secondary-500 truncate">
-                {{ currentContext }} Director
-              </p>
+            <div class="grid grid-cols-2 gap-1 mt-1">
+              <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-secondary-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
+                <Bell class="w-4 h-4" />
+              </button>
+              <button class="flex items-center justify-center py-2 text-secondary-400 hover:text-red-600 hover:bg-white rounded-xl transition-all shadow-sm shadow-transparent hover:shadow-secondary-200/50">
+                <LogOut class="w-4 h-4" />
+              </button>
             </div>
-            <button class="p-2 text-secondary-400 hover:text-secondary-600 transition-colors rounded-full hover:bg-secondary-100">
-              <LogOut class="w-4 h-4" />
-            </button>
           </div>
         </div>
       </div>
     </aside>
 
     <!-- Mobile Header -->
-    <header class="md:hidden sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-secondary-100 h-16 flex items-center justify-between px-4">
-      <div class="flex items-center space-x-2.5">
-        <div class="p-1.5 bg-primary-600 rounded-lg">
-          <BookOpen class="w-5 h-5 text-white" />
+    <header class="md:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-secondary-100/60 h-16 flex items-center justify-between px-4 transition-all duration-300">
+      <div class="flex items-center space-x-3">
+        <div class="h-8 w-8 overflow-hidden rounded-lg shadow-sm border border-secondary-100/50">
+          <img
+            src="/aym logo.png"
+            alt="AYM Logo"
+            class="h-full w-full object-contain"
+          >
         </div>
-        <span class="font-bold text-lg text-secondary-900">Royal Diadem</span>
+        <span class="font-semibold text-lg text-secondary-900 tracking-tight">Royal Diadem</span>
       </div>
       
       <div class="flex items-center space-x-2">
         <button 
-          class="text-sm font-medium text-secondary-600 bg-secondary-100 px-3 py-1.5 rounded-full flex items-center border border-secondary-200" 
+          class="text-xs font-medium text-secondary-600 bg-secondary-50 px-3 py-1.5 rounded-full flex items-center border border-secondary-200/50 active:scale-95 transition-transform" 
           @click.stop="toggleContext"
         >
           {{ currentContext }}
@@ -180,7 +193,7 @@ const closeDropdown = () => {
             :class="{ 'rotate-180': showContextDropdown }"
           />
         </button>
-        <button class="relative p-2 text-secondary-500 hover:text-secondary-700 hover:bg-secondary-100 rounded-full transition-colors">
+        <button class="relative p-2 text-secondary-500 hover:text-secondary-700 rounded-full transition-colors active:scale-95">
           <Bell class="w-6 h-6" />
           <span class="absolute top-1.5 right-1.5 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white" />
         </button>
@@ -189,70 +202,73 @@ const closeDropdown = () => {
     
     <!-- Mobile Context Dropdown -->
     <Transition
-      enter-active-class="transition ease-out duration-150"
-      enter-from-class="opacity-0 -translate-y-2"
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="opacity-0 -translate-y-4"
       enter-to-class="opacity-100 translate-y-0"
-      leave-active-class="transition ease-in duration-100"
+      leave-active-class="transition ease-in duration-150"
       leave-from-class="opacity-100 translate-y-0"
-      leave-to-class="opacity-0 -translate-y-2"
+      leave-to-class="opacity-0 -translate-y-4"
     >
       <div 
         v-if="showContextDropdown" 
-        class="md:hidden fixed top-16 left-0 right-0 bg-white border-b border-secondary-200 shadow-xl p-3 z-30"
+        class="md:hidden fixed top-20 left-4 right-4 bg-white rounded-2xl shadow-2xl shadow-secondary-900/10 border border-secondary-100 p-2 z-40 origin-top"
         @click.stop
       >
         <button 
-          class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between transition-colors" 
+          class="w-full text-left px-4 py-3.5 rounded-xl flex items-center justify-between transition-colors" 
           :class="currentContext === 'Pathfinder' ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50'" 
           @click="setContext('Pathfinder')"
         >
-          Pathfinder Club <div
+          <span class="font-medium">Pathfinder Club</span>
+          <div
             v-if="currentContext === 'Pathfinder'"
-            class="w-2 h-2 rounded-full bg-primary-600"
+            class="w-2 h-2 rounded-full bg-primary-600 shadow-sm"
           />
         </button>
         <button 
-          class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between transition-colors" 
+          class="w-full text-left px-4 py-3.5 rounded-xl flex items-center justify-between transition-colors" 
           :class="currentContext === 'Adventurer' ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50'" 
           @click="setContext('Adventurer')"
         >
-          Adventurer Club <div
+          <span class="font-medium">Adventurer Club</span>
+          <div
             v-if="currentContext === 'Adventurer'"
-            class="w-2 h-2 rounded-full bg-primary-600"
+            class="w-2 h-2 rounded-full bg-primary-600 shadow-sm"
           />
         </button>
       </div>
     </Transition>
 
     <!-- Main Content -->
-    <main class="md:ml-64 pb-24 md:pb-10">
-      <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <main class="md:ml-72 pb-[6.5rem] md:pb-10 pt-8 transition-all duration-300 ease-in-out">
+      <div class="px-4 sm:px-8 md:px-12 max-w-7xl mx-auto">
         <slot />
       </div>
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-secondary-100 flex justify-around pb-safe z-40">
+    <nav class="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-3xl flex justify-between items-center p-2 gap-2 z-40 ring-1 ring-black/5">
       <router-link
         v-for="item in navigation"
         :key="item.name"
         :to="item.href"
-        class="flex flex-col items-center justify-center w-full py-2.5 pb-safe-offset transition-all active:scale-95 duration-150"
+        class="flex flex-col items-center justify-center flex-1 py-3 rounded-2xl transition-all duration-300 relative overflow-hidden group"
         :class="[
-          route.path === item.href ? 'text-primary-600' : 'text-secondary-400'
+          route.path === item.href ? 'text-primary-600 bg-primary-50/80' : 'text-secondary-400 hover:text-secondary-600 active:bg-secondary-50'
         ]"
       >
-        <div 
-          class="p-1.5 rounded-xl transition-colors" 
-          :class="route.path === item.href ? 'bg-primary-50' : ''"
+        <component
+          :is="item.icon"
+          class="h-5 w-5 mb-0.5 transition-transform duration-300"
+          :class="[route.path === item.href ? '-translate-y-0.5' : 'group-active:scale-95']"
+          :stroke-width="route.path === item.href ? 2.5 : 2"
+        />
+        <span 
+          class="text-[10px] font-medium tracking-wide transition-all duration-300"
+          :class="[route.path === item.href ? 'font-semibold' : '']"
         >
-          <component
-            :is="item.icon"
-            class="h-5 w-5"
-            :stroke-width="route.path === item.href ? 2.5 : 2"
-          />
-        </div>
-        <span class="text-[10px] font-medium mt-1">{{ item.name }}</span>
+          {{ item.name }}
+        </span>
       </router-link>
     </nav>
   </div>

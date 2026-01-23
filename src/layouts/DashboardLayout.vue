@@ -30,6 +30,29 @@ const setContext = (context) => {
 const closeDropdown = () => {
     showContextDropdown.value = false
 }
+
+// Helper functions for mobile navigation classes
+const getItemClasses = (isActive) => {
+    return [
+        isActive 
+            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10 min-[400px]:flex-1 min-[400px]:grow min-[400px]:bg-transparent min-[400px]:shadow-none min-[400px]:text-primary-600' 
+            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50 min-[400px]:flex-1 min-[400px]:grow'
+    ]
+}
+
+const getIconClasses = (isActive) => {
+    return [
+        isActive ? 'text-primary-600 min-[400px]:-translate-y-0.5' : 'text-current',
+        'min-[400px]:h-5 min-[400px]:w-5'
+    ]
+}
+
+const getTextClasses = (isActive) => {
+    return [
+        isActive ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0',
+        'min-[400px]:max-w-none min-[400px]:opacity-100'
+    ]
+}
 </script>
 
 <template>
@@ -252,29 +275,19 @@ const closeDropdown = () => {
         v-for="item in navigation"
         :key="item.name"
         :to="item.href"
-        class="flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden group hover:bg-secondary-50 min-[400px]:flex-col min-[400px]:py-3 min-[400px]:px-1"
-        :class="[
-          route.path === item.href 
-            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10 min-[400px]:flex-1 min-[400px]:grow min-[400px]:bg-transparent min-[400px]:shadow-none min-[400px]:text-primary-600' 
-            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50 min-[400px]:flex-1 min-[400px]:grow'
-        ]"
+        class="group flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden hover:bg-secondary-50 min-[400px]:flex-col min-[400px]:py-3 min-[400px]:px-1"
+        :class="getItemClasses(route.path === item.href)"
       >
         <div class="flex items-center gap-2 min-[400px]:flex-col min-[400px]:gap-0.5">
           <component
             :is="item.icon"
             class="h-5 w-5 flex-shrink-0 transition-colors duration-300 transform"
-            :class="[
-              route.path === item.href ? 'text-primary-600 min-[400px]:-translate-y-0.5' : 'text-current',
-              'min-[400px]:h-5 min-[400px]:w-5' 
-            ]"
+            :class="getIconClasses(route.path === item.href)"
             :stroke-width="route.path === item.href ? 2.5 : 2"
           />
           <span 
             class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300 min-[400px]:text-[10px] min-[400px]:font-medium min-[400px]:tracking-wide min-[400px]:text-center"
-            :class="[
-              route.path === item.href ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0',
-              'min-[400px]:max-w-none min-[400px]:opacity-100'
-            ]"
+            :class="getTextClasses(route.path === item.href)"
           >
             {{ item.name }}
           </span>

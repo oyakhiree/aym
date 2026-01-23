@@ -247,28 +247,32 @@ const closeDropdown = () => {
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-3xl flex justify-between items-center p-2 gap-2 z-40 ring-1 ring-black/5">
+    <nav class="md:hidden fixed bottom-4 left-3 right-3 bg-white/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-2xl flex justify-between items-center p-1.5 gap-1.5 z-40 ring-1 ring-black/5">
       <router-link
         v-for="item in navigation"
         :key="item.name"
         :to="item.href"
-        class="flex flex-col items-center justify-center flex-1 py-3 rounded-2xl transition-all duration-300 relative overflow-hidden group"
+        class="flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden group hover:bg-secondary-50"
         :class="[
-          route.path === item.href ? 'text-primary-600 bg-primary-50/80' : 'text-secondary-400 hover:text-secondary-600 active:bg-secondary-50'
+          route.path === item.href 
+            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10' 
+            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50'
         ]"
       >
-        <component
-          :is="item.icon"
-          class="h-5 w-5 mb-0.5 transition-transform duration-300"
-          :class="[route.path === item.href ? '-translate-y-0.5' : 'group-active:scale-95']"
-          :stroke-width="route.path === item.href ? 2.5 : 2"
-        />
-        <span 
-          class="text-[10px] font-medium tracking-wide transition-all duration-300"
-          :class="[route.path === item.href ? 'font-semibold' : '']"
-        >
-          {{ item.name }}
-        </span>
+        <div class="flex items-center gap-2">
+          <component
+            :is="item.icon"
+            class="h-5 w-5 flex-shrink-0 transition-colors duration-300"
+            :class="[route.path === item.href ? 'text-primary-600' : 'text-current']"
+            :stroke-width="route.path === item.href ? 2.5 : 2"
+          />
+          <span 
+            v-if="route.path === item.href"
+            class="text-xs font-bold whitespace-nowrap overflow-hidden animate-in fade-in slide-in-from-left-2 duration-300"
+          >
+            {{ item.name }}
+          </span>
+        </div>
       </router-link>
     </nav>
   </div>

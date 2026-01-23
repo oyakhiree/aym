@@ -255,8 +255,8 @@ const closeDropdown = () => {
         class="flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden group hover:bg-secondary-50 min-[400px]:flex-col min-[400px]:py-3 min-[400px]:px-1"
         :class="[
           route.path === item.href 
-            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10 min-[400px]:flex-grow-0 min-[400px]:flex-1 min-[400px]:bg-primary-50/80' 
-            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50 min-[400px]:flex-1'
+            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10 min-[400px]:flex-1 min-[400px]:grow min-[400px]:bg-transparent min-[400px]:shadow-none min-[400px]:text-primary-600' 
+            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50 min-[400px]:flex-1 min-[400px]:grow'
         ]"
       >
         <div class="flex items-center gap-2 min-[400px]:flex-col min-[400px]:gap-0.5">
@@ -270,11 +270,10 @@ const closeDropdown = () => {
             :stroke-width="route.path === item.href ? 2.5 : 2"
           />
           <span 
-            class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300 min-[400px]:text-[10px] min-[400px]:font-medium min-[400px]:tracking-wide"
+            class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300 min-[400px]:text-[10px] min-[400px]:font-medium min-[400px]:tracking-wide min-[400px]:text-center"
             :class="[
-              route.path === item.href 
-                ? 'max-w-[100px] opacity-100' 
-                : 'max-w-0 opacity-0 min-[400px]:max-w-[100px] min-[400px]:opacity-100'
+              route.path === item.href ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0',
+              'min-[400px]:max-w-none min-[400px]:opacity-100'
             ]"
           >
             {{ item.name }}

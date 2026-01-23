@@ -267,8 +267,10 @@ const closeDropdown = () => {
             :stroke-width="route.path === item.href ? 2.5 : 2"
           />
           <span 
-            v-if="route.path === item.href"
-            class="text-xs font-bold whitespace-nowrap overflow-hidden animate-in fade-in slide-in-from-left-2 duration-300"
+            class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300"
+            :class="[
+              route.path === item.href ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0 min-[400px]:max-w-[100px] min-[400px]:opacity-100'
+            ]"
           >
             {{ item.name }}
           </span>

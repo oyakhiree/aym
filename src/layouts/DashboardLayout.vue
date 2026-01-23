@@ -247,29 +247,34 @@ const closeDropdown = () => {
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="md:hidden fixed bottom-4 left-3 right-3 bg-white/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-2xl flex justify-between items-center p-1.5 gap-1.5 z-40 ring-1 ring-black/5">
+    <nav class="md:hidden fixed bottom-4 left-3 right-3 bg-white/95 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-secondary-900/10 rounded-2xl flex justify-between items-center p-1.5 gap-1.5 z-40 ring-1 ring-black/5 min-[400px]:p-2 min-[400px]:gap-2 transition-all duration-300">
       <router-link
         v-for="item in navigation"
         :key="item.name"
         :to="item.href"
-        class="flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden group hover:bg-secondary-50"
+        class="flex items-center justify-center p-3 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] relative overflow-hidden group hover:bg-secondary-50 min-[400px]:flex-col min-[400px]:py-3 min-[400px]:px-1"
         :class="[
           route.path === item.href 
-            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10' 
-            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50'
+            ? 'bg-primary-50 text-primary-700 flex-grow-[1.5] shadow-sm shadow-primary-500/10 min-[400px]:flex-grow-0 min-[400px]:flex-1 min-[400px]:bg-primary-50/80' 
+            : 'text-secondary-400 flex-grow hover:text-secondary-600 active:bg-secondary-50 min-[400px]:flex-1'
         ]"
       >
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 min-[400px]:flex-col min-[400px]:gap-0.5">
           <component
             :is="item.icon"
-            class="h-5 w-5 flex-shrink-0 transition-colors duration-300"
-            :class="[route.path === item.href ? 'text-primary-600' : 'text-current']"
+            class="h-5 w-5 flex-shrink-0 transition-colors duration-300 transform"
+            :class="[
+              route.path === item.href ? 'text-primary-600 min-[400px]:-translate-y-0.5' : 'text-current',
+              'min-[400px]:h-5 min-[400px]:w-5' 
+            ]"
             :stroke-width="route.path === item.href ? 2.5 : 2"
           />
           <span 
-            class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300"
+            class="text-xs font-bold whitespace-nowrap overflow-hidden transition-all duration-300 min-[400px]:text-[10px] min-[400px]:font-medium min-[400px]:tracking-wide"
             :class="[
-              route.path === item.href ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0 min-[400px]:max-w-[100px] min-[400px]:opacity-100'
+              route.path === item.href 
+                ? 'max-w-[100px] opacity-100' 
+                : 'max-w-0 opacity-0 min-[400px]:max-w-[100px] min-[400px]:opacity-100'
             ]"
           >
             {{ item.name }}

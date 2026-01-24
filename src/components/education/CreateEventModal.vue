@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed, watch } from 'vue'
+import { reactive, computed, watch, ref } from 'vue'
 import { X, Calendar, MapPin, Image } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
@@ -47,6 +47,33 @@ const handleSubmit = () => {
         emit('create', payload)
     }
     emit('close')
+}
+
+// File Upload Logic
+const fileInputRef = ref(null)
+
+const triggerFileInput = () => {
+    fileInputRef.value?.click()
+}
+
+const handleFile = (file) => {
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            form.image = e.target.result
+        }
+        reader.readAsDataURL(file)
+    }
+}
+
+const handleFileSelect = (event) => {
+    const file = event.target.files[0]
+    handleFile(file)
+}
+
+const handleDrop = (event) => {
+    const file = event.dataTransfer.files[0]
+    handleFile(file)
 }
 </script>
 
@@ -157,17 +184,40 @@ const handleSubmit = () => {
                 </div>
 
                 <div>
-                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Cover Image URL</label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Image class="h-4 w-4 text-secondary-400" />
-                    </div>
-                    <input
-                      v-model="form.image"
-                      type="text"
-                      placeholder="https://..."
-                      class="block w-full rounded-xl border-secondary-200 pl-10 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-2.5 px-3 bg-secondary-50/30"
+                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Cover Image</label>
+                  
+                  <div 
+                    class="relative group border-2 border-dashed border-secondary-200 rounded-2xl p-6 transition-all duration-300 hover:border-primary-400 hover:bg-primary-50/30 text-center cursor-pointer overflow-hidden"
+                    @dragover.prevent
+                    @drop.prevent="handleDrop"
+                    @click="triggerFileInput"
+                  >
+                    <input 
+                      ref="fileInputRef"
+                      type="file" 
+                      accept="image/*"
+                      class="hidden" 
+                      @change="handleFileSelect"
                     >
+
+                    <!-- Preview -->
+                    <div v-if="form.image" class="absolute inset-0 z-10 bg-white">
+                      <img :src="form.image" class="w-full h-full object-cover">
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-medium text-sm flex items-center gap-2">
+                          <Image class="w-4 h-4" /> Change Image
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Placeholder -->
+                    <div v-else class="flex flex-col items-center justify-center py-2">
+                      <div class="w-12 h-12 rounded-xl bg-secondary-50 text-secondary-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                        <Image class="w-6 h-6" />
+                      </div>
+                      <p class="text-sm font-medium text-secondary-900">Click to upload or drag and drop</p>
+                      <p class="text-xs text-secondary-500 mt-1">SVG, PNG, JPG or GIF (max. 5MB)</p>
+                    </div>
                   </div>
                 </div>
               </div>

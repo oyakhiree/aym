@@ -87,9 +87,10 @@ const navigateToEvent = (id) => {
         <!-- Image Container -->
         <div class="h-60 w-full overflow-hidden relative">
           <img
-            :src="event.image"
+            :src="event.image || '/placeholder-image.jpg'"
             alt="Event Cover"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            @error="$event.target.src = 'https://placehold.co/600x400?text=Activity'"
           >
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
           

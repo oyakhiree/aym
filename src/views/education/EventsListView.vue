@@ -46,14 +46,14 @@ const navigateToEvent = (id) => {
         @click="openCreateModal"
       >
         <Plus class="w-5 h-5 mr-2" />
-        Create Event
+        Create Activity
       </BaseButton>
     </div>
 
     <!-- Stats (Snap Scroll on Mobile) -->
     <StatsOverview 
       :stats="[
-        { label: 'Total Events', value: store.events.length, icon: Calendar, color: 'indigo' },
+        { label: 'Total Activities', value: store.events.length, icon: Calendar, color: 'indigo' },
         { 
           label: 'Total Attendees', 
           value: store.events.reduce((acc, curr) => acc + (curr.report ? curr.report.attendance : 0), 0), 
@@ -71,7 +71,7 @@ const navigateToEvent = (id) => {
       <input 
         v-model="searchQuery" 
         type="text" 
-        placeholder="Search events by title..." 
+        placeholder="Search activities by title..." 
         class="block w-full rounded-xl border-secondary-200 pl-10 sm:text-sm py-2.5 bg-secondary-50/30 focus:bg-white focus:border-primary-500 focus:ring-primary-500/20 transition-all header-search"
       >
     </div>

@@ -90,10 +90,10 @@ const handleSubmit = () => {
               <div class="bg-white px-6 py-5 flex items-start justify-between">
                 <div>
                   <h3 class="text-xl font-bold text-secondary-900 leading-6 tracking-tight">
-                    {{ eventToEdit ? 'Edit Event' : 'Create New Event' }}
+                    {{ eventToEdit ? 'Edit Activity' : 'Create New Activity' }}
                   </h3>
                   <p class="text-sm text-secondary-500 mt-1">
-                    {{ eventToEdit ? 'Update event details below.' : 'Plan a new activity for the club.' }}
+                    {{ eventToEdit ? 'Update activity details below.' : 'Plan a new activity for the club.' }}
                   </p>
                 </div>
                 <button
@@ -107,7 +107,7 @@ const handleSubmit = () => {
               <!-- Body -->
               <div class="px-6 pb-6 space-y-5 flex-1 overflow-y-auto">
                 <div>
-                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Event Title <span class="text-red-500">*</span></label>
+                  <label class="text-xs font-bold text-secondary-600 uppercase tracking-wide mb-1.5 block">Activity Title <span class="text-red-500">*</span></label>
                   <input
                     v-model="form.title"
                     type="text"
@@ -122,7 +122,7 @@ const handleSubmit = () => {
                     v-model="form.description"
                     rows="3"
                     class="block w-full rounded-xl border-secondary-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-3 px-4 bg-secondary-50/30 resize-none"
-                    placeholder="Briefly describe the event..."
+                    placeholder="Briefly describe the activity..."
                   />
                 </div>
 
@@ -185,7 +185,7 @@ const handleSubmit = () => {
                   class="w-full sm:w-auto shadow-lg shadow-primary-500/20"
                   @click="handleSubmit"
                 >
-                  {{ eventToEdit ? 'Save Changes' : 'Create Event' }}
+                  {{ eventToEdit ? 'Save Changes' : 'Create Activity' }}
                 </BaseButton>
               </div>
             </div>

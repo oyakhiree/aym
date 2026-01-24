@@ -201,8 +201,14 @@ const handleDrop = (event) => {
                     >
 
                     <!-- Preview -->
-                    <div v-if="form.image" class="absolute inset-0 z-10 bg-white">
-                      <img :src="form.image" class="w-full h-full object-cover">
+                    <div
+                      v-if="form.image"
+                      class="absolute inset-0 z-10 bg-white"
+                    >
+                      <img
+                        :src="form.image"
+                        class="w-full h-full object-cover"
+                      >
                       <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-medium text-sm flex items-center gap-2">
                           <Image class="w-4 h-4" /> Change Image
@@ -211,12 +217,19 @@ const handleDrop = (event) => {
                     </div>
 
                     <!-- Placeholder -->
-                    <div v-else class="flex flex-col items-center justify-center py-2">
+                    <div
+                      v-else
+                      class="flex flex-col items-center justify-center py-2"
+                    >
                       <div class="w-12 h-12 rounded-xl bg-secondary-50 text-secondary-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
                         <Image class="w-6 h-6" />
                       </div>
-                      <p class="text-sm font-medium text-secondary-900">Click to upload or drag and drop</p>
-                      <p class="text-xs text-secondary-500 mt-1">SVG, PNG, JPG or GIF (max. 5MB)</p>
+                      <p class="text-sm font-medium text-secondary-900">
+                        Click to upload or drag and drop
+                      </p>
+                      <p class="text-xs text-secondary-500 mt-1">
+                        SVG, PNG, JPG or GIF (max. 5MB)
+                      </p>
                     </div>
                   </div>
                 </div>

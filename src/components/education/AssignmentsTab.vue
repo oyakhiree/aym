@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Plus, FolderOpen, ChevronDown, ChevronUp, Calendar, FileText, Download, Users } from 'lucide-vue-next'
+import { Plus, FolderOpen, ChevronDown, FileText, Download, Users } from 'lucide-vue-next'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import type { Student, Assignment } from '@/types'
 
@@ -39,12 +39,7 @@ const getGradePercentage = (score: number, max: number): number => {
     return Math.round((score / max) * 100)
 }
 
-const getGradeColor = (percentage: number): string => {
-    if (percentage >= 90) return 'text-emerald-600 bg-emerald-50'
-    if (percentage >= 70) return 'text-primary-600 bg-primary-50'
-    if (percentage >= 50) return 'text-orange-600 bg-orange-50'
-    return 'text-red-600 bg-red-50'
-}
+
 </script>
 
 <template>
@@ -68,7 +63,10 @@ const getGradeColor = (percentage: number): string => {
     </div>
 
     <!-- Assignments List (Accordion) -->
-    <div v-if="assignments.length > 0" class="space-y-3">
+    <div
+      v-if="assignments.length > 0"
+      class="space-y-3"
+    >
       <div 
         v-for="assign in assignments" 
         :key="assign.id"
@@ -85,7 +83,10 @@ const getGradeColor = (percentage: number): string => {
               class="h-10 w-10 flex items-center justify-center rounded-full transition-colors duration-300"
               :class="expandedAssignmentId === assign.id ? 'bg-secondary-900 text-white' : 'bg-secondary-50 text-secondary-400 group-hover:bg-secondary-100 group-hover:text-secondary-600'"
             >
-              <FileText class="w-5 h-5" stroke-width="2" />
+              <FileText
+                class="w-5 h-5"
+                stroke-width="2"
+              />
             </div>
             
             <div class="flex flex-col gap-1">
@@ -97,16 +98,19 @@ const getGradeColor = (percentage: number): string => {
                 <span class="w-1 h-1 rounded-full bg-secondary-200" />
                 <span>{{ new Date(assign.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) }}</span>
                 <span class="w-1 h-1 rounded-full bg-secondary-200" />
-                 <span class="font-medium">Max: {{ assign.maxScore }}</span>
+                <span class="font-medium">Max: {{ assign.maxScore }}</span>
               </div>
             </div>
           </div>
           
           <div 
-             class="h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300"
-             :class="expandedAssignmentId === assign.id ? 'bg-secondary-100 text-secondary-900 rotate-180' : 'text-secondary-300 group-hover:bg-secondary-50'"
+            class="h-8 w-8 rounded-full flex items-center justify-center transition-all duration-300"
+            :class="expandedAssignmentId === assign.id ? 'bg-secondary-100 text-secondary-900 rotate-180' : 'text-secondary-300 group-hover:bg-secondary-50'"
           >
-            <ChevronDown class="w-5 h-5" stroke-width="2.5" />
+            <ChevronDown
+              class="w-5 h-5"
+              stroke-width="2.5"
+            />
           </div>
         </div>
 
@@ -118,10 +122,18 @@ const getGradeColor = (percentage: number): string => {
             <table class="w-full text-left border-collapse">
               <thead>
                 <tr class="border-b border-secondary-100 text-xs font-medium text-secondary-400 uppercase tracking-widest bg-gray-50/30">
-                  <th class="pl-8 pr-6 py-3 font-semibold min-w-[200px]">Student</th>
-                  <th class="px-6 py-3 text-center w-32 font-semibold">Score</th>
-                  <th class="px-6 py-3 text-center w-32 font-semibold">Status</th>
-                  <th class="px-6 py-3 text-right font-semibold">Actions</th>
+                  <th class="pl-8 pr-6 py-3 font-semibold min-w-[200px]">
+                    Student
+                  </th>
+                  <th class="px-6 py-3 text-center w-32 font-semibold">
+                    Score
+                  </th>
+                  <th class="px-6 py-3 text-center w-32 font-semibold">
+                    Status
+                  </th>
+                  <th class="px-6 py-3 text-right font-semibold">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-secondary-50">
@@ -156,21 +168,30 @@ const getGradeColor = (percentage: number): string => {
                       class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide transition-all"
                       :class="getGradePercentage(student.grades[assign.id] || 0, assign.maxScore) >= 70 ? 'bg-emerald-50 text-emerald-700' : 'bg-orange-50 text-orange-700'"
                     >
-                      <span class="w-1.5 h-1.5 rounded-full" :class="getGradePercentage(student.grades[assign.id] || 0, assign.maxScore) >= 70 ? 'bg-emerald-500' : 'bg-orange-500'" />
+                      <span
+                        class="w-1.5 h-1.5 rounded-full"
+                        :class="getGradePercentage(student.grades[assign.id] || 0, assign.maxScore) >= 70 ? 'bg-emerald-500' : 'bg-orange-500'"
+                      />
                       {{ getGradePercentage(student.grades[assign.id] || 0, assign.maxScore) }}%
                     </span>
-                    <span v-else class="text-secondary-300 text-sm">-</span>
+                    <span
+                      v-else
+                      class="text-secondary-300 text-sm"
+                    >-</span>
                   </td>
-                   <td class="px-6 py-3 text-right">
+                  <td class="px-6 py-3 text-right">
                     <button class="text-secondary-300 hover:text-secondary-600 p-2 hover:bg-secondary-100 rounded-lg transition-all">
-                        <Download class="w-4 h-4" />
+                      <Download class="w-4 h-4" />
                     </button>
-                   </td>
+                  </td>
                 </tr>
                 <tr v-if="roster.length === 0">
-                    <td colspan="4" class="px-6 py-8 text-center text-secondary-400 text-sm">
-                        No students enrolled.
-                    </td>
+                  <td
+                    colspan="4"
+                    class="px-6 py-8 text-center text-secondary-400 text-sm"
+                  >
+                    No students enrolled.
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -179,7 +200,7 @@ const getGradeColor = (percentage: number): string => {
           <!-- Assignment Footer -->
           <div class="px-8 py-3 bg-secondary-50/30 border-t border-secondary-100/50 flex items-center justify-between text-[11px] font-medium text-secondary-500 uppercase tracking-wider rounded-b-2xl">
             <span class="flex items-center gap-2">
-                <Users class="w-3.5 h-3.5" /> {{ roster.length }} Candidates
+              <Users class="w-3.5 h-3.5" /> {{ roster.length }} Candidates
             </span>
             <span>Avg: <span class="text-secondary-900">85%</span></span>
           </div>
@@ -201,7 +222,10 @@ const getGradeColor = (percentage: number): string => {
       <p class="text-secondary-500 text-sm max-w-sm mb-6">
         Create your first assignment to start tracking classwork, tests, and homework grades.
       </p>
-      <BaseButton variant="outline" @click="$emit('createAssignment')">
+      <BaseButton
+        variant="outline"
+        @click="$emit('createAssignment')"
+      >
         Create Assignment
       </BaseButton>
     </div>

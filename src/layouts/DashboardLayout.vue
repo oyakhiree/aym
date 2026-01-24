@@ -9,7 +9,7 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
   { name: 'Members', href: '/members', icon: Users },
   { name: 'Education', href: '/classes', icon: BookOpen },
-  { name: 'Events', href: '/events', icon: Calendar },
+  { name: 'Activities', href: '/events', icon: Calendar },
   { name: 'Profile', href: '/profile', icon: User },
 ]
 

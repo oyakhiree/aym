@@ -19,11 +19,11 @@ const actions = [
         id: 'exam' 
     },
     { 
-        label: 'Create Event', 
+        label: 'Create Activity', 
         description: 'New club activity',
         icon: Calendar, 
         color: 'emerald', 
-        id: 'create-event' 
+        id: 'create-activity' 
     },
 ]
 

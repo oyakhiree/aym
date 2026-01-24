@@ -18,7 +18,7 @@ const authStore = useAuthStore()
 
 // Modal states
 const isAddMemberModalOpen = ref(false)
-const isCreateEventModalOpen = ref(false)
+const isCreateActivityModalOpen = ref(false)
 
 const handleAction = (actionId) => {
     switch (actionId) {
@@ -28,15 +28,15 @@ const handleAction = (actionId) => {
         case 'exam':
             router.push('/classes')
             break
-        case 'create-event':
-            isCreateEventModalOpen.value = true
+        case 'create-activity':
+            isCreateActivityModalOpen.value = true
             break
     }
 }
 
-const handleCreateEvent = (eventData) => {
+const handleCreateActivity = (eventData) => {
     eventStore.addEvent(eventData)
-    isCreateEventModalOpen.value = false
+    isCreateActivityModalOpen.value = false
 }
 
 // --- Chart Configurations ---
@@ -181,9 +181,9 @@ const upcomingExams = [
       @close="isAddMemberModalOpen = false" 
     />
     <CreateEventModal 
-      :is-open="isCreateEventModalOpen" 
-      @close="isCreateEventModalOpen = false"
-      @create="handleCreateEvent"
+      :is-open="isCreateActivityModalOpen" 
+      @close="isCreateActivityModalOpen = false"
+      @create="handleCreateActivity"
     />
   </div>
 </template>
